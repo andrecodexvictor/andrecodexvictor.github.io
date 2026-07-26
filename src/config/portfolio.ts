@@ -69,13 +69,15 @@ export const PORTFOLIO_CONFIG = {
     valueProp: "Construo produtos web, interfaces e sistemas com IA, foco em execução e identidade visual forte.",
     bioShort: "Desenvolvedor Full-Stack, Entusiasta de Inteligência Artificial e solucionador de problemas com forte foco em velocidade de entrega, arquitetura limpa e experiência visual marcante.",
     bioHuman: {
-      headline: "Estudante contínuo, entusiasta de IA e ex-vendedor com paixão por tecnologia.",
+      headline: "Estudante contínuo, entusiasta de IA e ex-vendedor com paixão por tecnologia e resolver problemas.",
       paragraphs: [
-        "Sou um verdadeiro entusiasta de Inteligência Artificial e apaixonado por estudar e aprender coisas novas diariamente. Acredito que a tecnologia deve ser usada para resolver problemas reais de forma rápida, eficiente e elegante.",
-        "Tive uma experiência enriquecedora no setor de Vendas, o que me trouxe uma bagagem essencial: visão de negócios, escuta ativa, empatia com a dor do cliente e foco total em gerar valor perceptível desde o primeiro momento.",
-        "No tempo livre, sou fã de animes, leitor assíduo de livros, apaixonado pela estratégia da Fórmula 1 e fascinado por transformar ideias complexas em código funcional e bonito."
+        "Foco principal: TypeScript/Node, Python/Django, dados (SQL/NoSQL, bancos vetoriais como ChromaDB e Pinecone, pipelines de RAG) e frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expostos via APIs REST.",
+        "Decisão orientada a dados usando bancos SQL/NoSQL, bancos vetoriais (ChromaDB, Pinecone), pipelines de RAG (QA de documentos, bases de conhecimento de negócio) e APIs REST para integrações.",
+        "Atualmente aprofundo meus estudos em Machine Learning, Redes Neurais e loops de aprendizado recursivo.",
+        "Combino experiência em vendas, gestão de equipes e marketing digital com soluções técnicas que melhoram processos de pequenas e médias empresas.",
+        "No tempo livre, sou fã de animes, leitor assíduo de livros, apaixonado pela estratégia da Fórmula 1 e viciado em resolver problemas complexos com código."
       ],
-      interests: ["Inteligência Artificial", "Engenharia de Software", "Livros & Aprendizado", "Vendas & Negócios", "Animes & Pop Culture", "Fórmula 1 & Estratégia"]
+      interests: ["TypeScript & Node.js", "Python & Django", "AI Agents (LangChain, CrewAI)", "Vector DBs (ChromaDB, Pinecone)", "Machine Learning & RAG", "Vendas & Gestão de Equipes", "Animes & Livros", "Fórmula 1 & Estratégia"]
     },
     contacts: {
       emailPrimary: "andrevictorandrade@hotmail.com",
@@ -93,29 +95,43 @@ export const PORTFOLIO_CONFIG = {
   },
 
   skills: {
-    frontend: [
-      { name: "React / Next.js", level: "Avançado", icon: "LayoutCode" },
-      { name: "TypeScript", level: "Avançado", icon: "Code2" },
-      { name: "Tailwind CSS", level: "Avançado", icon: "Palette" },
-      { name: "HTML5 Canvas / WebGL", level: "Intermediário", icon: "Boxes" },
-      { name: "Framer Motion", level: "Intermediário", icon: "Zap" },
+    languagesFrameworks: [
+      { name: "TypeScript", level: "Avançado", icon: "Code2", badgeColor: "#3178c6" },
+      { name: "JavaScript", level: "Avançado", icon: "Code2", badgeColor: "#f7df1e" },
+      { name: "Python", level: "Avançado", icon: "Terminal", badgeColor: "#3776ab" },
+      { name: "Kotlin", level: "Intermediário", icon: "Code2", badgeColor: "#7f52ff" },
+      { name: "React / Next.js", level: "Avançado", icon: "LayoutCode", badgeColor: "#61dafb" },
+      { name: "Node.js", level: "Avançado", icon: "Server", badgeColor: "#339933" },
+      { name: "Django / FastAPI", level: "Avançado", icon: "Terminal", badgeColor: "#092e20" },
+      { name: "Angular", level: "Intermediário", icon: "LayoutCode", badgeColor: "#dd0031" },
+      { name: "Laravel / Spring", level: "Intermediário", icon: "Server", badgeColor: "#ff2d20" },
+      { name: "Vue.js / Vite", level: "Intermediário", icon: "Palette", badgeColor: "#4fc08d" },
     ],
-    backend: [
-      { name: "Node.js / Express", level: "Avançado", icon: "Server" },
-      { name: "Python", level: "Avançado", icon: "Terminal" },
-      { name: "REST APIs & Webhooks", level: "Avançado", icon: "Webhook" },
-      { name: "PostgreSQL / MongoDB", level: "Intermediário", icon: "Database" },
+    dataStorage: [
+      { name: "PostgreSQL", level: "Avançado", icon: "Database", badgeColor: "#4169e1" },
+      { name: "MySQL", level: "Avançado", icon: "Database", badgeColor: "#00758f" },
+      { name: "MongoDB", level: "Avançado", icon: "Database", badgeColor: "#47a248" },
+      { name: "Prisma ORM", level: "Avançado", icon: "Database", badgeColor: "#2d3748" },
+      { name: "ChromaDB", level: "Avançado", icon: "Boxes", badgeColor: "#ff6600" },
+      { name: "Pinecone (Vector DB)", level: "Avançado", icon: "Boxes", badgeColor: "#00f0ff" },
+      { name: "Pandas & Data Science", level: "Intermediário", icon: "Boxes", badgeColor: "#150458" },
     ],
-    ai: [
-      { name: "Engenharia de Prompt", level: "Avançado", icon: "Sparkles" },
-      { name: "Integração de LLMs (OpenAI/Gemini)", level: "Avançado", icon: "Cpu" },
-      { name: "Agentes de Automação & RAG", level: "Intermediário", icon: "Bot" },
+    aiAgentsML: [
+      { name: "LLMs Integration", level: "Avançado", icon: "Sparkles", badgeColor: "#00f0ff" },
+      { name: "LangChain", level: "Avançado", icon: "Bot", badgeColor: "#121011" },
+      { name: "LangGraph", level: "Avançado", icon: "Bot", badgeColor: "#121011" },
+      { name: "CrewAI", level: "Avançado", icon: "Bot", badgeColor: "#ff3366" },
+      { name: "n8n Automation", level: "Avançado", icon: "Webhook", badgeColor: "#ff6584" },
+      { name: "RAG Pipelines & Document QA", level: "Avançado", icon: "Cpu", badgeColor: "#00ff66" },
+      { name: "Scikit-Learn & TensorFlow", level: "Intermediário", icon: "Cpu", badgeColor: "#ff9900" },
+      { name: "Redes Neurais & Loop Recursivo", level: "Intermediário", icon: "Brain", badgeColor: "#9933ff" },
     ],
-    devtools: [
-      { name: "Shell / Bash (script-kitty)", level: "Avançado", icon: "Terminal" },
-      { name: "Git & GitHub Actions", level: "Avançado", icon: "GitBranch" },
-      { name: "C++ & Arduino / ESP32", level: "Intermediário", icon: "CircuitBoard" },
-      { name: "Docker & Linux CLI", level: "Intermediário", icon: "Container" },
+    devtoolsArchitecture: [
+      { name: "REST APIs & Webhooks", level: "Avançado", icon: "Webhook", badgeColor: "#00ff66" },
+      { name: "Shell / Bash (script-kitty)", level: "Avançado", icon: "Terminal", badgeColor: "#4eed88" },
+      { name: "Git & GitHub Actions", level: "Avançado", icon: "GitBranch", badgeColor: "#f05032" },
+      { name: "Docker & Linux CLI", level: "Avançado", icon: "Container", badgeColor: "#2496ed" },
+      { name: "C++ & ESP32 Embarcados", level: "Intermediário", icon: "CircuitBoard", badgeColor: "#00599c" },
     ]
   },
 
@@ -259,7 +275,6 @@ export const PORTFOLIO_CONFIG = {
     }
   ] as CaseStudy[],
 
-  // Telemetry Evolution & Growth Timeline Chart Data
   evolutionTimeline: [
     { quarter: "Q1 2025", fullstackSkill: 75, aiIntegration: 50, projectsCompleted: 2 },
     { quarter: "Q2 2025", fullstackSkill: 82, aiIntegration: 68, projectsCompleted: 4 },
@@ -268,7 +283,6 @@ export const PORTFOLIO_CONFIG = {
     { quarter: "Q1 2026", fullstackSkill: 96, aiIntegration: 95, projectsCompleted: 11 },
   ] as EvolutionMetric[],
 
-  // Real Live Updates & News Feed
   liveUpdates: [
     {
       id: "up-script-kitty",
@@ -299,7 +313,6 @@ export const PORTFOLIO_CONFIG = {
     }
   ] as LiveUpdate[],
 
-  // Certifications (Disabled by default as requested, can be toggled via Admin Panel)
   certificationsEnabled: false,
   certifications: [
     {
