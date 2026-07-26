@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_CONFIG, LiveUpdate, Certification, Project } from '@/config/portfolio';
 import { verifySuperuserLogin, isSuperuserAuthenticated, logoutSuperuser } from '@/utils/security';
-import { Settings, X, Eye, EyeOff, Save, Check, Lock, LogOut, Plus, Trash2, Radio, Award, FolderPlus, Download } from 'lucide-react';
+import { Settings, X, Eye, EyeOff, Save, Check, Lock, LogOut, Plus, Trash2, Radio, Award, Download } from 'lucide-react';
 
 export interface AdminPortfolioConfig {
   showLiveNews: boolean;
@@ -283,7 +283,7 @@ export const AdminPanel: React.FC<{
                     required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    placeholder="Ex: andrecodexvictor"
+                    placeholder="Usuário"
                     className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-white focus:border-[#00f0ff] focus:outline-none"
                   />
                 </div>
@@ -295,7 +295,7 @@ export const AdminPanel: React.FC<{
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••••••"
+                    placeholder=""
                     className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-white focus:border-[#00f0ff] focus:outline-none"
                   />
                 </div>
@@ -443,7 +443,7 @@ export const AdminPanel: React.FC<{
                             required
                             value={newNews.title}
                             onChange={(e) => setNewNews({ ...newNews, title: e.target.value })}
-                            placeholder="Ex: Novo Post: Automação com script-kitty"
+                            placeholder="Título do post"
                             className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                           />
                         </div>
@@ -454,19 +454,19 @@ export const AdminPanel: React.FC<{
                             type="text"
                             value={newNews.tag}
                             onChange={(e) => setNewNews({ ...newNews, tag: e.target.value })}
-                            placeholder="Ex: LinkedIn Post / Release"
+                            placeholder="LinkedIn Post / Release"
                             className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                           />
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-[#8b95ad] mb-1">LINK DE DESTINO (LINKEDIN OU SITE)</label>
+                        <label className="block text-[#8b95ad] mb-1">LINK DE DESTINO</label>
                         <input
                           type="url"
                           value={newNews.link}
                           onChange={(e) => setNewNews({ ...newNews, link: e.target.value })}
-                          placeholder="https://www.linkedin.com/in/andré-victor-..."
+                          placeholder="https://..."
                           className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                         />
                       </div>
@@ -478,7 +478,7 @@ export const AdminPanel: React.FC<{
                           required
                           value={newNews.summary}
                           onChange={(e) => setNewNews({ ...newNews, summary: e.target.value })}
-                          placeholder="Descreva brevemente o conteúdo do artigo ou post..."
+                          placeholder="Resumo..."
                           className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                         ></textarea>
                       </div>
@@ -529,7 +529,7 @@ export const AdminPanel: React.FC<{
                             required
                             value={newCert.title}
                             onChange={(e) => setNewCert({ ...newCert, title: e.target.value })}
-                            placeholder="Ex: Meta Front-End Developer"
+                            placeholder="Título"
                             className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                           />
                         </div>
@@ -541,7 +541,7 @@ export const AdminPanel: React.FC<{
                             required
                             value={newCert.issuer}
                             onChange={(e) => setNewCert({ ...newCert, issuer: e.target.value })}
-                            placeholder="Ex: Meta / AWS / Google"
+                            placeholder="Emissora"
                             className="w-full bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                           />
                         </div>
@@ -552,7 +552,7 @@ export const AdminPanel: React.FC<{
                           type="text"
                           value={certSkillInput}
                           onChange={(e) => setCertSkillInput(e.target.value)}
-                          placeholder="Adicionar habilidade validada (ex: React)"
+                          placeholder="Adicionar habilidade validada"
                           className="flex-1 bg-[#07080a] border border-[#1e2436] rounded px-3 py-1.5 text-white focus:border-[#00f0ff] focus:outline-none"
                         />
                         <button
@@ -607,7 +607,7 @@ export const AdminPanel: React.FC<{
                 {activeTab === 'export' && (
                   <div className="space-y-3 font-mono text-xs">
                     <h4 className="text-white font-bold text-xs uppercase border-b border-[#1e2436] pb-2">
-                      Sincronização Nátiva com GitHub & Exportação
+                      Sincronização Nativa com GitHub & Exportação
                     </h4>
 
                     <p className="text-[#8b95ad] text-xs leading-relaxed">
