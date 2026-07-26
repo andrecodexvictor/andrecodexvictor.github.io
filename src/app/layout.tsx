@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   authors: [{ name: "André Victor", url: "https://github.com/andrecodexvictor" }],
   icons: {
     icon: [
+      { url: "/favicon.ico", sizes: "any" },
       { url: "/favicon.png", type: "image/png" },
-      { url: "/icon.png", type: "image/png" },
-      { url: "/favicon.svg", type: "image/svg+xml" }
+      { url: "/icon.png", type: "image/png" }
     ],
     shortcut: "/favicon.png",
-    apple: "/favicon.png",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "André Victor — Full-Stack Developer & Entusiasta de IA",
@@ -40,8 +40,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
       </head>
       <body className="antialiased bg-[#07080a] text-[#f4f5f8]">
         {children}
