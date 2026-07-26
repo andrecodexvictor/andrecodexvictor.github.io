@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
 import { useLanguage, LanguageSelector } from './LanguageSelector';
-import { Terminal, MessageSquare, Menu, X, ShieldCheck } from 'lucide-react';
+import { MessageSquare, Menu, X, ShieldCheck } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Navbar: React.FC = () => {
@@ -53,10 +54,16 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           
-          {/* Logo / Telemetry Identity */}
+          {/* Logo / Telemetry Identity with User's CDX Favicon Image */}
           <a href="#hero" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded bg-[#0e1017] border border-[#00f0ff]/40 flex items-center justify-center text-[#00f0ff] group-hover:border-[#00f0ff] group-hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all">
-              <Terminal className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-full bg-[#0e1017] border border-[#00f0ff]/40 flex items-center justify-center overflow-hidden group-hover:border-[#00f0ff] group-hover:shadow-[0_0_15px_rgba(0,240,255,0.4)] transition-all p-0.5">
+              <Image
+                src="/favicon.png"
+                alt="CDX Logo"
+                width={36}
+                height={36}
+                className="w-full h-full object-contain rounded-full"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
