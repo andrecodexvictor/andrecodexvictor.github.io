@@ -12,30 +12,30 @@ import { Certifications } from '@/components/Certifications';
 import { About } from '@/components/About';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
-import { AdminPanel, useAdminConfig } from '@/components/AdminPanel';
+import { AdminPanel, useAdminPortfolioConfig } from '@/components/AdminPanel';
 
 export default function Home() {
-  const { config, updateConfig } = useAdminConfig();
+  const { config, updateConfig } = useAdminPortfolioConfig();
 
   return (
     <main className="min-h-screen bg-[#07080a] text-[#f4f5f8] selection:bg-[#00f0ff] selection:text-black relative">
       <Navbar />
       <Hero />
       
-      {config.showLiveNews && <LiveNewsFeed />}
+      {config.showLiveNews && <LiveNewsFeed items={config.liveUpdates} />}
       
       <Projects />
       <Skills />
       
       {config.showEvolutionCharts && <EvolutionCharts />}
       {config.showCaseStudies && <CaseStudies />}
-      {config.showCertifications && <Certifications />}
+      {config.showCertifications && <Certifications items={config.certifications} />}
       
       <About />
       <Contact />
       <Footer />
 
-      {/* Admin Panel Drawer Trigger & Controls */}
+      {/* Admin Panel Drawer Trigger & Superuser Authenticated Controls */}
       <AdminPanel config={config} onUpdate={updateConfig} />
     </main>
   );

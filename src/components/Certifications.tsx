@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { ShieldCheck, Award, CheckCircle2, Sparkles, Code2 } from 'lucide-react';
+import { PORTFOLIO_CONFIG, Certification } from '@/config/portfolio';
+import { ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 
-export const Certifications: React.FC = () => {
-  const certs = PORTFOLIO_CONFIG.certifications;
+export const Certifications: React.FC<{ items?: Certification[] }> = ({ items }) => {
+  const certs = items || PORTFOLIO_CONFIG.certifications;
 
   return (
     <section id="certificacoes" className="py-20 bg-[#07080a] border-t border-[#1e2436] relative">

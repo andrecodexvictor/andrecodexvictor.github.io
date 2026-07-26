@@ -1,12 +1,11 @@
 'use client';
 
 import React from 'react';
-import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { Radio, ExternalLink, Sparkles, MessageSquare } from 'lucide-react';
-import { LinkedinIcon } from './Icons';
+import { PORTFOLIO_CONFIG, LiveUpdate } from '@/config/portfolio';
+import { Radio, ExternalLink } from 'lucide-react';
 
-export const LiveNewsFeed: React.FC = () => {
-  const updates = PORTFOLIO_CONFIG.liveUpdates;
+export const LiveNewsFeed: React.FC<{ items?: LiveUpdate[] }> = ({ items }) => {
+  const updates = items || PORTFOLIO_CONFIG.liveUpdates;
 
   return (
     <section className="py-12 bg-[#07080a] border-t border-[#1e2436] relative">

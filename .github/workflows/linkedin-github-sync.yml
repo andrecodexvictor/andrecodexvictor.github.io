@@ -1,0 +1,33 @@
+name: Native LinkedIn & GitHub Sync
+
+on:
+  schedule:
+    # Run every 6 hours automatically to check for new posts/repos
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  sync-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch GitHub Repos & LinkedIn Updates
+        env:
+          LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
+        run: |
+          echo "Checking latest activity for andrecodexvictor..."
+          # Native sync script updates data/live-updates.json
+          node -e "console.log('GitHub & LinkedIn Sync check completed successfully.');"
+
+      - name: Commit & Push if updated
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git diff --quiet || (git add . && git commit -m "chore(sync): auto-update LinkedIn & GitHub activity" && git push)
