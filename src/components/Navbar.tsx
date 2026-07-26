@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
 import { useLanguage, LanguageSelector } from './LanguageSelector';
-import { MessageSquare, Menu, X, ShieldCheck } from 'lucide-react';
+import { Mail, Menu, X, ShieldCheck } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Navbar: React.FC = () => {
@@ -115,13 +115,11 @@ export const Navbar: React.FC = () => {
               <LinkedinIcon className="w-4 h-4" />
             </a>
             <a
-              href={PORTFOLIO_CONFIG.profile.contacts.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#00ff66]/10 border border-[#00ff66]/40 text-[#00ff66] hover:bg-[#00ff66]/20 transition-all font-semibold"
+              href="#contato"
+              className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#00f0ff]/10 border border-[#00f0ff]/40 text-[#00f0ff] hover:bg-[#00f0ff]/20 transition-all font-semibold"
             >
-              <MessageSquare className="w-3.5 h-3.5" />
-              <span>{t.nav.whatsapp}</span>
+              <Mail className="w-3.5 h-3.5" />
+              <span>{t.nav.contact}</span>
             </a>
           </div>
 
@@ -175,12 +173,11 @@ export const Navbar: React.FC = () => {
               LinkedIn
             </a>
             <a
-              href={PORTFOLIO_CONFIG.profile.contacts.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 text-center py-2 rounded bg-[#00ff66]/10 border border-[#00ff66]/40 text-xs text-[#00ff66] font-bold"
+              href="#contato"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex-1 text-center py-2 rounded bg-[#00f0ff]/10 border border-[#00f0ff]/40 text-xs text-[#00f0ff] font-bold"
             >
-              WhatsApp
+              Contato Direct
             </a>
           </div>
         </div>

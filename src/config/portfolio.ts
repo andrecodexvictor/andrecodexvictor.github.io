@@ -82,8 +82,6 @@ export const PORTFOLIO_CONFIG = {
     contacts: {
       emailPrimary: "andrevictorandrade@hotmail.com",
       emailAlt: "andrevictorandrade@gmail.com",
-      whatsapp: "https://wa.me/5577999095690",
-      whatsappDisplay: "+55 (77) 99909-5690",
       linkedin: "https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208",
       github: "https://github.com/andrecodexvictor",
     },
@@ -291,7 +289,7 @@ export const PORTFOLIO_CONFIG = {
       date: "RECENTE",
       summary: "Post recente sobre como o repositório script-kitty otimiza rotinas de terminal e Shell/Bash no dia a dia dev.",
       link: "https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208",
-      tag: "LinkedIn Update"
+      tag: "LinkedIn Post"
     },
     {
       id: "up-24podiums",

@@ -4,7 +4,7 @@ import React from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
 import { TelemetryWidget } from './TelemetryWidget';
 import { useLanguage } from './LanguageSelector';
-import { MessageSquare, Sparkles, ChevronRight } from 'lucide-react';
+import { Mail, Sparkles, ChevronRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Hero: React.FC = () => {
@@ -67,12 +67,10 @@ export const Hero: React.FC = () => {
               </a>
 
               <a
-                href={PORTFOLIO_CONFIG.profile.contacts.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#contato"
                 className="flex items-center gap-2 px-5 py-3 rounded bg-[#0e1017] border border-[#00ff66]/40 text-[#00ff66] font-bold hover:bg-[#00ff66]/10 hover:border-[#00ff66] transition-all"
               >
-                <MessageSquare className="w-4 h-4" />
+                <Mail className="w-4 h-4" />
                 <span>{t.hero.directContact}</span>
               </a>
 

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
 import { useLanguage } from './LanguageSelector';
-import { Mail, MessageSquare, Copy, Check, Send } from 'lucide-react';
+import { Mail, Copy, Check, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Contact: React.FC = () => {
@@ -50,33 +50,9 @@ export const Contact: React.FC = () => {
           
           {/* Direct Channels Column */}
           <div className="lg:col-span-6 space-y-4">
-            
-            {/* WhatsApp Card */}
-            <a
-              href={PORTFOLIO_CONFIG.profile.contacts.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#0e1017] p-5 rounded-lg border border-[#00ff66]/40 flex items-center justify-between hud-border-green group transition-all font-mono"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded bg-[#00ff66]/10 border border-[#00ff66]/30 flex items-center justify-center text-[#00ff66]">
-                  <MessageSquare className="w-6 h-6" />
-                </div>
-                <div>
-                  <span className="text-xs text-[#8b95ad]">{t.contact.fastChannel}</span>
-                  <h3 className="text-white font-bold text-base group-hover:text-[#00ff66]">
-                    {t.contact.whatsappDirect}
-                  </h3>
-                  <p className="text-xs text-[#00ff66]">{PORTFOLIO_CONFIG.profile.contacts.whatsappDisplay}</p>
-                </div>
-              </div>
-              <span className="text-xs font-bold text-[#00ff66] px-3 py-1.5 rounded bg-[#00ff66]/10 border border-[#00ff66]/30">
-                {t.contact.openChat}
-              </span>
-            </a>
 
             {/* Email Primary Card */}
-            <div className="bg-[#0e1017] p-5 rounded-lg border border-[#1e2436] flex items-center justify-between font-mono">
+            <div className="bg-[#0e1017] p-5 rounded-lg border border-[#00f0ff]/40 flex items-center justify-between font-mono hud-border">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded bg-[#00f0ff]/10 border border-[#00f0ff]/30 flex items-center justify-center text-[#00f0ff]">
                   <Mail className="w-6 h-6" />

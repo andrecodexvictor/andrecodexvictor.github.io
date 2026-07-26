@@ -1,10 +1,13 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const http = require('http');
 
 const DATA_FILE = path.join(__dirname, '../public/data/live-updates.json');
 
-// Helper to read existing updates
+// Default RSS URL (can be customized or passed via env LINKEDIN_RSS_URL)
+const DEFAULT_RSS_URL = process.env.LINKEDIN_RSS_URL || '';
+
 function getExistingUpdates() {
   try {
     if (fs.existsSync(DATA_FILE)) {
@@ -17,7 +20,6 @@ function getExistingUpdates() {
   return [];
 }
 
-// Helper to write updates
 function saveUpdates(updates) {
   try {
     const dir = path.dirname(DATA_FILE);
@@ -25,86 +27,76 @@ function saveUpdates(updates) {
       fs.mkdirSync(dir, { recursive: true });
     }
     fs.writeFileSync(DATA_FILE, JSON.stringify(updates, null, 2), 'utf8');
-    console.log(`Successfully updated ${updates.length} items in live-updates.json`);
+    console.log(`[RSS Sync] Successfully updated ${updates.length} items in live-updates.json`);
   } catch (err) {
-    console.error('Error saving live-updates.json:', err);
+    console.error('[RSS Sync] Error saving live-updates.json:', err);
   }
 }
 
-// Main sync logic
-async function runSync() {
-  console.log('=== STARTING LINKEDIN & GITHUB NATIVE SYNC ===');
-  
-  let currentUpdates = getExistingUpdates();
-
-  // Check if a payload was passed via environment variable (e.g. from Webhook / n8n / GitHub Action)
-  const webhookPayload = process.env.LINKEDIN_WEBHOOK_PAYLOAD;
-
-  if (webhookPayload) {
-    try {
-      const data = JSON.parse(webhookPayload);
-      console.log('Received Webhook payload:', data);
-
-      const newPost = {
-        id: `up-linked-${Date.now()}`,
-        type: 'LINKEDIN_POST',
-        title: data.title || data.text?.slice(0, 70) || 'Novo Post no LinkedIn',
-        date: 'HOJE',
-        summary: data.summary || data.text || 'Confira a nova publicação no LinkedIn.',
-        link: data.link || 'https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208',
-        tag: 'LinkedIn Post'
-      };
-
-      // Filter out duplicate link if exists
-      currentUpdates = currentUpdates.filter(item => item.link !== newPost.link);
-      currentUpdates.unshift(newPost);
-      saveUpdates(currentUpdates);
-      return;
-    } catch (e) {
-      console.error('Error parsing LINKEDIN_WEBHOOK_PAYLOAD:', e);
-    }
-  }
-
-  // Fallback RSS Feed fetch if LINKEDIN_RSS_URL is provided in GitHub Secrets
-  const rssUrl = process.env.LINKEDIN_RSS_URL;
-  if (rssUrl) {
-    console.log('Fetching LinkedIn feed from RSS URL...');
-    https.get(rssUrl, (res) => {
+function fetchRSS(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https') ? https : http;
+    client.get(url, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return fetchRSS(res.headers.location).then(resolve).catch(reject);
+      }
       let xml = '';
       res.on('data', chunk => xml += chunk);
-      res.on('end', () => {
-        console.log('RSS Feed fetched successfully. Processing items...');
-        // Match items using simple regex
-        const itemRegex = /<item>[\s\S]*?<title>(.*?)<\/title>[\s\S]*?<link>(.*?)<\/link>[\s\S]*?<description>(.*?)<\/description>/gi;
-        let match;
-        let addedCount = 0;
+      res.on('end', () => resolve(xml));
+    }).on('error', reject);
+  });
+}
 
-        while ((match = itemRegex.exec(xml)) !== null && addedCount < 3) {
-          const title = match[1].replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').trim();
-          const link = match[2].trim();
-          const summary = match[3].replace(/<[^>]+>/g, '').replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').slice(0, 150).trim();
+async function runSync() {
+  console.log('=== STARTING LINKEDIN RSS AUTOMATIC SYNC ===');
+  let currentUpdates = getExistingUpdates();
 
-          if (link && !currentUpdates.some(item => item.link === link)) {
-            currentUpdates.unshift({
-              id: `up-rss-${Date.now()}-${addedCount}`,
-              type: 'LINKEDIN_POST',
-              title: title || 'Nova Publicação no LinkedIn',
-              date: 'RECENTE',
-              summary: summary || 'Acesse para ler a publicação completa.',
-              link: link,
-              tag: 'LinkedIn Post'
-            });
-            addedCount++;
-          }
-        }
+  if (!DEFAULT_RSS_URL) {
+    console.log('[RSS Sync] LINKEDIN_RSS_URL environment variable is not defined.');
+    console.log('[RSS Sync] Maintaining existing feed items in live-updates.json.');
+    return;
+  }
 
-        saveUpdates(currentUpdates);
-      });
-    }).on('error', (err) => {
-      console.error('RSS fetch error:', err.message);
-    });
-  } else {
-    console.log('No LINKEDIN_RSS_URL or LINKEDIN_WEBHOOK_PAYLOAD provided. Keeping current live-updates.json intact.');
+  try {
+    console.log(`[RSS Sync] Fetching RSS feed from: ${DEFAULT_RSS_URL}`);
+    const xml = await fetchRSS(DEFAULT_RSS_URL);
+    
+    // Parse RSS <item> tags
+    const itemRegex = /<item>[\s\S]*?<title>(.*?)<\/title>[\s\S]*?<link>(.*?)<\/link>[\s\S]*?<description>(.*?)<\/description>[\s\S]*?<\/item>/gi;
+    let match;
+    let newItemsCount = 0;
+
+    while ((match = itemRegex.exec(xml)) !== null && newItemsCount < 5) {
+      const rawTitle = match[1] || '';
+      const rawLink = match[2] || '';
+      const rawDesc = match[3] || '';
+
+      const title = rawTitle.replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').replace(/<[^>]+>/g, '').trim();
+      const link = rawLink.replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').trim();
+      const summary = rawDesc.replace(/<!\[CDATA\[(.*?)\]\]>/gi, '$1').replace(/<[^>]+>/g, '').slice(0, 160).trim();
+
+      if (link && !currentUpdates.some(item => item.link === link)) {
+        currentUpdates.unshift({
+          id: `up-rss-${Date.now()}-${newItemsCount}`,
+          type: 'LINKEDIN_POST',
+          title: title || 'Nova Publicação no LinkedIn',
+          date: 'RECENTE',
+          summary: summary || 'Confira a nova publicação completa no perfil.',
+          link: link,
+          tag: 'LinkedIn RSS Feed'
+        });
+        newItemsCount++;
+      }
+    }
+
+    if (newItemsCount > 0) {
+      console.log(`[RSS Sync] Added ${newItemsCount} new items from RSS feed.`);
+      saveUpdates(currentUpdates);
+    } else {
+      console.log('[RSS Sync] No new items found in RSS feed.');
+    }
+  } catch (err) {
+    console.error('[RSS Sync] Error fetching or parsing RSS feed:', err.message);
   }
 }
 
