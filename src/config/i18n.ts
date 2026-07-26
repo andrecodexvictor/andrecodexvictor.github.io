@@ -9,7 +9,6 @@ export interface Translations {
     certifications: string;
     about: string;
     contact: string;
-    whatsapp: string;
   };
   hero: {
     statusLabel: string;
@@ -60,6 +59,8 @@ export interface Translations {
     sectionTag: string;
     title: string;
     subtitle: string;
+    mainFocusLabel: string;
+    mainFocusText: string;
     categories: {
       frontend: string;
       backend: string;
@@ -85,10 +86,18 @@ export interface Translations {
     sectionTag: string;
     title: string;
     subtitle: string;
+    articleTitle: string;
+    articleSubtitle: string;
+    readTime: string;
+    category: string;
+    date: string;
     readArticle: string;
     closeArticle: string;
     pillarsTitle: string;
     takeawaysTitle: string;
+    content: string[];
+    pillars: { name: string; description: string }[];
+    keyTakeaways: string[];
   };
   certifications: {
     sectionTag: string;
@@ -101,6 +110,7 @@ export interface Translations {
     sectionTag: string;
     title: string;
     headline: string;
+    paragraphs: string[];
     interestsTitle: string;
     interests: {
       ai: string;
@@ -124,9 +134,6 @@ export interface Translations {
     sectionTag: string;
     title: string;
     subtitle: string;
-    fastChannel: string;
-    whatsappDirect: string;
-    openChat: string;
     primaryEmail: string;
     secondaryEmail: string;
     copy: string;
@@ -154,8 +161,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       caseStudy: '04. CASE STUDY',
       certifications: '05. CERTIFICATIONS',
       about: '06. ABOUT',
-      contact: '07. CONTACT',
-      whatsapp: 'WHATSAPP'
+      contact: '07. CONTACT'
     },
     hero: {
       statusLabel: 'SYSTEM STATUS: ONLINE',
@@ -204,13 +210,15 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     },
     skills: {
       sectionTag: '// SECTION 03',
-      title: 'Stack & Technical Skills',
+      title: 'Tech Stack & Frameworks',
       subtitle: 'Technology ecosystem focused on stability, delivery speed, and Artificial Intelligence integration.',
+      mainFocusLabel: '// MAIN TECH FOCUS:',
+      mainFocusText: 'Main focus: TypeScript/Node, Python/Django, data (SQL/NoSQL, vector DBs such as ChromaDB and Pinecone, RAG pipelines) and agent frameworks (LangChain, LangGraph, CrewAI, n8n), exposed via REST APIs.',
       categories: {
-        frontend: 'FRONTEND & INTERFACE',
-        backend: 'BACKEND & APIS',
-        ai: 'ARTIFICIAL INTELLIGENCE',
-        devtools: 'DEVTOOLS & EMBEDDED'
+        frontend: 'LANGUAGES & FRAMEWORKS',
+        backend: 'DATABASES & VECTOR DB',
+        ai: 'AI, AGENTS & ML FRAMEWORKS',
+        devtools: 'DEVTOOLS & ARCHITECTURE'
       }
     },
     charts: {
@@ -230,11 +238,44 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     caseStudies: {
       sectionTag: '// SECTION 04 • TECHNICAL ARTICLE',
       title: 'Case Study & GP-PME Framework',
-      subtitle: 'Structured practical insights on applying lean engineering, AI automation, and rapid prototyping in Small and Medium Enterprises.',
+      subtitle: 'Structured practical insights on applying Lean IT, practical IT governance (ADM-Lite), Kanban (WIP=3), NIST-Lite security, and AI agents in SMEs.',
+      articleTitle: 'GP-PME: Practical IT Governance for Small and Medium Enterprises',
+      articleSubtitle: 'Complete framework for Lean IT governance, agile execution with strict WIP limits, NIST-Lite security, and AI copilots.',
+      readTime: '7 min read',
+      category: 'Article & Case Study',
+      date: '2026',
       readArticle: 'READ FULL ARTICLE',
       closeArticle: 'CLOSE READING',
       pillarsTitle: 'STRUCTURAL PILLARS OF THE GP-PME FRAMEWORK',
-      takeawaysTitle: 'KEY TAKEAWAYS'
+      takeawaysTitle: 'KEY TAKEAWAYS',
+      content: [
+        "In Small and Medium Enterprises (SMEs), technology is frequently perceived as a reactive cost center. The main challenge is not a lack of demands or ideas, but constant technical disorganization, unmonitored rework, and endless external interruptions that shatter team productivity.",
+        "The GP-PME Framework (Practical Governance for SMEs) was specifically engineered to scale IT governance to the actual size of the team — from a solo technician (One-Man-Band) up to teams of 100 people. It merges Lean IT principles, micro-adaptive agile cadences, and pragmatic security to deliver measurable business value from the first 24 hours (Phase Zero).",
+        "The transverse AI assistance layer leverages specialized AI copilots (Claude Code Skills, Plug-and-Play Prompts, and MCP/FastAPI servers) under strict Human-in-the-Loop (HITL) supervision to automate technical documentation, PRD generation, and semantic RAG knowledge retrieval."
+      ],
+      pillars: [
+        {
+          name: "1. Essential Governance (ADM-Lite & CD-TI Lite)",
+          description: "Bi-weekly 30-minute IT Decision Committee (CD-TI Lite), 4-Quadrant Priority Matrix, and Single Entry Channel to block workflow interruptions."
+        },
+        {
+          name: "2. Agile Execution & Micro-Adaptive Cycle (Kanban WIP=3)",
+          description: "1-Week Sprints, Canonical Kanban (To Do, Doing, Done) with a strict WIP Limit = 3, and Expedite Swimlane for immediate emergency incident mitigation."
+        },
+        {
+          name: "3. Critical Security & Resilience (NIST-Lite & PRI)",
+          description: "NIST-Lite cybersecurity framework, 3-2-1 Backup Policy, Incident Response Plan (PRI-Lite), and critical business asset mapping."
+        },
+        {
+          name: "4. AI Acceleration & Transverse Agents (RAG & MCP)",
+          description: "AI copilots with Human-in-the-Loop (HITL) supervision, automated PRD generation, FastAPI/MCP servers, and semantic RAG search."
+        }
+      ],
+      keyTakeaways: [
+        "Phase Zero 30-day playbook with Quick Wins measured in the first 24 hours.",
+        "Governance right-sized to actual team bandwidth without heavy enterprise overhead.",
+        "Artificial Intelligence as a transversal velocity multiplier under human supervision."
+      ]
     },
     certifications: {
       sectionTag: '// CREDENTIALS & CERTIFICATION BADGES',
@@ -247,6 +288,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SECTION 05 • ABOUT ME',
       title: 'About Me & Journey',
       headline: 'Continuous learner, AI enthusiast, and ex-sales background with a passion for software.',
+      paragraphs: [
+        "Main focus: TypeScript/Node, Python/Django, data (SQL/NoSQL, vector DBs such as ChromaDB and Pinecone, RAG pipelines) and agent frameworks (LangChain, LangGraph, CrewAI, n8n), exposed via REST APIs.",
+        "Data-driven decision making using SQL/NoSQL databases, vector databases (ChromaDB, Pinecone), RAG pipelines (Document QA, business knowledge bases), and REST APIs for integrations.",
+        "Currently deepening my studies in Machine Learning, Neural Networks, and recursive learning loops.",
+        "Combining background in sales, team leadership, and digital marketing with technical solutions that optimize processes for small and medium enterprises.",
+        "In my free time, I am an anime enthusiast, avid reader, Formula 1 strategy lover, and addicted to solving complex problems with code."
+      ],
       interestsTitle: 'INTERESTS & PASSIONS:',
       interests: {
         ai: 'Artificial Intelligence',
@@ -270,9 +318,6 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SECTION 06',
       title: 'Get In Touch',
       subtitle: 'Ready to build a new web product, automate processes with AI, or discuss technical opportunities? Contact me directly.',
-      fastChannel: 'FAST CHANNEL',
-      whatsappDirect: 'WhatsApp Direct',
-      openChat: 'OPEN CHAT',
       primaryEmail: 'PRIMARY EMAIL',
       secondaryEmail: 'SECONDARY EMAIL',
       copy: 'COPY',
@@ -299,8 +344,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       caseStudy: '04. CASE STUDY',
       certifications: '05. CERTIFICAÇÕES',
       about: '06. SOBRE',
-      contact: '07. CONTATO',
-      whatsapp: 'WHATSAPP'
+      contact: '07. CONTATO'
     },
     hero: {
       statusLabel: 'SYSTEM STATUS: ONLINE',
@@ -351,11 +395,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SEÇÃO 03',
       title: 'Stack & Habilidades Técnicas',
       subtitle: 'Ferramentas e ecossistema tecnológico focado em estabilidade, velocidade de entrega e integração de inteligência artificial.',
+      mainFocusLabel: '// FOCO PRINCIPAL:',
+      mainFocusText: 'Foco principal: TypeScript/Node, Python/Django, dados (SQL/NoSQL, bancos vetoriais como ChromaDB e Pinecone, pipelines de RAG) e frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expostos via APIs REST.',
       categories: {
-        frontend: 'FRONTEND & INTERFACE',
-        backend: 'BACKEND & APIS',
-        ai: 'INTELIGÊNCIA ARTIFICIAL',
-        devtools: 'DEVTOOLS & EMBARCADOS'
+        frontend: 'LINGUAGENS & FRAMEWORKS',
+        backend: 'BANCOS DE DADOS & VETORES',
+        ai: 'IA, AGENTES & MACHINE LEARNING',
+        devtools: 'DEVTOOLS & ARQUITETURA'
       }
     },
     charts: {
@@ -375,11 +421,44 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     caseStudies: {
       sectionTag: '// SEÇÃO 04 • ARTIGO TÉCNICO',
       title: 'Case Study & Framework GP-PME',
-      subtitle: 'Visão prática e estruturada sobre como aplicar engenharia enxuta, automação com IA e prototipagem rápida em Pequenas e Médias Empresas.',
+      subtitle: 'Visão prática sobre como aplicar TI Enxuta (Lean IT), governança prática (ADM-Lite), Kanban com WIP=3, segurança NIST-Lite e agentes de IA em PMEs.',
+      articleTitle: 'GP-PME: Governança Prática e Engenharia Enxuta de TI em PMEs',
+      articleSubtitle: 'Estrutura completa de governança ágil, execução com WIP=3 rígido, segurança NIST-Lite e copilotos de Inteligência Artificial.',
+      readTime: '7 min de leitura',
+      category: 'Artigo & Case Study',
+      date: '2026',
       readArticle: 'LER ARTIGO COMPLETO',
       closeArticle: 'FECHAR LEITURA',
       pillarsTitle: 'PILARES ESTRUTURAIS DO FRAMEWORK GP-PME',
-      takeawaysTitle: 'PONTOS CHAVE (KEY TAKEAWAYS)'
+      takeawaysTitle: 'PONTOS CHAVE (KEY TAKEAWAYS)',
+      content: [
+        "Em Pequenas e Médias Empresas (PMEs), a TI é frequentemente vista como um centro de custo reativo. O maior desafio não é a escassez de demandas, mas a falta de padronização técnica, retrabalho constante e interrupções desordenadas que quebram o fluxo produtivo da equipe.",
+        "O Framework GP-PME (Governança Prática para Pequenas e Médias Empresas) foi desenhado especificamente para dimensionar a governança de TI ao tamanho real do time — desde um profissional solo (One-Man-Band) até equipes de 100 pessoas. Ele funde os princípios da TI Enxuta (Lean IT), cadências ágeis micro-adaptativas e segurança pragmática para gerar valor desde as primeiras 24 horas (Fase Zero).",
+        "A camada transversal de IA utiliza assistentes inteligentes (Skills, Prompts Plug-and-Play e servidores MCP/FastAPI) sob supervisão humana estrita (Human-in-the-Loop) para automatizar a burocracia técnica, geração de PRDs e busca semântica em base de conhecimento (RAG)."
+      ],
+      pillars: [
+        {
+          name: "1. Governança Essencial (ADM-Lite & CD-TI Lite)",
+          description: "Comitê de Decisão de TI quinzenal de 30 min, Matriz de Priorização em 4 Quadrantes e Canal Único para bloqueio de interrupções."
+        },
+        {
+          name: "2. Execução Ágil & Ciclo Micro-Adaptativo (Kanban WIP=3)",
+          description: "Sprints de 1 semana, Kanban Kanônico (A Fazer, Em Andamento, Concluído) com limite rígido WIP=3 e Raia de Expedite para emergências."
+        },
+        {
+          name: "3. Segurança Crítica & Resiliência (NIST-Lite & PRI)",
+          description: "Segurança cibernética NIST-Lite, Política de Backup 3-2-1, Plano de Resposta a Incidentes (PRI-Lite) e inventário de ativos críticos."
+        },
+        {
+          name: "4. Aceleração por IA & Agentes Transversais (RAG & MCP)",
+          description: "Copilotos de IA com supervisão humana (HITL), automação de PRDs, servidor MCP/FastAPI e busca semântica RAG."
+        }
+      ],
+      keyTakeaways: [
+        "Fase Zero com playbook de 30 dias e Quick Wins medidos nas primeiras 24 horas.",
+        "Governança ajustada ao tamanho real do time sem sobrecarga burocrática.",
+        "Inteligência Artificial como acelerador transversal sob supervisão humana."
+      ]
     },
     certifications: {
       sectionTag: '// CREDENCIAIS & BADGES DE CERTIFICAÇÃO',
@@ -392,6 +471,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SEÇÃO 05 • QUEM SOU EU',
       title: 'Sobre Mim & Minha Trajetória',
       headline: 'Estudante contínuo, entusiasta de IA e ex-vendedor com paixão por tecnologia.',
+      paragraphs: [
+        "Foco principal: TypeScript/Node, Python/Django, dados (SQL/NoSQL, bancos vetoriais como ChromaDB e Pinecone, pipelines de RAG) e frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expostos via APIs REST.",
+        "Decisão orientada a dados usando bancos SQL/NoSQL, bancos vetoriais (ChromaDB, Pinecone), pipelines de RAG (QA de documentos, bases de conhecimento de negócio) e APIs REST para integrações.",
+        "Atualmente aprofundo meus estudos em Machine Learning, Redes Neurais e loops de aprendizado recursivo.",
+        "Combino experiência em vendas, gestão de equipes e marketing digital com soluções técnicas que melhoram processos de pequenas e médias empresas.",
+        "No tempo livre, sou fã de animes, leitor assíduo de livros, apaixonado pela estratégia da Fórmula 1 e viciado em resolver problemas complexos com código."
+      ],
       interestsTitle: 'INTERESSES & PAIXÕES:',
       interests: {
         ai: 'Inteligência Artificial',
@@ -415,9 +501,6 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SEÇÃO 06',
       title: 'Entrar em Contato',
       subtitle: 'Pronto para construir um novo produto web, automatizar processos com IA ou discutir oportunidades de tecnologia? Entre em contato direto.',
-      fastChannel: 'CANAL RÁPIDO',
-      whatsappDirect: 'WhatsApp Direct',
-      openChat: 'ABRIR CHAT',
       primaryEmail: 'E-MAIL PRINCIPAL',
       secondaryEmail: 'E-MAIL SECUNDÁRIO',
       copy: 'COPIAR',
@@ -444,8 +527,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       caseStudy: '04. CASE STUDY',
       certifications: '05. CERTIFICACIONES',
       about: '06. SOBRE MÍ',
-      contact: '07. CONTACTO',
-      whatsapp: 'WHATSAPP'
+      contact: '07. CONTACTO'
     },
     hero: {
       statusLabel: 'ESTADO DEL SISTEMA: ONLINE',
@@ -496,11 +578,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SECCIÓN 03',
       title: 'Stack y Habilidades Técnicas',
       subtitle: 'Ecosistema tecnológico enfocado en estabilidad, velocidad de entrega e integración de Inteligencia Artificial.',
+      mainFocusLabel: '// ENFOQUE PRINCIPAL:',
+      mainFocusText: 'Enfoque principal: TypeScript/Node, Python/Django, datos (SQL/NoSQL, bases de datos vectoriales como ChromaDB y Pinecone, pipelines de RAG) y frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expuestos mediante APIs REST.',
       categories: {
-        frontend: 'FRONTEND E INTERFAZ',
-        backend: 'BACKEND Y APIS',
-        ai: 'INTELIGENCIA ARTIFICIAL',
-        devtools: 'HERRAMIENTAS Y EMBEBIDOS'
+        frontend: 'LENGUAJES Y FRAMEWORKS',
+        backend: 'BASES DE DATOS Y VECTORES',
+        ai: 'IA, AGENTES Y MACHINE LEARNING',
+        devtools: 'HERRAMIENTAS Y ARQUITECTURA'
       }
     },
     charts: {
@@ -520,11 +604,44 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     caseStudies: {
       sectionTag: '// SECCIÓN 04 • ARTÍCULO TÉCNICO',
       title: 'Case Study y Framework GP-PME',
-      subtitle: 'Visión práctica sobre cómo aplicar ingeniería ágil, automatización con IA y prototipado rápido en PYMEs.',
+      subtitle: 'Visión práctica sobre cómo aplicar Lean IT, gobernanza práctica (ADM-Lite), Kanban con WIP=3, seguridad NIST-Lite y agentes de IA en PYMEs.',
+      articleTitle: 'GP-PME: Gobernanza Práctica e Ingeniería Ágil de TI en PYMEs',
+      articleSubtitle: 'Estructura completa de gobernanza ágil, ejecución con WIP=3 estricto, seguridad NIST-Lite y copilotos de Inteligencia Artificial.',
+      readTime: '7 min de lectura',
+      category: 'Artículo & Case Study',
+      date: '2026',
       readArticle: 'LEER ARTÍCULO COMPLETO',
       closeArticle: 'CERRAR LECTURA',
       pillarsTitle: 'PILARES ESTRUCTURALES DEL FRAMEWORK GP-PME',
-      takeawaysTitle: 'PUNTOS CLAVE'
+      takeawaysTitle: 'PUNTOS CLAVE',
+      content: [
+        "En Pequeñas y Medianas Empresas (PYMEs), la tecnología a menudo se percibe como un centro de costos reactivo. El mayor desafío no es la falta de ideas o demandas, sino la desorganización técnica, el retrabajo y las interrupciones constantes.",
+        "El Framework GP-PME (Gobernanza Práctica para PYMEs) fue diseñado específicamente para adaptar la gobernanza de TI al tamaño real del equipo, desde un técnico solo hasta equipos de 100 personas. Combina principios de Lean IT, cadencias ágiles y seguridad pragmática para generar valor desde las primeras 24 horas (Fase Cero).",
+        "La capa transversal de IA utiliza asistentes inteligentes (Skills, Prompts Plug-and-Play y servidores MCP/FastAPI) bajo supervisión humana estricta (Human-in-the-Loop) para automatizar la documentación técnica, generación de PRDs y búsqueda semántica RAG."
+      ],
+      pillars: [
+        {
+          name: "1. Gobernanza Esencial (ADM-Lite y CD-TI Lite)",
+          description: "Comité de Decisión de TI quincenal de 30 min, Matriz de Prioridad en 4 Cuadrantes y Canal Único para bloqueo de interrupciones."
+        },
+        {
+          name: "2. Ejecución Ágil y Ciclo Micro-Adaptativo (Kanban WIP=3)",
+          description: "Sprints de 1 semana, Kanban Canónico con límite estricto WIP=3 y Carril Rápido de Expedite para emergencias."
+        },
+        {
+          name: "3. Seguridad Crítica y Resiliencia (NIST-Lite y PRI)",
+          description: "Ciberseguridad NIST-Lite, Política de Backup 3-2-1, Plan de Respuesta a Incidentes (PRI-Lite) e inventario de activos."
+        },
+        {
+          name: "4. Aceleración por IA y Agentes Transversales (RAG y MCP)",
+          description: "Copilotos de IA con supervisión humana (HITL), automatización de PRDs, servidor MCP/FastAPI y búsqueda semántica RAG."
+        }
+      ],
+      keyTakeaways: [
+        "Fase Cero con playbook de 30 días y Quick Wins medidos desde las primeras 24 horas.",
+        "Gobernanza dimensionada al tamaño real del equipo sin burocracia innecesaria.",
+        "Inteligencia Artificial como multiplicador de velocidad bajo supervisión humana."
+      ]
     },
     certifications: {
       sectionTag: '// CREDENCIALES Y CERTIFICACIONES',
@@ -537,6 +654,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SECCIÓN 05 • SOBRE MÍ',
       title: 'Sobre Mí y Mi Trayectoria',
       headline: 'Estudiante continuo, entusiasta de IA y experiencia en ventas con pasión por el software.',
+      paragraphs: [
+        "Enfoque principal: TypeScript/Node, Python/Django, datos (SQL/NoSQL, bases de datos vectoriales como ChromaDB y Pinecone, pipelines de RAG) y frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expuestos mediante APIs REST.",
+        "Toma de decisiones orientada a datos utilizando bases SQL/NoSQL, bases vectoriales (ChromaDB, Pinecone), pipelines de RAG (QA de documentos, bases de conocimiento) y APIs REST para integraciones.",
+        "Actualmente profundizando mis estudios en Machine Learning, Redes Neuronales y bucles de aprendizaje recursivo.",
+        "Combinando experiencia en ventas, gestión de equipos y marketing digital con soluciones técnicas que mejoran los procesos de pequeñas y medianas empresas.",
+        "En mi tiempo libre, soy fan del anime, lector asiduo, apasionado de la estrategia de la Fórmula 1 y adicto a resolver problemas complejos con código."
+      ],
       interestsTitle: 'INTERESES Y PASIONES:',
       interests: {
         ai: 'Inteligencia Artificial',
@@ -560,9 +684,6 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// SECCIÓN 06',
       title: 'Contacto Directo',
       subtitle: '¿Listo para construir un nuevo producto web, automatizar procesos con IA o discutir oportunidades técnicas? Contáctame directamente.',
-      fastChannel: 'CANAL RÁPIDO',
-      whatsappDirect: 'WhatsApp Directo',
-      openChat: 'ABRIR CHAT',
       primaryEmail: 'CORREO PRINCIPAL',
       secondaryEmail: 'CORREO SECUNDARIO',
       copy: 'COPIAR',
@@ -589,8 +710,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       caseStudy: '04. 案例研究',
       certifications: '05. 认证',
       about: '06. 关于我',
-      contact: '07. 联系方式',
-      whatsapp: 'WHATSAPP'
+      contact: '07. 联系方式'
     },
     hero: {
       statusLabel: '系统状态: 在线',
@@ -641,11 +761,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// 第 03 部分',
       title: '技术栈与专业技能',
       subtitle: '专注于稳定性、交付速度与人工智能集成的技术生态系统。',
+      mainFocusLabel: '// 核心专注:',
+      mainFocusText: '核心专注: TypeScript/Node, Python/Django, 数据 (SQL/NoSQL, 向量数据库如 ChromaDB 和 Pinecone, RAG 管道) 以及代理框架 (LangChain, LangGraph, CrewAI, n8n)，通过 REST API 提供服务。',
       categories: {
-        frontend: '前端与界面',
-        backend: '后端与 API',
-        ai: '人工智能',
-        devtools: '开发工具与嵌入式'
+        frontend: '语言与框架',
+        backend: '数据库与向量数据库',
+        ai: '人工智能与代理框架',
+        devtools: '开发工具与架构'
       }
     },
     charts: {
@@ -665,11 +787,44 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     caseStudies: {
       sectionTag: '// 第 04 部分 • 技术文章',
       title: '案例研究与 GP-PME 框架',
-      subtitle: '关于在中小型企业中应用精益工程、AI 自动化与快速原型设计的实践洞察。',
+      subtitle: '关于在中小型企业中应用精益 IT、实用 IT 治理 (ADM-Lite)、Kanban (WIP=3)、NIST-Lite 安全与 AI 代理的实践洞察。',
+      articleTitle: 'GP-PME: 中小型企业实用 IT 治理与精益工程',
+      articleSubtitle: '完整的高效 IT 治理框架、严格 WIP=3 限制的敏捷执行、NIST-Lite 安全防护以及 AI 智能助手。',
+      readTime: '7 分钟阅读',
+      category: '文章与案例研究',
+      date: '2026',
       readArticle: '阅读全文',
       closeArticle: '关闭阅读',
       pillarsTitle: 'GP-PME 框架的核心支柱',
-      takeawaysTitle: '核心要点'
+      takeawaysTitle: '核心要点',
+      content: [
+        "在中小型企业 (SME) 中，技术常被视为被动的成本中心。核心挑战不是缺乏需求或想法，而是缺乏技术标准化、频繁的返工以及破坏团队生产力的无序打扰。",
+        "GP-PME 框架 (中小型企业实用治理) 专为将 IT 治理扩展至团队的实际规模而设计——从单人技术员 (One-Man-Band) 到 100 人的团队。它融合了精益 IT (Lean IT) 原则、微适应敏捷节奏与务实的安全策略，从前 24 小时 (Phase Zero) 开始交付可衡量的商业价值。",
+        "横向 AI 辅助层在严格的人类监督 (Human-in-the-Loop) 下利用专用 AI 助手 (Skills、Plug-and-Play Prompts 及 MCP/FastAPI 服务器) 自动化技术文档、PRD 生成以及语义 RAG 知识检索。"
+      ],
+      pillars: [
+        {
+          name: "1. 核心治理 (ADM-Lite & CD-TI Lite)",
+          description: "每两周 30 分钟的 IT 决策委员会 (CD-TI Lite)、4 象限优先级矩阵以及用于阻断打扰的单一需求入口通道。"
+        },
+        {
+          name: "2. 敏捷执行与微适应循环 (Kanban WIP=3)",
+          description: "1 周 Sprint、规范 Kanban (待办、进行中、已完成) 配合严格 WIP=3 限制，以及用于紧急事故处置的快速通道。"
+        },
+        {
+          name: "3. 关键安全与韧性 (NIST-Lite & PRI)",
+          description: "NIST-Lite 网络安全框架、3-2-1 备份策略、事故响应计划 (PRI-Lite) 以及关键资产清单。"
+        },
+        {
+          name: "4. AI 加速与横向代理 (RAG & MCP)",
+          description: "带有人类监督 (HITL) 的 AI 助手、PRD 自动生成、FastAPI/MCP 服务器以及语义 RAG 搜索。"
+        }
+      ],
+      keyTakeaways: [
+        "Phase Zero 30 天剧本，前 24 小时即可衡量速赢成果 (Quick Wins)。",
+        "量体裁衣的治理结构，无冗余的企业级官僚负担。",
+        "人类监督下作为横向加速器的人工智能。"
+      ]
     },
     certifications: {
       sectionTag: '// 凭证与认证徽章',
@@ -682,6 +837,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// 第 05 部分 • 关于我',
       title: '关于我与个人经历',
       headline: '终身学习者、AI 爱好者，拥有销售背景并热爱软件工程。',
+      paragraphs: [
+        "核心专注: TypeScript/Node, Python/Django, 数据 (SQL/NoSQL, 向量数据库如 ChromaDB 和 Pinecone, RAG 管道) 以及代理框架 (LangChain, LangGraph, CrewAI, n8n)，通过 REST API 提供服务。",
+        "数据驱动决策: 使用 SQL/NoSQL 数据库、向量数据库 (ChromaDB, Pinecone)、RAG 管道 (文档 QA、业务知识库) 以及 REST API 进行集成。",
+        "目前正深入研究机器学习、神经网络与递归学习循环。",
+        "将销售、团队领导力与数字营销背景与优化中小型企业流程的技术解决方案相结合。",
+        "业余时间，我是动漫爱好者、热心读者、一级方程式策略迷，并热衷于通过代码解决复杂问题。"
+      ],
       interestsTitle: '兴趣与热情:',
       interests: {
         ai: '人工智能',
@@ -705,9 +867,6 @@ export const TRANSLATIONS: Record<Language, Translations> = {
       sectionTag: '// 第 06 部分',
       title: '直接联系',
       subtitle: '准备好构建新的 Web 产品、通过 AI 自动化流程或讨论技术合作了吗？请直接联系我。',
-      fastChannel: '快速通道',
-      whatsappDirect: 'WhatsApp 直连',
-      openChat: '打开聊天',
       primaryEmail: '主邮箱',
       secondaryEmail: '备用邮箱',
       copy: '复制',

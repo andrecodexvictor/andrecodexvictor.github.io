@@ -7,7 +7,7 @@ import { BookOpen, ShoppingBag, Tv, Trophy, Heart, Brain } from 'lucide-react';
 
 export const About: React.FC = () => {
   const { t } = useLanguage();
-  const bioHuman = PORTFOLIO_CONFIG.profile.bioHuman;
+  const ab = t.about;
 
   return (
     <section id="sobre" className="py-20 bg-[#07080a] border-t border-[#1e2436] relative">
@@ -20,41 +20,41 @@ export const About: React.FC = () => {
             
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff]">
               <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-              <span>{t.about.sectionTag}</span>
+              <span>{ab.sectionTag}</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              {t.about.title}
+              {ab.title}
             </h2>
 
             <p className="text-lg font-semibold text-[#00f0ff] font-mono leading-relaxed">
-              “{t.about.headline}”
+              “{ab.headline}”
             </p>
 
             <div className="space-y-4 text-sm sm:text-base text-[#8b95ad] leading-relaxed font-sans">
-              {bioHuman.paragraphs.map((p, idx) => (
+              {ab.paragraphs.map((p, idx) => (
                 <p key={idx}>{p}</p>
               ))}
             </div>
 
             {/* Core Personal Interests Chips */}
             <div className="pt-4 font-mono text-xs space-y-2">
-              <span className="text-xs text-[#535c73] uppercase font-bold block">{t.about.interestsTitle}</span>
+              <span className="text-xs text-[#535c73] uppercase font-bold block">{ab.interestsTitle}</span>
               <div className="flex flex-wrap gap-2">
                 <span className="px-3 py-1 rounded bg-[#0e1017] border border-[#00f0ff]/30 text-[#00f0ff] flex items-center gap-1.5">
-                  <Brain className="w-3.5 h-3.5" /> {t.about.interests.ai}
+                  <Brain className="w-3.5 h-3.5" /> {ab.interests.ai}
                 </span>
                 <span className="px-3 py-1 rounded bg-[#0e1017] border border-[#00ff66]/30 text-[#00ff66] flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5" /> {t.about.interests.learning}
+                  <BookOpen className="w-3.5 h-3.5" /> {ab.interests.learning}
                 </span>
                 <span className="px-3 py-1 rounded bg-[#0e1017] border border-[#ffcc00]/30 text-[#ffcc00] flex items-center gap-1.5">
-                  <ShoppingBag className="w-3.5 h-3.5" /> {t.about.interests.sales}
+                  <ShoppingBag className="w-3.5 h-3.5" /> {ab.interests.sales}
                 </span>
                 <span className="px-3 py-1 rounded bg-[#0e1017] border border-[#ff3366]/30 text-[#ff3366] flex items-center gap-1.5">
-                  <Tv className="w-3.5 h-3.5" /> {t.about.interests.anime}
+                  <Tv className="w-3.5 h-3.5" /> {ab.interests.anime}
                 </span>
                 <span className="px-3 py-1 rounded bg-[#0e1017] border border-[#00f0ff]/30 text-[#00f0ff] flex items-center gap-1.5">
-                  <Trophy className="w-3.5 h-3.5" /> {t.about.interests.f1}
+                  <Trophy className="w-3.5 h-3.5" /> {ab.interests.f1}
                 </span>
               </div>
             </div>
@@ -80,24 +80,24 @@ export const About: React.FC = () => {
 
               <div className="space-y-3 text-xs text-[#8b95ad]">
                 <div className="flex justify-between border-b border-[#1e2436]/60 pb-2">
-                  <span>{t.about.card.specialization}</span>
+                  <span>{ab.card.specialization}</span>
                   <span className="text-white font-semibold">Full-Stack & AI Builder</span>
                 </div>
                 <div className="flex justify-between border-b border-[#1e2436]/60 pb-2">
-                  <span>{t.about.card.background}</span>
-                  <span className="text-[#ffcc00] font-semibold">{t.about.card.backgroundVal}</span>
+                  <span>{ab.card.background}</span>
+                  <span className="text-[#ffcc00] font-semibold">{ab.card.backgroundVal}</span>
                 </div>
                 <div className="flex justify-between border-b border-[#1e2436]/60 pb-2">
-                  <span>{t.about.card.location}</span>
-                  <span className="text-white font-semibold">{t.about.card.locationVal}</span>
+                  <span>{ab.card.location}</span>
+                  <span className="text-white font-semibold">{ab.card.locationVal}</span>
                 </div>
                 <div className="flex justify-between border-b border-[#1e2436]/60 pb-2">
-                  <span>{t.about.card.preferredStack}</span>
+                  <span>{ab.card.preferredStack}</span>
                   <span className="text-[#00f0ff] font-semibold">Next.js + TS + Python + IA</span>
                 </div>
                 <div className="flex justify-between border-b border-[#1e2436]/60 pb-2">
-                  <span>{t.about.card.superpower}</span>
-                  <span className="text-[#00ff66] font-semibold">{t.about.card.superpowerVal}</span>
+                  <span>{ab.card.superpower}</span>
+                  <span className="text-[#00ff66] font-semibold">{ab.card.superpowerVal}</span>
                 </div>
               </div>
 
