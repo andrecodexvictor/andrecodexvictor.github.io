@@ -1,0 +1,29 @@
+[
+  {
+    "id": "up-script-kitty",
+    "type": "LINKEDIN_POST",
+    "title": "Novo Post no LinkedIn: Automações com script-kitty & produtividade no terminal",
+    "date": "RECENTE",
+    "summary": "Post recente sobre como o repositório script-kitty otimiza rotinas de terminal e Shell/Bash no dia a dia dev.",
+    "link": "https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208",
+    "tag": "LinkedIn Post"
+  },
+  {
+    "id": "up-24podiums",
+    "type": "PROJECT_RELEASE",
+    "title": "Lançamento Oficial: 24podiums.com online!",
+    "date": "DESTAQUE",
+    "summary": "O simulador de estratégia de F1 já está ao vivo no domínio próprio 24podiums.com.",
+    "link": "https://24podiums.com",
+    "tag": "Project Live"
+  },
+  {
+    "id": "up-gppme",
+    "type": "ARTICLE",
+    "title": "Publicação do Framework GP-PME no Portfólio",
+    "date": "JUL 2026",
+    "summary": "Artigo completo sobre Engenharia Enxuta e Gestão de Projetos para Pequenas e Médias Empresas.",
+    "link": "#artigos",
+    "tag": "Case Study"
+  }
+]

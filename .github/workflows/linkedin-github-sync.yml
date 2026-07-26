@@ -2,9 +2,19 @@ name: Native LinkedIn & GitHub Sync
 
 on:
   schedule:
-    # Run every 6 hours automatically to check for new posts/repos
+    # Run every 6 hours automatically to check for new posts
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab or Webhook trigger
+    inputs:
+      post_title:
+        description: 'LinkedIn Post Title'
+        required: false
+      post_link:
+        description: 'LinkedIn Post URL'
+        required: false
+      post_summary:
+        description: 'LinkedIn Post Summary'
+        required: false
 
 jobs:
   sync-updates:
@@ -21,13 +31,14 @@ jobs:
       - name: Fetch GitHub Repos & LinkedIn Updates
         env:
           LINKEDIN_TOKEN: ${{ secrets.LINKEDIN_TOKEN }}
+          LINKEDIN_RSS_URL: ${{ secrets.LINKEDIN_RSS_URL }}
+          LINKEDIN_WEBHOOK_PAYLOAD: ${{ github.event.inputs.post_title && format('\{"title":"{0}","link":"{1}","summary":"{2}"\}', github.event.inputs.post_title, github.event.inputs.post_link, github.event.inputs.post_summary) || '' }}
         run: |
-          echo "Checking latest activity for andrecodexvictor..."
-          # Native sync script updates data/live-updates.json
-          node -e "console.log('GitHub & LinkedIn Sync check completed successfully.');"
+          echo "Checking latest LinkedIn activity for andrecodexvictor..."
+          node scripts/sync-linkedin.js
 
       - name: Commit & Push if updated
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git diff --quiet || (git add . && git commit -m "chore(sync): auto-update LinkedIn & GitHub activity" && git push)
+          git diff --quiet || (git add public/data/live-updates.json && git commit -m "chore(sync): auto-update LinkedIn feed" && git push)
