@@ -1,0 +1,71 @@
+'use client';
+
+import React from 'react';
+import { PORTFOLIO_CONFIG } from '@/config/portfolio';
+import { Radio, ExternalLink, Sparkles, MessageSquare } from 'lucide-react';
+import { LinkedinIcon } from './Icons';
+
+export const LiveNewsFeed: React.FC = () => {
+  const updates = PORTFOLIO_CONFIG.liveUpdates;
+
+  return (
+    <section className="py-12 bg-[#07080a] border-t border-[#1e2436] relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* News Ticker Container */}
+        <div className="bg-[#0e1017] rounded-xl border border-[#00f0ff]/30 p-5 font-mono text-xs hud-border">
+          
+          <div className="flex items-center justify-between border-b border-[#1e2436] pb-3 mb-4">
+            <div className="flex items-center gap-2 text-white font-bold">
+              <Radio className="w-4 h-4 text-[#00ff66] animate-pulse" />
+              <span>LIVE UPDATES // NOVIDADES & LINKEDIN POSTS</span>
+            </div>
+            <span className="text-[10px] text-[#00f0ff] uppercase bg-[#00f0ff]/10 px-2 py-0.5 rounded border border-[#00f0ff]/30">
+              FEED EM TEMPO REAL
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {updates.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#131622] p-4 rounded border border-[#1e2436] hover:border-[#00f0ff]/40 transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-[10px] text-[#8b95ad] mb-2">
+                    <span className="px-2 py-0.5 rounded bg-[#07080a] text-[#00ff66] border border-[#00ff66]/30 font-bold">
+                      {item.tag}
+                    </span>
+                    <span>{item.date}</span>
+                  </div>
+                  <h4 className="text-white font-bold text-sm leading-snug hover:text-[#00f0ff] transition-colors">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-[#8b95ad] mt-2 leading-relaxed font-sans">
+                    {item.summary}
+                  </p>
+                </div>
+
+                {item.link && (
+                  <div className="mt-4 pt-2 border-t border-[#1e2436] text-[11px]">
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[#00f0ff] hover:underline font-bold"
+                    >
+                      <span>ACESSAR PUBLICAÇÃO</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  );
+};

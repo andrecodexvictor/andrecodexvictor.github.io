@@ -32,6 +32,34 @@ export interface CaseStudy {
   keyTakeaways: string[];
 }
 
+export interface EvolutionMetric {
+  quarter: string;
+  fullstackSkill: number;
+  aiIntegration: number;
+  projectsCompleted: number;
+}
+
+export interface LiveUpdate {
+  id: string;
+  type: 'PROJECT_RELEASE' | 'LINKEDIN_POST' | 'ARTICLE' | 'MILESTONE';
+  title: string;
+  date: string;
+  summary: string;
+  link?: string;
+  tag: string;
+}
+
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+  badgeCode: string;
+  status: 'VERIFIED / ACTIVE' | 'IN_PROGRESS';
+  credentialUrl?: string;
+  skillsCovered: string[];
+}
+
 export const PORTFOLIO_CONFIG = {
   profile: {
     name: "André Victor",
@@ -203,5 +231,76 @@ export const PORTFOLIO_CONFIG = {
         "Design visual marcante como diferencial de conversão e autoridade."
       ]
     }
-  ] as CaseStudy[]
+  ] as CaseStudy[],
+
+  // Telemetry Evolution & Growth Timeline Chart Data
+  evolutionTimeline: [
+    { quarter: "Q1 2025", fullstackSkill: 75, aiIntegration: 50, projectsCompleted: 2 },
+    { quarter: "Q2 2025", fullstackSkill: 82, aiIntegration: 68, projectsCompleted: 4 },
+    { quarter: "Q3 2025", fullstackSkill: 88, aiIntegration: 80, projectsCompleted: 6 },
+    { quarter: "Q4 2025", fullstackSkill: 92, aiIntegration: 90, projectsCompleted: 8 },
+    { quarter: "Q1 2026", fullstackSkill: 96, aiIntegration: 95, projectsCompleted: 11 },
+  ] as EvolutionMetric[],
+
+  // Live News & Updates Ticker
+  liveUpdates: [
+    {
+      id: "up-1",
+      type: "PROJECT_RELEASE",
+      title: "Lançamento da nova versão do 24podiums",
+      date: "HOJE",
+      summary: "Interface HUD reformulada para o simulador de F1 com suporte a 24 corridas e cálculo de telemetria.",
+      link: "https://github.com/andrecodexvictor/24podiums",
+      tag: "F1 HUD"
+    },
+    {
+      id: "up-2",
+      type: "LINKEDIN_POST",
+      title: "Postagem no LinkedIn: Arquitetura de IA para PMEs (GP-PME)",
+      date: "ONTEM",
+      summary: "Discussão sobre como agentes de IA reduzem o tempo de entrega de software de semanas para dias.",
+      link: "https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208",
+      tag: "LinkedIn Update"
+    },
+    {
+      id: "up-3",
+      type: "ARTICLE",
+      title: "Publicação do Artigo Técnico GP-PME no Portfólio",
+      date: "JUL 2026",
+      summary: "Leitura completa sobre governança de software enxuta e prototipagem com alto valor percebido.",
+      link: "#artigos",
+      tag: "Case Study"
+    }
+  ] as LiveUpdate[],
+
+  // Certifications & Badges Showcase
+  certifications: [
+    {
+      id: "cert-1",
+      title: "Full-Stack Software Engineering & Architecture",
+      issuer: "Advanced Engineering Program",
+      date: "2025 / 2026",
+      badgeCode: "FS-ARCH-9982",
+      status: "VERIFIED / ACTIVE",
+      skillsCovered: ["Next.js App Router", "TypeScript", "REST APIs", "Clean Architecture"]
+    },
+    {
+      id: "cert-2",
+      title: "AI Systems & LLM Integration Builder",
+      issuer: "AI Product Engineering",
+      date: "2026",
+      badgeCode: "AI-BUILDER-7712",
+      status: "VERIFIED / ACTIVE",
+      skillsCovered: ["Prompt Engineering", "OpenAI / Gemini APIs", "Autonomous Agents", "RAG"]
+    },
+    {
+      id: "cert-3",
+      title: "Embedded Robotics & Control Firmware",
+      issuer: "Hardware & Microcontrollers Initiative",
+      date: "2025",
+      badgeCode: "EMBED-BOT-4019",
+      status: "VERIFIED / ACTIVE",
+      skillsCovered: ["C++", "ESP32", "Arduino Framework", "Inverse Kinematics"]
+    }
+  ] as Certification[]
 };

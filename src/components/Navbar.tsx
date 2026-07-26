@@ -39,8 +39,9 @@ export const Navbar: React.FC = () => {
     { name: '02. PROJETOS', href: '#projetos' },
     { name: '03. STACK', href: '#stack' },
     { name: '04. CASE STUDY', href: '#artigos' },
-    { name: '05. SOBRE', href: '#sobre' },
-    { name: '06. CONTATO', href: '#contato' },
+    { name: '05. CERTIFICAÇÕES', href: '#certificacoes' },
+    { name: '06. SOBRE', href: '#sobre' },
+    { name: '07. CONTATO', href: '#contato' },
   ];
 
   return (
@@ -69,7 +70,7 @@ export const Navbar: React.FC = () => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6 font-mono text-xs">
+          <nav className="hidden xl:flex items-center gap-5 font-mono text-xs">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -116,7 +117,7 @@ export const Navbar: React.FC = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded bg-[#0e1017] border border-[#1e2436] text-[#8b95ad] hover:text-[#00f0ff]"
+            className="xl:hidden p-2 rounded bg-[#0e1017] border border-[#1e2436] text-[#8b95ad] hover:text-[#00f0ff]"
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -127,7 +128,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#07080a] border-b border-[#00f0ff]/30 px-4 py-6 font-mono text-sm space-y-4 animate-fadeIn">
+        <div className="xl:hidden bg-[#07080a] border-b border-[#00f0ff]/30 px-4 py-6 font-mono text-sm space-y-4 animate-fadeIn">
           <div className="flex items-center gap-2 pb-3 border-b border-[#1e2436] text-xs text-[#00ff66]">
             <ShieldCheck className="w-4 h-4" />
             <span>{PORTFOLIO_CONFIG.profile.status.label}</span>
