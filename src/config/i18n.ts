@@ -155,13 +155,13 @@ export interface Translations {
 export const TRANSLATIONS: Record<Language, Translations> = {
   EN: {
     nav: {
-      hero: '01. HERO',
-      projects: '02. PROJECTS',
-      stack: '03. STACK',
-      caseStudy: '04. CASE STUDY',
-      certifications: '05. CERTIFICATIONS',
-      about: '06. ABOUT',
-      contact: '07. CONTACT'
+      hero: 'Hero',
+      projects: 'Projects',
+      stack: 'Stack',
+      caseStudy: 'Case Study',
+      certifications: 'Certifications',
+      about: 'About',
+      contact: 'Contact'
     },
     hero: {
       statusLabel: 'SYSTEM STATUS: ONLINE',
@@ -338,13 +338,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
   PT: {
     nav: {
-      hero: '01. HERO',
-      projects: '02. PROJETOS',
-      stack: '03. STACK',
-      caseStudy: '04. CASE STUDY',
-      certifications: '05. CERTIFICAÇÕES',
-      about: '06. SOBRE',
-      contact: '07. CONTATO'
+      hero: 'Hero',
+      projects: 'Projetos',
+      stack: 'Stack',
+      caseStudy: 'Case Study',
+      certifications: 'Certificações',
+      about: 'Sobre',
+      contact: 'Contato'
     },
     hero: {
       statusLabel: 'SYSTEM STATUS: ONLINE',
@@ -521,13 +521,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
   ES: {
     nav: {
-      hero: '01. INICIO',
-      projects: '02. PROYECTOS',
-      stack: '03. STACK',
-      caseStudy: '04. CASE STUDY',
-      certifications: '05. CERTIFICACIONES',
-      about: '06. SOBRE MÍ',
-      contact: '07. CONTACTO'
+      hero: 'Inicio',
+      projects: 'Proyectos',
+      stack: 'Stack',
+      caseStudy: 'Case Study',
+      certifications: 'Certificaciones',
+      about: 'Sobre Mí',
+      contact: 'Contacto'
     },
     hero: {
       statusLabel: 'ESTADO DEL SISTEMA: ONLINE',
@@ -704,13 +704,13 @@ export const TRANSLATIONS: Record<Language, Translations> = {
 
   ZH: {
     nav: {
-      hero: '01. 主页',
-      projects: '02. 项目',
-      stack: '03. 技术栈',
-      caseStudy: '04. 案例研究',
-      certifications: '05. 认证',
-      about: '06. 关于我',
-      contact: '07. 联系方式'
+      hero: '主页',
+      projects: '项目',
+      stack: '技术栈',
+      caseStudy: '案例研究',
+      certifications: '认证',
+      about: '关于我',
+      contact: '联系方式'
     },
     hero: {
       statusLabel: '系统状态: 在线',
