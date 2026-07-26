@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { PORTFOLIO_CONFIG, LiveUpdate } from '@/config/portfolio';
+import { useLanguage } from './LanguageSelector';
 import { Radio, ExternalLink } from 'lucide-react';
 
 export const LiveNewsFeed: React.FC<{ items?: LiveUpdate[] }> = ({ items }) => {
+  const { t } = useLanguage();
   const updates = items || PORTFOLIO_CONFIG.liveUpdates;
 
   return (
@@ -17,10 +19,10 @@ export const LiveNewsFeed: React.FC<{ items?: LiveUpdate[] }> = ({ items }) => {
           <div className="flex items-center justify-between border-b border-[#1e2436] pb-3 mb-4">
             <div className="flex items-center gap-2 text-white font-bold">
               <Radio className="w-4 h-4 text-[#00ff66] animate-pulse" />
-              <span>LIVE UPDATES // NOVIDADES & LINKEDIN POSTS</span>
+              <span>{t.liveUpdates.title}</span>
             </div>
             <span className="text-[10px] text-[#00f0ff] uppercase bg-[#00f0ff]/10 px-2 py-0.5 rounded border border-[#00f0ff]/30">
-              FEED EM TEMPO REAL
+              {t.liveUpdates.badgeLabel}
             </span>
           </div>
 
@@ -53,7 +55,7 @@ export const LiveNewsFeed: React.FC<{ items?: LiveUpdate[] }> = ({ items }) => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-[#00f0ff] hover:underline font-bold"
                     >
-                      <span>ACESSAR PUBLICAÇÃO</span>
+                      <span>{t.liveUpdates.viewPost}</span>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>

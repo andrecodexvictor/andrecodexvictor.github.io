@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { ExternalLink, Terminal, ChevronRight } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
+import { ExternalLink, Terminal } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 export const Projects: React.FC = () => {
+  const { t } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
 
   const categories = ['ALL', 'Web Application', 'DevTools & CI/CD', 'Interactive Physics Engine', 'Robotics & Firmware', 'Automation & Bots'];
@@ -23,13 +25,13 @@ export const Projects: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-              <span>// SEÇÃO 02</span>
+              <span>{t.projects.sectionTag}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Projetos em Destaque
+              {t.projects.title}
             </h2>
-            <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-              Uma seleção refinada de produtos web, ferramentas de automação e engenharia robótica projetados com foco em alta performance e narrativa visual.
+            <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+              {t.projects.subtitle}
             </p>
           </div>
 
@@ -45,7 +47,7 @@ export const Projects: React.FC = () => {
                     : 'bg-[#0e1017] text-[#8b95ad] border border-[#1e2436] hover:text-white hover:border-[#00f0ff]/40'
                 }`}
               >
-                {cat === 'ALL' ? 'TODOS' : cat}
+                {cat === 'ALL' ? t.projects.allCategory : cat}
               </button>
             ))}
           </div>
@@ -116,7 +118,7 @@ export const Projects: React.FC = () => {
                     className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#131622] border border-[#1e2436] text-[#8b95ad] hover:text-white hover:border-[#00f0ff]/40 transition-all text-xs font-semibold"
                   >
                     <GithubIcon className="w-3.5 h-3.5" />
-                    <span>REPOSITÓRIO</span>
+                    <span>{t.projects.codeRepo}</span>
                   </a>
 
                   {/* 24podiums Live Demo Link ONLY */}
@@ -127,7 +129,7 @@ export const Projects: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#00ff66]/10 text-[#00ff66] border border-[#00ff66]/40 hover:bg-[#00ff66]/20 font-bold transition-all text-xs"
                     >
-                      <span>24PODIUMS.COM</span>
+                      <span>{t.projects.liveDemo}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   ) : null}
@@ -145,13 +147,13 @@ export const Projects: React.FC = () => {
           <div className="mb-8">
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] mb-1">
               <span className="w-2 h-2 rounded-full bg-[#00ff66]"></span>
-              <span>// MAIS REPOSITÓRIOS & EXPERIMENTOS</span>
+              <span>// {t.projects.secondaryTitle}</span>
             </div>
             <h3 className="text-2xl font-bold text-white">
-              Arquitetura, Automação & Scripting
+              {t.projects.secondaryTitle}
             </h3>
-            <p className="text-xs text-[#8b95ad] mt-1">
-              Ferramentas secundárias e bibliotecas de utilitários mantidas para otimização de fluxo de trabalho.
+            <p className="text-xs text-[#8b95ad] mt-1 font-sans">
+              {t.projects.secondarySubtitle}
             </p>
           </div>
 

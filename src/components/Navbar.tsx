@@ -2,10 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
+import { useLanguage, LanguageSelector } from './LanguageSelector';
 import { Terminal, MessageSquare, Menu, X, ShieldCheck } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Navbar: React.FC = () => {
+  const { t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [timeString, setTimeString] = useState('');
@@ -21,7 +23,7 @@ export const Navbar: React.FC = () => {
 
     const updateClock = () => {
       const now = new Date();
-      setTimeString(now.toLocaleTimeString('pt-BR', { hour12: false }));
+      setTimeString(now.toLocaleTimeString('en-US', { hour12: false }));
     };
 
     updateClock();
@@ -35,13 +37,13 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: '01. HERO', href: '#hero' },
-    { name: '02. PROJETOS', href: '#projetos' },
-    { name: '03. STACK', href: '#stack' },
-    { name: '04. CASE STUDY', href: '#artigos' },
-    { name: '05. CERTIFICAÇÕES', href: '#certificacoes' },
-    { name: '06. SOBRE', href: '#sobre' },
-    { name: '07. CONTATO', href: '#contato' },
+    { name: t.nav.hero, href: '#hero' },
+    { name: t.nav.projects, href: '#projetos' },
+    { name: t.nav.stack, href: '#stack' },
+    { name: t.nav.caseStudy, href: '#artigos' },
+    { name: t.nav.certifications, href: '#certificacoes' },
+    { name: t.nav.about, href: '#sobre' },
+    { name: t.nav.contact, href: '#contato' },
   ];
 
   return (
@@ -83,8 +85,10 @@ export const Navbar: React.FC = () => {
             ))}
           </nav>
 
-          {/* Action CTAs */}
+          {/* Language Selector & Action CTAs */}
           <div className="hidden lg:flex items-center gap-3 font-mono text-xs">
+            <LanguageSelector />
+
             <a
               href={PORTFOLIO_CONFIG.profile.contacts.github}
               target="_blank"
@@ -110,18 +114,21 @@ export const Navbar: React.FC = () => {
               className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#00ff66]/10 border border-[#00ff66]/40 text-[#00ff66] hover:bg-[#00ff66]/20 transition-all font-semibold"
             >
               <MessageSquare className="w-3.5 h-3.5" />
-              <span>WHATSAPP</span>
+              <span>{t.nav.whatsapp}</span>
             </a>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded bg-[#0e1017] border border-[#1e2436] text-[#8b95ad] hover:text-[#00f0ff]"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="xl:hidden flex items-center gap-2">
+            <LanguageSelector />
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded bg-[#0e1017] border border-[#1e2436] text-[#8b95ad] hover:text-[#00f0ff]"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
 
         </div>
       </div>

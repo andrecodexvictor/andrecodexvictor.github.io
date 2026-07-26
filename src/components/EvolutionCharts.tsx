@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { TrendingUp, Activity, Cpu, Sparkles, CheckCircle2 } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
+import { TrendingUp } from 'lucide-react';
 
 export const EvolutionCharts: React.FC = () => {
+  const { t } = useLanguage();
   const [activeMetric, setActiveMetric] = useState<'all' | 'ai' | 'fullstack'>('all');
 
   const timeline = PORTFOLIO_CONFIG.evolutionTimeline;
@@ -18,13 +20,13 @@ export const EvolutionCharts: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff] mb-2">
               <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-              <span>// TELEMETRIA DE EVOLUÇÃO TÉCNICA</span>
+              <span>{t.charts.sectionTag}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              Evolução & Métricas de Performance
+              {t.charts.title}
             </h2>
-            <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-              Gráfico de progressão contínua em engenharia full-stack, integração de IA e velocidade de entregas por trimestre.
+            <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+              {t.charts.subtitle}
             </p>
           </div>
 
@@ -38,7 +40,7 @@ export const EvolutionCharts: React.FC = () => {
                   : 'bg-[#0e1017] text-[#8b95ad] border border-[#1e2436] hover:text-white'
               }`}
             >
-              VISÃO GERAL
+              {t.charts.overviewTab}
             </button>
             <button
               onClick={() => setActiveMetric('ai')}
@@ -48,7 +50,7 @@ export const EvolutionCharts: React.FC = () => {
                   : 'bg-[#0e1017] text-[#8b95ad] border border-[#1e2436] hover:text-white'
               }`}
             >
-              EVOLUÇÃO IA
+              {t.charts.aiTab}
             </button>
           </div>
         </div>
@@ -59,14 +61,14 @@ export const EvolutionCharts: React.FC = () => {
           <div className="flex items-center justify-between border-b border-[#1e2436] pb-4 mb-6 font-mono text-xs">
             <div className="flex items-center gap-2 text-white font-bold">
               <TrendingUp className="w-4 h-4 text-[#00f0ff]" />
-              <span>GRÁFICO DE TELEMETRIA TRIMESTRAL</span>
+              <span>{t.charts.chartTitle}</span>
             </div>
             <div className="flex items-center gap-4 text-[11px]">
               <span className="flex items-center gap-1.5 text-[#00f0ff]">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00f0ff]"></span> FULL-STACK
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00f0ff]"></span> {t.charts.fullstackLegend}
               </span>
               <span className="flex items-center gap-1.5 text-[#00ff66]">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#00ff66]"></span> INTEGRAÇÃO IA
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00ff66]"></span> {t.charts.aiLegend}
               </span>
             </div>
           </div>
@@ -88,8 +90,8 @@ export const EvolutionCharts: React.FC = () => {
                 
                 {/* Tooltip on hover */}
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute -top-12 bg-[#131622] border border-[#00f0ff] px-2.5 py-1 rounded font-mono text-[10px] text-white whitespace-nowrap shadow-lg pointer-events-none">
-                  <div>FS: {item.fullstackSkill}% | IA: {item.aiIntegration}%</div>
-                  <div className="text-[#00ff66]">Projetos: {item.projectsCompleted}</div>
+                  <div>FS: {item.fullstackSkill}% | AI: {item.aiIntegration}%</div>
+                  <div className="text-[#00ff66]">Projects: {item.projectsCompleted}</div>
                 </div>
 
                 <div className="w-full flex items-end justify-center gap-1.5 h-44">
@@ -121,19 +123,19 @@ export const EvolutionCharts: React.FC = () => {
           {/* Quick Metrics Footer */}
           <div className="mt-6 pt-4 border-t border-[#1e2436] grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono text-xs">
             <div className="p-3 rounded bg-[#07080a] border border-[#1e2436]">
-              <div className="text-[#8b95ad] text-[10px]">EFICIÊNCIA DE CÓDIGO</div>
+              <div className="text-[#8b95ad] text-[10px]">{t.charts.metricEfficiency}</div>
               <div className="text-white font-bold text-base mt-0.5">98.4%</div>
             </div>
             <div className="p-3 rounded bg-[#07080a] border border-[#1e2436]">
-              <div className="text-[#8b95ad] text-[10px]">INTEGRAÇÃO IA</div>
+              <div className="text-[#8b95ad] text-[10px]">{t.charts.metricAi}</div>
               <div className="text-[#00ff66] font-bold text-base mt-0.5">95.0%</div>
             </div>
             <div className="p-3 rounded bg-[#07080a] border border-[#1e2436]">
-              <div className="text-[#8b95ad] text-[10px]">PROJETOS ENTREGUES</div>
+              <div className="text-[#8b95ad] text-[10px]">{t.charts.metricProjects}</div>
               <div className="text-[#00f0ff] font-bold text-base mt-0.5">11+</div>
             </div>
             <div className="p-3 rounded bg-[#07080a] border border-[#1e2436]">
-              <div className="text-[#8b95ad] text-[10px]">TEMPO MEDIO DE BUILD</div>
+              <div className="text-[#8b95ad] text-[10px]">{t.charts.metricBuildTime}</div>
               <div className="text-white font-bold text-base mt-0.5">7.4s</div>
             </div>
           </div>

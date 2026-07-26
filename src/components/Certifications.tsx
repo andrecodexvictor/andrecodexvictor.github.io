@@ -2,9 +2,11 @@
 
 import React from 'react';
 import { PORTFOLIO_CONFIG, Certification } from '@/config/portfolio';
+import { useLanguage } from './LanguageSelector';
 import { ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
 
 export const Certifications: React.FC<{ items?: Certification[] }> = ({ items }) => {
+  const { t } = useLanguage();
   const certs = items || PORTFOLIO_CONFIG.certifications;
 
   return (
@@ -15,13 +17,13 @@ export const Certifications: React.FC<{ items?: Certification[] }> = ({ items })
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#00ff66]"></span>
-            <span>// CREDENCIAIS & BADGES DE CERTIFICAÇÃO</span>
+            <span>{t.certifications.sectionTag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Certificações & Reconhecimento Técnico
+            {t.certifications.title}
           </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-            Credenciais verificadas em arquitetura de software, engenharia de inteligência artificial e sistemas embarcados.
+          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+            {t.certifications.subtitle}
           </p>
         </div>
 
@@ -40,7 +42,7 @@ export const Certifications: React.FC<{ items?: Certification[] }> = ({ items })
                   </div>
                   <div className="text-right">
                     <span className="text-[10px] text-[#00ff66] font-bold block flex items-center justify-end gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5" /> {cert.status}
+                      <ShieldCheck className="w-3.5 h-3.5" /> {t.certifications.verified}
                     </span>
                     <span className="text-[10px] text-[#535c73]">{cert.badgeCode}</span>
                   </div>
@@ -64,8 +66,8 @@ export const Certifications: React.FC<{ items?: Certification[] }> = ({ items })
 
               {/* Footer status */}
               <div className="mt-6 pt-3 border-t border-[#1e2436] flex items-center justify-between text-[10px] text-[#535c73]">
-                <span>BADGE VERIFICADO</span>
-                <span className="text-[#00ff66]">VALIDADO ENGENHARIA</span>
+                <span>{t.certifications.verified}</span>
+                <span className="text-[#00ff66]">{t.certifications.validated}</span>
               </div>
 
             </div>

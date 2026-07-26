@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { LanguageProvider } from '@/components/LanguageSelector';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { LiveNewsFeed } from '@/components/LiveNewsFeed';
@@ -14,7 +15,7 @@ import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { AdminPanel, useAdminPortfolioConfig } from '@/components/AdminPanel';
 
-export default function Home() {
+function PortfolioContent() {
   const { config, updateConfig } = useAdminPortfolioConfig();
 
   return (
@@ -38,5 +39,13 @@ export default function Home() {
       {/* Admin Panel Drawer Trigger & Superuser Authenticated Controls */}
       <AdminPanel config={config} onUpdate={updateConfig} />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <LanguageProvider>
+      <PortfolioContent />
+    </LanguageProvider>
   );
 }

@@ -2,9 +2,12 @@
 
 import React from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
+import { useLanguage } from './LanguageSelector';
 import { Server, Sparkles, Terminal, Cpu, Code2, Palette, Boxes, Zap, Webhook, Database, Bot, GitBranch, CircuitBoard, Container, Layout } from 'lucide-react';
 
 export const Skills: React.FC = () => {
+  const { t } = useLanguage();
+
   const iconMap: Record<string, React.ReactNode> = {
     LayoutCode: <Layout className="w-4 h-4 text-[#00f0ff]" />,
     Code2: <Code2 className="w-4 h-4 text-[#00f0ff]" />,
@@ -24,10 +27,10 @@ export const Skills: React.FC = () => {
   };
 
   const categories = [
-    { title: "FRONTEND & INTERFACE", items: PORTFOLIO_CONFIG.skills.frontend, borderColor: "border-[#00f0ff]/30", textColor: "text-[#00f0ff]" },
-    { title: "BACKEND & APIS", items: PORTFOLIO_CONFIG.skills.backend, borderColor: "border-[#00ff66]/30", textColor: "text-[#00ff66]" },
-    { title: "INTELIGÊNCIA ARTIFICIAL", items: PORTFOLIO_CONFIG.skills.ai, borderColor: "border-[#ffcc00]/30", textColor: "text-[#ffcc00]" },
-    { title: "DEVTOOLS & EMBARCADOS", items: PORTFOLIO_CONFIG.skills.devtools, borderColor: "border-[#ff3366]/30", textColor: "text-[#ff3366]" },
+    { title: t.skills.categories.frontend, items: PORTFOLIO_CONFIG.skills.frontend, borderColor: "border-[#00f0ff]/30", textColor: "text-[#00f0ff]" },
+    { title: t.skills.categories.backend, items: PORTFOLIO_CONFIG.skills.backend, borderColor: "border-[#00ff66]/30", textColor: "text-[#00ff66]" },
+    { title: t.skills.categories.ai, items: PORTFOLIO_CONFIG.skills.ai, borderColor: "border-[#ffcc00]/30", textColor: "text-[#ffcc00]" },
+    { title: t.skills.categories.devtools, items: PORTFOLIO_CONFIG.skills.devtools, borderColor: "border-[#ff3366]/30", textColor: "text-[#ff3366]" },
   ];
 
   return (
@@ -38,13 +41,13 @@ export const Skills: React.FC = () => {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-            <span>// SEÇÃO 03</span>
+            <span>{t.skills.sectionTag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Stack & Habilidades Técnicas
+            {t.skills.title}
           </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-            Ferramentas e ecossistema tecnológico focado em estabilidade, velocidade de entrega e integração de inteligência artificial.
+          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+            {t.skills.subtitle}
           </p>
         </div>
 

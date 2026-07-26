@@ -3,10 +3,13 @@
 import React from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
 import { TelemetryWidget } from './TelemetryWidget';
-import { Terminal, MessageSquare, Sparkles, ChevronRight } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
+import { MessageSquare, Sparkles, ChevronRight } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Hero: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="hero" className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden hud-grid-pattern">
       
@@ -23,10 +26,10 @@ export const Hero: React.FC = () => {
             {/* Telemetry Status Pill */}
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#0e1017] border border-[#00f0ff]/30 text-xs font-mono text-[#00f0ff] shadow-[0_0_15px_rgba(0,240,255,0.1)]">
               <span className="w-2 h-2 rounded-full bg-[#00ff66] animate-pulse"></span>
-              <span className="font-semibold">{PORTFOLIO_CONFIG.profile.status.label}</span>
+              <span className="font-semibold">{t.hero.statusLabel}</span>
               <span className="text-[#535c73]">|</span>
               <span className="text-white font-medium flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-[#00ff66]" /> Entusiasta de IA
+                <Sparkles className="w-3 h-3 text-[#00ff66]" /> {t.hero.aiEnthusiast}
               </span>
             </div>
 
@@ -36,20 +39,20 @@ export const Hero: React.FC = () => {
                 {PORTFOLIO_CONFIG.profile.name}
               </h1>
               <p className="font-mono text-sm sm:text-base text-[#00f0ff] mt-2 tracking-wide">
-                {PORTFOLIO_CONFIG.profile.role}
+                {t.hero.role}
               </p>
             </div>
 
             {/* Value Proposition Statement */}
             <div className="relative pl-4 border-l-2 border-[#00f0ff] py-1">
               <p className="text-xl sm:text-2xl font-semibold text-white leading-snug">
-                “{PORTFOLIO_CONFIG.profile.valueProp}”
+                “{t.hero.valueProp}”
               </p>
             </div>
 
             {/* Narrative Context */}
-            <p className="text-sm sm:text-base text-[#8b95ad] leading-relaxed max-w-2xl">
-              Desenvolvo aplicações full-stack, interfaces de alta velocidade e sistemas inteligentes com IA. Unindo precisão de código, velocidade de entrega e apelo visual inspirado em cockpits de alta performance.
+            <p className="text-sm sm:text-base text-[#8b95ad] leading-relaxed max-w-2xl font-sans">
+              {t.hero.description}
             </p>
 
             {/* CTAs & Social Links */}
@@ -59,7 +62,7 @@ export const Hero: React.FC = () => {
                 href="#projetos"
                 className="flex items-center gap-2 px-6 py-3 rounded bg-[#00f0ff] text-black font-bold hover:bg-[#33f3ff] transition-all shadow-[0_0_20px_rgba(0,240,255,0.4)]"
               >
-                <span>VER PROJETOS</span>
+                <span>{t.hero.viewProjects}</span>
                 <ChevronRight className="w-4 h-4" />
               </a>
 
@@ -70,7 +73,7 @@ export const Hero: React.FC = () => {
                 className="flex items-center gap-2 px-5 py-3 rounded bg-[#0e1017] border border-[#00ff66]/40 text-[#00ff66] font-bold hover:bg-[#00ff66]/10 hover:border-[#00ff66] transition-all"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>CONTATO DIRETO</span>
+                <span>{t.hero.directContact}</span>
               </a>
 
               <div className="flex items-center gap-2 ml-auto sm:ml-0">
@@ -99,16 +102,16 @@ export const Hero: React.FC = () => {
             {/* Quick Metrics Bar */}
             <div className="pt-6 border-t border-[#1e2436] grid grid-cols-3 gap-4 font-mono text-xs">
               <div>
-                <div className="text-white font-bold text-base">6+</div>
-                <div className="text-[#8b95ad] text-[11px]">Projetos Forte Valor</div>
+                <div className="text-white font-bold text-base">{t.hero.projectsCount}</div>
+                <div className="text-[#8b95ad] text-[11px]">{t.hero.projectsCountLabel}</div>
               </div>
               <div>
-                <div className="text-[#00f0ff] font-bold text-base">Vercel Ready</div>
-                <div className="text-[#8b95ad] text-[11px]">Demos Online</div>
+                <div className="text-[#00f0ff] font-bold text-base">{t.hero.liveDemos}</div>
+                <div className="text-[#8b95ad] text-[11px]">{t.hero.liveDemosLabel}</div>
               </div>
               <div>
-                <div className="text-[#00ff66] font-bold text-base">Full-Stack + IA</div>
-                <div className="text-[#8b95ad] text-[11px]">Foco em Execução</div>
+                <div className="text-[#00ff66] font-bold text-base">{t.hero.fullstackAi}</div>
+                <div className="text-[#8b95ad] text-[11px]">{t.hero.fullstackAiLabel}</div>
               </div>
             </div>
 

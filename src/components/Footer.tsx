@@ -2,9 +2,12 @@
 
 import React from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
+import { useLanguage } from './LanguageSelector';
 import { Terminal, ArrowUp } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -33,7 +36,7 @@ export const Footer: React.FC = () => {
           {/* Telemetry Status badge */}
           <div className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#0e1017] border border-[#1e2436] text-[11px] text-[#00ff66]">
             <span className="w-2 h-2 rounded-full bg-[#00ff66] animate-pulse"></span>
-            <span>VERCEL DEPLOYMENT READY</span>
+            <span>{t.footer.deploymentReady}</span>
           </div>
 
           {/* Back to top */}
@@ -41,7 +44,7 @@ export const Footer: React.FC = () => {
             onClick={scrollToTop}
             className="flex items-center gap-2 px-3 py-1.5 rounded bg-[#0e1017] border border-[#1e2436] text-xs text-[#8b95ad] hover:text-[#00f0ff] hover:border-[#00f0ff]/40 transition-all"
           >
-            <span>TOPO</span>
+            <span>{t.footer.topButton}</span>
             <ArrowUp className="w-3.5 h-3.5" />
           </button>
 
@@ -49,7 +52,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Credits & Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-[#535c73]">
-          <p>© {new Date().getFullYear()} André Victor (andrecodexvictor). Todos os direitos reservados.</p>
+          <p>© {new Date().getFullYear()} André Victor (andrecodexvictor). {t.footer.rightsReserved}</p>
           <p className="flex items-center gap-2">
             <span>Cyberpunk Minimalist + F1 Cockpit HUD Architecture</span>
           </p>

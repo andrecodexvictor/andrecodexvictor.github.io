@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG, CaseStudy } from '@/config/portfolio';
-import { BookOpen, CheckCircle2, X, ArrowRight, Layers, Cpu, ShieldCheck } from 'lucide-react';
+import { useLanguage } from './LanguageSelector';
+import { BookOpen, CheckCircle2, X, ArrowRight, Layers } from 'lucide-react';
 
 export const CaseStudies: React.FC = () => {
+  const { t } = useLanguage();
   const [activeModal, setActiveModal] = useState<CaseStudy | null>(null);
 
   const study = PORTFOLIO_CONFIG.caseStudies[0];
@@ -17,13 +19,13 @@ export const CaseStudies: React.FC = () => {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#00ff66]"></span>
-            <span>// SEÇÃO 04 • ARTIGO TÉCNICO</span>
+            <span>{t.caseStudies.sectionTag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Case Study & Framework GP-PME
+            {t.caseStudies.title}
           </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-            Visão prática e estruturada sobre como aplicar engenharia enxuta, automação com IA e prototipagem rápida em Pequenas e Médias Empresas.
+          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+            {t.caseStudies.subtitle}
           </p>
         </div>
 
@@ -67,7 +69,7 @@ export const CaseStudies: React.FC = () => {
                 className="flex items-center gap-2 px-6 py-3.5 rounded bg-[#00ff66] text-black font-mono font-bold text-xs hover:bg-[#33ff85] transition-all shadow-[0_0_20px_rgba(0,255,102,0.3)]"
               >
                 <BookOpen className="w-4 h-4" />
-                <span>LER ARTIGO COMPLETO</span>
+                <span>{t.caseStudies.readArticle}</span>
               </button>
             </div>
 
@@ -104,7 +106,7 @@ export const CaseStudies: React.FC = () => {
 
             {/* 4 Pillars Breakdown */}
             <div className="space-y-3 pt-2">
-              <span className="text-xs text-[#00ff66] font-mono font-bold uppercase">PILARES ESTRUTURAIS DO FRAMEWORK GP-PME</span>
+              <span className="text-xs text-[#00ff66] font-mono font-bold uppercase">{t.caseStudies.pillarsTitle}</span>
               <div className="space-y-3 font-sans">
                 {activeModal.pillars.map((pillar, i) => (
                   <div key={i} className="p-4 rounded-lg bg-[#131622] border border-[#1e2436] space-y-1">
@@ -120,7 +122,7 @@ export const CaseStudies: React.FC = () => {
 
             {/* Key Takeaways */}
             <div className="bg-[#131622] p-4 rounded border border-[#1e2436] space-y-2">
-              <span className="text-xs text-[#00ff66] font-mono font-bold">PONTOS CHAVE (KEY TAKEAWAYS)</span>
+              <span className="text-xs text-[#00ff66] font-mono font-bold">{t.caseStudies.takeawaysTitle}</span>
               <ul className="space-y-1 text-xs text-white">
                 {activeModal.keyTakeaways.map((item, i) => (
                   <li key={i} className="flex items-center gap-2 font-sans">
@@ -136,7 +138,7 @@ export const CaseStudies: React.FC = () => {
                 onClick={() => setActiveModal(null)}
                 className="px-5 py-2 rounded bg-[#131622] border border-[#1e2436] text-xs text-white hover:border-[#00ff66]"
               >
-                FECHAR LEITURA
+                {t.caseStudies.closeArticle}
               </button>
             </div>
 

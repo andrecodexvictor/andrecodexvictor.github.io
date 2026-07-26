@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
+import { useLanguage } from './LanguageSelector';
 import { Mail, MessageSquare, Copy, Check, Send } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Contact: React.FC = () => {
+  const { t } = useLanguage();
   const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
@@ -20,9 +22,8 @@ export const Contact: React.FC = () => {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
     
-    // Construct mailto link
-    const subject = encodeURIComponent(`Contato de ${formState.name} via Portfólio`);
-    const body = encodeURIComponent(`Nome: ${formState.name}\nEmail: ${formState.email}\n\nMensagem:\n${formState.message}`);
+    const subject = encodeURIComponent(`Contact from ${formState.name} via Portfolio`);
+    const body = encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`);
     window.location.href = `mailto:${PORTFOLIO_CONFIG.profile.contacts.emailPrimary}?subject=${subject}&body=${body}`;
     setSubmitted(true);
   };
@@ -35,13 +36,13 @@ export const Contact: React.FC = () => {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-            <span>// SEÇÃO 06</span>
+            <span>{t.contact.sectionTag}</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Entrar em Contato
+            {t.contact.title}
           </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-            Pronto para construir um novo produto web, automatizar processos com IA ou discutir oportunidades de tecnologia? Entre em contato direto.
+          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
+            {t.contact.subtitle}
           </p>
         </div>
 
@@ -62,15 +63,15 @@ export const Contact: React.FC = () => {
                   <MessageSquare className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#8b95ad]">CANAL RÁPIDO</span>
+                  <span className="text-xs text-[#8b95ad]">{t.contact.fastChannel}</span>
                   <h3 className="text-white font-bold text-base group-hover:text-[#00ff66]">
-                    WhatsApp Direct
+                    {t.contact.whatsappDirect}
                   </h3>
                   <p className="text-xs text-[#00ff66]">{PORTFOLIO_CONFIG.profile.contacts.whatsappDisplay}</p>
                 </div>
               </div>
               <span className="text-xs font-bold text-[#00ff66] px-3 py-1.5 rounded bg-[#00ff66]/10 border border-[#00ff66]/30">
-                ABRIR CHAT
+                {t.contact.openChat}
               </span>
             </a>
 
@@ -81,7 +82,7 @@ export const Contact: React.FC = () => {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#8b95ad]">E-MAIL PRINCIPAL</span>
+                  <span className="text-xs text-[#8b95ad]">{t.contact.primaryEmail}</span>
                   <h3 className="text-white font-bold text-sm">
                     {PORTFOLIO_CONFIG.profile.contacts.emailPrimary}
                   </h3>
@@ -94,12 +95,12 @@ export const Contact: React.FC = () => {
                 {copiedEmail === PORTFOLIO_CONFIG.profile.contacts.emailPrimary ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-[#00ff66]" />
-                    <span className="text-[#00ff66]">COPIADO!</span>
+                    <span className="text-[#00ff66]">{t.contact.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>COPIAR</span>
+                    <span>{t.contact.copy}</span>
                   </>
                 )}
               </button>
@@ -112,7 +113,7 @@ export const Contact: React.FC = () => {
                   <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-xs text-[#8b95ad]">E-MAIL SECUNDÁRIO</span>
+                  <span className="text-xs text-[#8b95ad]">{t.contact.secondaryEmail}</span>
                   <h3 className="text-white font-bold text-sm">
                     {PORTFOLIO_CONFIG.profile.contacts.emailAlt}
                   </h3>
@@ -125,12 +126,12 @@ export const Contact: React.FC = () => {
                 {copiedEmail === PORTFOLIO_CONFIG.profile.contacts.emailAlt ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-[#00ff66]" />
-                    <span className="text-[#00ff66]">COPIADO!</span>
+                    <span className="text-[#00ff66]">{t.contact.copied}</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>COPIAR</span>
+                    <span>{t.contact.copy}</span>
                   </>
                 )}
               </button>
@@ -167,42 +168,42 @@ export const Contact: React.FC = () => {
               className="bg-[#0e1017] rounded-xl border border-[#1e2436] p-6 sm:p-8 font-mono space-y-4"
             >
               <div className="flex items-center justify-between border-b border-[#1e2436] pb-3 text-xs">
-                <span className="text-white font-bold">// ENVIAR MENSAGEM RÁPIDA</span>
+                <span className="text-white font-bold">{t.contact.formTitle}</span>
                 <span className="text-[#00f0ff]">DIRECT MAIL</span>
               </div>
 
               <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">SEU NOME</label>
+                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourName}</label>
                 <input
                   type="text"
                   required
                   value={formState.name}
                   onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                  placeholder="Ex: Carlos Silva"
+                  placeholder="Ex: Alex Morgan"
                   className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">SEU E-MAIL</label>
+                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourEmail}</label>
                 <input
                   type="email"
                   required
                   value={formState.email}
                   onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                  placeholder="Ex: carlos@empresa.com"
+                  placeholder="Ex: alex@company.com"
                   className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">MENSAGEM OU PROPOSTA</label>
+                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourMessage}</label>
                 <textarea
                   rows={4}
                   required
                   value={formState.message}
                   onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                  placeholder="Descreva brevemente o projeto, ideia ou oportunidade..."
+                  placeholder="Describe your project, inquiry or opportunity..."
                   className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
                 ></textarea>
               </div>
@@ -212,12 +213,12 @@ export const Contact: React.FC = () => {
                 className="w-full py-3 rounded bg-[#00f0ff] text-black font-bold text-xs hover:bg-[#33f3ff] transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.3)]"
               >
                 <Send className="w-4 h-4" />
-                <span>DISPARAR MENSAGEM</span>
+                <span>{t.contact.sendButton}</span>
               </button>
 
               {submitted && (
-                <p className="text-xs text-[#00ff66] text-center pt-2">
-                  ✓ Seu cliente de e-mail foi aberto com a mensagem pronta para envio!
+                <p className="text-xs text-[#00ff66] text-center pt-2 font-sans">
+                  {t.contact.successMessage}
                 </p>
               )}
 

@@ -1,16 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useLanguage } from './LanguageSelector';
 import { Cpu, Zap, Activity, Radio, ChevronRight, CheckCircle2 } from 'lucide-react';
 
 export const TelemetryWidget: React.FC = () => {
+  const { t } = useLanguage();
   const [rpm, setRpm] = useState(11400);
-  const [activeTab, setActiveTab] = useState<'telemetry' | 'terminal' | 'stack'>('telemetry');
+  const [activeTab, setActiveTab] = useState<'telemetry' | 'terminal'>('telemetry');
   const [typedText, setTypedText] = useState('');
   const commandText = "init --mode=builder --ai=enabled --aesthetic=cyberpunk_hud";
 
   useEffect(() => {
-    // Dynamic RPM telemetry simulation (F1 V6 Turbo Hybrid vibe)
     const interval = setInterval(() => {
       setRpm(prev => {
         const delta = Math.floor(Math.random() * 400) - 200;
@@ -19,7 +20,6 @@ export const TelemetryWidget: React.FC = () => {
       });
     }, 600);
 
-    // Terminal typing effect
     let idx = 0;
     const typeInterval = setInterval(() => {
       if (idx <= commandText.length) {
@@ -48,7 +48,7 @@ export const TelemetryWidget: React.FC = () => {
             <span className="w-2.5 h-2.5 rounded-full bg-[#00ff66]"></span>
           </div>
           <span className="text-[#8b95ad] text-[11px] font-bold tracking-wider ml-2">
-            TELEMETRY // F1 COCKPIT HUD
+            {t.telemetry.title}
           </span>
         </div>
 
@@ -60,7 +60,7 @@ export const TelemetryWidget: React.FC = () => {
               activeTab === 'telemetry' ? 'bg-[#00f0ff] text-black font-bold' : 'text-[#8b95ad] hover:text-white'
             }`}
           >
-            TELEMETRIA
+            {t.telemetry.telemetryTab}
           </button>
           <button
             onClick={() => setActiveTab('terminal')}
@@ -68,7 +68,7 @@ export const TelemetryWidget: React.FC = () => {
               activeTab === 'terminal' ? 'bg-[#00f0ff] text-black font-bold' : 'text-[#8b95ad] hover:text-white'
             }`}
           >
-            TERMINAL
+            {t.telemetry.terminalTab}
           </button>
         </div>
       </div>
@@ -82,7 +82,7 @@ export const TelemetryWidget: React.FC = () => {
             <div className="bg-[#07080a] p-3 rounded border border-[#1e2436]">
               <div className="flex items-center justify-between mb-2 text-[#8b95ad] text-[10px]">
                 <span className="flex items-center gap-1.5 text-[#00f0ff]">
-                  <Activity className="w-3.5 h-3.5" /> MOTOR V6 HYBRID // POWER UNIT
+                  <Activity className="w-3.5 h-3.5" /> {t.telemetry.powerUnit}
                 </span>
                 <span className="font-bold text-white">{rpm} RPM</span>
               </div>
@@ -116,17 +116,17 @@ export const TelemetryWidget: React.FC = () => {
               
               <div className="bg-[#07080a] p-3 rounded border border-[#1e2436] flex flex-col justify-between">
                 <div className="flex items-center justify-between text-[#8b95ad] text-[10px]">
-                  <span>SETOR 1</span>
+                  <span>{t.telemetry.sector1}</span>
                   <Zap className="w-3 h-3 text-[#00ff66]" />
                 </div>
                 <div className="mt-1 font-bold text-white text-sm tracking-tight text-right">
-                  <span className="text-[#00ff66]">21.412s</span> (PURPLE)
+                  <span className="text-[#00ff66]">21.412s</span> {t.telemetry.purple}
                 </div>
               </div>
 
               <div className="bg-[#07080a] p-3 rounded border border-[#1e2436] flex flex-col justify-between">
                 <div className="flex items-center justify-between text-[#8b95ad] text-[10px]">
-                  <span>IA LATENCY</span>
+                  <span>{t.telemetry.aiLatency}</span>
                   <Cpu className="w-3 h-3 text-[#00f0ff]" />
                 </div>
                 <div className="mt-1 font-bold text-[#00f0ff] text-sm tracking-tight text-right">
@@ -136,11 +136,11 @@ export const TelemetryWidget: React.FC = () => {
 
               <div className="col-span-2 sm:col-span-1 bg-[#07080a] p-3 rounded border border-[#1e2436] flex flex-col justify-between">
                 <div className="flex items-center justify-between text-[#8b95ad] text-[10px]">
-                  <span>DEPLOY STATUS</span>
+                  <span>{t.telemetry.deployStatus}</span>
                   <Radio className="w-3 h-3 text-[#00ff66] animate-pulse" />
                 </div>
                 <div className="mt-1 font-bold text-[#00ff66] text-xs tracking-tight text-right uppercase">
-                  READY FOR VERCEL
+                  {t.telemetry.readyForProd}
                 </div>
               </div>
 
@@ -150,10 +150,10 @@ export const TelemetryWidget: React.FC = () => {
             <div className="bg-[#07080a] p-3 rounded border border-[#00f0ff]/20 text-[11px] text-[#8b95ad] space-y-1">
               <div className="text-white font-bold flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-[#00f0ff]" />
-                <span>PILOT PHILOSOPHY</span>
+                <span>{t.telemetry.pilotPhilosophyTitle}</span>
               </div>
-              <p className="text-[#8b95ad] leading-relaxed">
-                Execute fast, validate with precision, and deliver strong aesthetic identity.
+              <p className="text-[#8b95ad] leading-relaxed font-sans">
+                {t.telemetry.pilotPhilosophyDesc}
               </p>
             </div>
 
@@ -185,8 +185,8 @@ export const TelemetryWidget: React.FC = () => {
 
       {/* HUD Footer Status */}
       <div className="bg-[#131622] px-4 py-2 border-t border-[#1e2436] flex items-center justify-between text-[10px] text-[#535c73]">
-        <span>MODE: FULL-STACK BUILDER</span>
-        <span className="text-[#00ff66] font-bold">100% EXECUTABILIDADE</span>
+        <span>{t.telemetry.modeLabel}</span>
+        <span className="text-[#00ff66] font-bold">{t.telemetry.executability}</span>
       </div>
 
     </div>
