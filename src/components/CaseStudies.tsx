@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG, CaseStudy } from '@/config/portfolio';
-import { BookOpen, Sparkles, CheckCircle2, X, ArrowRight } from 'lucide-react';
+import { BookOpen, CheckCircle2, X, ArrowRight, Layers, Cpu, ShieldCheck } from 'lucide-react';
 
 export const CaseStudies: React.FC = () => {
   const [activeModal, setActiveModal] = useState<CaseStudy | null>(null);
@@ -17,13 +17,13 @@ export const CaseStudies: React.FC = () => {
         <div className="mb-12">
           <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] mb-2">
             <span className="w-2 h-2 rounded-full bg-[#00ff66]"></span>
-            <span>// SEÇÃO 04</span>
+            <span>// SEÇÃO 04 • ARTIGO TÉCNICO</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Artigos & Case Studies
+            Case Study & Framework GP-PME
           </h2>
           <p className="text-[#8b95ad] text-sm mt-2 max-w-xl">
-            Visão estratégica sobre arquitetura de software, governança técnica e gestão enxuta em produtos digitais.
+            Visão prática e estruturada sobre como aplicar engenharia enxuta, automação com IA e prototipagem rápida em Pequenas e Médias Empresas.
           </p>
         </div>
 
@@ -32,7 +32,7 @@ export const CaseStudies: React.FC = () => {
           
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             
-            <div className="space-y-3 lg:max-w-3xl">
+            <div className="space-y-4 lg:max-w-3xl">
               <div className="flex items-center gap-3 font-mono text-xs">
                 <span className="px-3 py-1 rounded-full bg-[#00ff66]/10 text-[#00ff66] border border-[#00ff66]/40 font-bold">
                   {study.category}
@@ -45,15 +45,16 @@ export const CaseStudies: React.FC = () => {
                 {study.title}
               </h3>
 
-              <p className="text-sm text-[#8b95ad] leading-relaxed">
+              <p className="text-sm text-[#8b95ad] leading-relaxed font-sans">
                 {study.subtitle}
               </p>
 
-              <div className="pt-2 font-mono text-xs text-[#535c73] space-y-1">
-                {study.keyTakeaways.map((takeaway, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-[#8b95ad]">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#00ff66] shrink-0" />
-                    <span>{takeaway}</span>
+              {/* Pillars preview */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-xs">
+                {study.pillars.map((pillar, idx) => (
+                  <div key={idx} className="p-2.5 rounded bg-[#131622] border border-[#1e2436] text-[#8b95ad] flex items-start gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-[#00ff66] shrink-0 mt-0.5" />
+                    <span className="text-white text-[11px] font-semibold">{pillar.name}</span>
                   </div>
                 ))}
               </div>
@@ -76,9 +77,9 @@ export const CaseStudies: React.FC = () => {
 
       </div>
 
-      {/* Article Modal Overlay */}
+      {/* Article Modal Reader */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-[#0e1017] border border-[#00ff66]/50 rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 font-mono space-y-6 relative shadow-[0_0_40px_rgba(0,255,102,0.15)]">
             
             <button
@@ -94,18 +95,36 @@ export const CaseStudies: React.FC = () => {
               <p className="text-xs text-[#8b95ad]">{activeModal.readTime} • {activeModal.date}</p>
             </div>
 
-            <div className="border-t border-[#1e2436] pt-4 font-sans text-sm text-[#8b95ad] space-y-4 leading-relaxed">
+            {/* Article Content Paragraphs */}
+            <div className="border-t border-[#1e2436] pt-4 font-sans text-sm sm:text-base text-[#8b95ad] space-y-4 leading-relaxed">
               {activeModal.content.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
 
+            {/* 4 Pillars Breakdown */}
+            <div className="space-y-3 pt-2">
+              <span className="text-xs text-[#00ff66] font-mono font-bold uppercase">PILARES ESTRUTURAIS DO FRAMEWORK GP-PME</span>
+              <div className="space-y-3 font-sans">
+                {activeModal.pillars.map((pillar, i) => (
+                  <div key={i} className="p-4 rounded-lg bg-[#131622] border border-[#1e2436] space-y-1">
+                    <div className="text-white font-bold text-sm font-mono flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-[#00ff66]" />
+                      <span>{pillar.name}</span>
+                    </div>
+                    <p className="text-xs text-[#8b95ad] leading-relaxed pl-6">{pillar.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Takeaways */}
             <div className="bg-[#131622] p-4 rounded border border-[#1e2436] space-y-2">
               <span className="text-xs text-[#00ff66] font-mono font-bold">PONTOS CHAVE (KEY TAKEAWAYS)</span>
               <ul className="space-y-1 text-xs text-white">
                 {activeModal.keyTakeaways.map((item, i) => (
-                  <li key={i} className="flex items-center gap-2">
-                    <ArrowRight className="w-3.5 h-3.5 text-[#00ff66]" />
+                  <li key={i} className="flex items-center gap-2 font-sans">
+                    <ArrowRight className="w-3.5 h-3.5 text-[#00ff66] shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}

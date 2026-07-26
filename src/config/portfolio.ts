@@ -29,6 +29,7 @@ export interface CaseStudy {
   date: string;
   summary: string;
   content: string[];
+  pillars: { name: string; description: string }[];
   keyTakeaways: string[];
 }
 
@@ -66,7 +67,16 @@ export const PORTFOLIO_CONFIG = {
     handle: "andrecodexvictor",
     role: "Full-Stack Developer, AI Builder & Entusiasta de IA",
     valueProp: "Construo produtos web, interfaces e sistemas com IA, foco em execução e identidade visual forte.",
-    bio: "Engenheiro de software e criador de produtos digitais focado em alta performance visual e técnica. Combinando o rigor da arquitetura web moderna, automações inteligentes com IA e a precisão do ecossistema de alta performance estilo cockpit / F1.",
+    bioShort: "Desenvolvedor Full-Stack, Entusiasta de Inteligência Artificial e solucionador de problemas com forte foco em velocidade de entrega, arquitetura limpa e experiência visual marcante.",
+    bioHuman: {
+      headline: "Estudante contínuo, entusiasta de IA e ex-vendedor com paixão por tecnologia.",
+      paragraphs: [
+        "Sou um verdadeiro entusiasta de Inteligência Artificial e apaixonado por estudar e aprender coisas novas diariamente. Acredito que a tecnologia deve ser usada para resolver problemas reais de forma rápida, eficiente e elegante.",
+        "Tive uma experiência enriquecedora no setor de Vendas, o que me trouxe uma bagagem essencial: visão de negócios, escuta ativa, empatia com a dor do cliente e foco total em gerar valor perceptível desde o primeiro momento.",
+        "No tempo livre, sou fã de animes, leitor assíduo de livros, apaixonado pela estratégia da Fórmula 1 e fascinado por transformar ideias complexas em código funcional e bonito."
+      ],
+      interests: ["Inteligência Artificial", "Engenharia de Software", "Livros & Aprendizado", "Vendas & Negócios", "Animes & Pop Culture", "Fórmula 1 & Estratégia"]
+    },
     contacts: {
       emailPrimary: "andrevictorandrade@hotmail.com",
       emailAlt: "andrevictorandrade@gmail.com",
@@ -102,13 +112,27 @@ export const PORTFOLIO_CONFIG = {
       { name: "Agentes de Automação & RAG", level: "Intermediário", icon: "Bot" },
     ],
     devtools: [
+      { name: "Shell / Bash (script-kitty)", level: "Avançado", icon: "Terminal" },
       { name: "Git & GitHub Actions", level: "Avançado", icon: "GitBranch" },
       { name: "C++ & Arduino / ESP32", level: "Intermediário", icon: "CircuitBoard" },
-      { name: "Docker & Linux Shell", level: "Intermediário", icon: "Container" },
+      { name: "Docker & Linux CLI", level: "Intermediário", icon: "Container" },
     ]
   },
 
   featuredProjects: [
+    {
+      id: "24podiums",
+      title: "24podiums",
+      category: "Web Simulation & F1 Game",
+      shortDescription: "Simulador de estratégia e gerenciamento de equipe de Fórmula 1 em 24 corridas.",
+      fullDescription: "Jogo web interativo em que o usuário assume a liderança de uma equipe de F1, gerencia orçamento, contratação de pilotos e táticas de box ao longo de uma temporada.",
+      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Web Storage API"],
+      status: "ONLINE / DEMO READY",
+      githubUrl: "https://github.com/andrecodexvictor/24podiums",
+      demoUrl: "https://24podiums.com",
+      isFeatured: true,
+      highlightBadge: "Destaque F1 HUD — 24podiums.com"
+    },
     {
       id: "zenpr",
       title: "ZenPR",
@@ -118,7 +142,6 @@ export const PORTFOLIO_CONFIG = {
       tags: ["TypeScript", "Node.js", "GitHub Octokit API", "GitHub Actions", "Webhooks"],
       status: "ONLINE / PROD",
       githubUrl: "https://github.com/andrecodexvictor/ZenPR",
-      demoUrl: "https://zenpr.vercel.app",
       isFeatured: true,
       highlightBadge: "Produtividade Dev"
     },
@@ -129,11 +152,10 @@ export const PORTFOLIO_CONFIG = {
       shortDescription: "Hub de ferramentas de mídia e utilitários visuais client-side para criadores.",
       fullDescription: "Aplicação web offline-first para otimização de imagens, conversão de arquivos e preview de safe-zones de redes sociais com zero latência de servidor.",
       tags: ["React", "Next.js", "Tailwind CSS", "HTML5 Canvas", "Web Workers"],
-      status: "ONLINE / DEMO READY",
+      status: "ONLINE / PROD",
       githubUrl: "https://github.com/andrecodexvictor/Creator-kit-Hub",
-      demoUrl: "https://creator-kit-hub.vercel.app",
       isFeatured: true,
-      highlightBadge: "Recomendado Vercel"
+      highlightBadge: "Creator Utility"
     },
     {
       id: "frame-sim",
@@ -144,7 +166,6 @@ export const PORTFOLIO_CONFIG = {
       tags: ["TypeScript", "HTML5 Canvas", "Physics Engine", "WebGL", "Math Kinematics"],
       status: "ONLINE / INTERACTIVE",
       githubUrl: "https://github.com/andrecodexvictor/Frame-sim",
-      demoUrl: "https://frame-sim.vercel.app",
       isFeatured: true,
       highlightBadge: "Interactive Canvas"
     },
@@ -171,19 +192,6 @@ export const PORTFOLIO_CONFIG = {
       githubUrl: "https://github.com/andrecodexvictor/Sinistrinha",
       isFeatured: true,
       highlightBadge: "Automação Community"
-    },
-    {
-      id: "24podiums",
-      title: "24podiums",
-      category: "Web Simulation & F1 Game",
-      shortDescription: "Simulador de estratégia e gerenciamento de equipe de Fórmula 1 em 24 corridas.",
-      fullDescription: "Jogo web interativo em que o usuário assume a liderança de uma equipe de F1, gerencia orçamento, contratação de pilotos e táticas de box ao longo de uma temporada.",
-      tags: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Web Storage API"],
-      status: "ONLINE / DEMO READY",
-      githubUrl: "https://github.com/andrecodexvictor/24podiums",
-      demoUrl: "https://24podiums.vercel.app",
-      isFeatured: true,
-      highlightBadge: "Destaque F1 HUD"
     }
   ] as Project[],
 
@@ -215,20 +223,38 @@ export const PORTFOLIO_CONFIG = {
     {
       id: "gp-pme",
       title: "GP-PME: Gestão de Projetos e Engenharia Enxuta em PMEs",
-      subtitle: "Como estruturar desenvolvimento ágil, arquitetura limpa e entregas rápidas com foco em alto valor percebido.",
-      readTime: "5 min de leitura",
+      subtitle: "Estrutura completa de governança ágil, arquitetura de software limpa e automação com IA para Pequenas e Médias Empresas.",
+      readTime: "7 min de leitura",
       category: "Artigo & Case Study",
       date: "2026",
-      summary: "Uma análise prática de como pequenas e médias empresas podem implementar governança técnica, automação com IA e prototipagem rápida sem gerar sobrecarga burocrática.",
+      summary: "Análise profunda do framework GP-PME (Gestão de Projetos em Pequenas e Médias Empresas), abordando como equilibrar velocidade de lançamento, custo reduzido, governança técnica e alta percepção de valor visual.",
       content: [
-        "No ambiente competitivo de Pequenas e Médias Empresas (PMEs), o maior risco não é a falta de ideias, mas a velocidade de execução aliada à qualidade da entrega visual e técnica.",
-        "O framework GP-PME estabelece diretrizes claras: ciclos curtos de prototipagem, automação de testes com CI/CD, padronização de componentes reutilizáveis e uso estratégico de IA para geração de insights e acelerar o desenvolvimento.",
-        "Resultado: Redução dramática do tempo de colocação no mercado (Time-To-Market) e criação de produtos que transmitem robustez, credibilidade e apelo visual desde a primeira versão."
+        "Em Pequenas e Médias Empresas (PMEs), o maior desafio do desenvolvimento de software não é a escassez de ideias, mas a execução lenta e a falta de padronização técnica. Muitas vezes, projetos demoram meses para sair do papel ou chegam ao mercado com um visual amador que compromete a credibilidade da empresa.",
+        "O framework GP-PME foi criado justamente para resolver esse gargalo. Ele combina metodologias ágeis simplificadas com ferramentas modernas de engenharia, integração contínua (CI/CD), componentes de UI reutilizáveis e o uso estratégico de Inteligência Artificial em cada etapa do ciclo de vida do produto.",
+        "Ao implementar ciclos curtos de prototipagem e validação prática, as PMEs conseguem reduzir o Time-To-Market de semanas para poucos dias, enquanto mantêm um padrão estético e arquitetural refinado que transmite autoridade imediata a clientes, investidores e parceiros."
+      ],
+      pillars: [
+        {
+          name: "1. Ciclos Curtos de Prototipagem & Validação Rápida",
+          description: "Entregas em iterações de poucas horas ou dias, focando 100% no MVP executável com alto valor percebido."
+        },
+        {
+          name: "2. Pipelines CI/CD & Governança Enxuta (Ex: ZenPR)",
+          description: "Automação de triagem de código, testes e rotulagem automatizada no GitHub, garantindo qualidade sem burocracia."
+        },
+        {
+          name: "3. Design System Modular & Estética de Alta Performance",
+          description: "Uso de componentes React/Tailwind pré-estruturados com linguagem visual marcante (Dark Neon / HUD) que encanta o visitante."
+        },
+        {
+          name: "4. Aceleração Contínua com Agentes de IA",
+          description: "Integração de LLMs e automações para auxílio em revisão de código, geração de documentação e testes automatizados."
+        }
       ],
       keyTakeaways: [
-        "Velocidade com rigor técnico: priorizar poucos projetos fortes com narrativa clara.",
-        "Integração contínua de IA no fluxo de trabalho de desenvolvimento.",
-        "Design visual marcante como diferencial de conversão e autoridade."
+        "Velocidade técnica aliada a rigor arquitetural sem gerar retrabalho.",
+        "Uso prático de IA como acelerador direto da capacidade produtiva.",
+        "Identidade visual forte como vetor de conversão de clientes e autoridade técnica."
       ]
     }
   ] as CaseStudy[],
@@ -242,38 +268,39 @@ export const PORTFOLIO_CONFIG = {
     { quarter: "Q1 2026", fullstackSkill: 96, aiIntegration: 95, projectsCompleted: 11 },
   ] as EvolutionMetric[],
 
-  // Live News & Updates Ticker
+  // Real Live Updates & News Feed
   liveUpdates: [
     {
-      id: "up-1",
-      type: "PROJECT_RELEASE",
-      title: "Lançamento da nova versão do 24podiums",
-      date: "HOJE",
-      summary: "Interface HUD reformulada para o simulador de F1 com suporte a 24 corridas e cálculo de telemetria.",
-      link: "https://github.com/andrecodexvictor/24podiums",
-      tag: "F1 HUD"
-    },
-    {
-      id: "up-2",
+      id: "up-script-kitty",
       type: "LINKEDIN_POST",
-      title: "Postagem no LinkedIn: Arquitetura de IA para PMEs (GP-PME)",
-      date: "ONTEM",
-      summary: "Discussão sobre como agentes de IA reduzem o tempo de entrega de software de semanas para dias.",
+      title: "Novo Post no LinkedIn: Automações com script-kitty & produtividade no terminal",
+      date: "RECENTE",
+      summary: "Post recente sobre como o repositório script-kitty otimiza rotinas de terminal e Shell/Bash no dia a dia dev.",
       link: "https://www.linkedin.com/in/andré-victor-andrade-oliveira-santos-22b142208",
       tag: "LinkedIn Update"
     },
     {
-      id: "up-3",
+      id: "up-24podiums",
+      type: "PROJECT_RELEASE",
+      title: "Lançamento Oficial: 24podiums.com online!",
+      date: "DESTAQUE",
+      summary: "O simulador de estratégia de F1 já está ao vivo no domínio próprio 24podiums.com.",
+      link: "https://24podiums.com",
+      tag: "Project Live"
+    },
+    {
+      id: "up-gppme",
       type: "ARTICLE",
-      title: "Publicação do Artigo Técnico GP-PME no Portfólio",
+      title: "Publicação do Framework GP-PME no Portfólio",
       date: "JUL 2026",
-      summary: "Leitura completa sobre governança de software enxuta e prototipagem com alto valor percebido.",
+      summary: "Artigo completo sobre Engenharia Enxuta e Gestão de Projetos para Pequenas e Médias Empresas.",
       link: "#artigos",
       tag: "Case Study"
     }
   ] as LiveUpdate[],
 
-  // Certifications & Badges Showcase
+  // Certifications (Disabled by default as requested, can be toggled via Admin Panel)
+  certificationsEnabled: false,
   certifications: [
     {
       id: "cert-1",
@@ -292,15 +319,6 @@ export const PORTFOLIO_CONFIG = {
       badgeCode: "AI-BUILDER-7712",
       status: "VERIFIED / ACTIVE",
       skillsCovered: ["Prompt Engineering", "OpenAI / Gemini APIs", "Autonomous Agents", "RAG"]
-    },
-    {
-      id: "cert-3",
-      title: "Embedded Robotics & Control Firmware",
-      issuer: "Hardware & Microcontrollers Initiative",
-      date: "2025",
-      badgeCode: "EMBED-BOT-4019",
-      status: "VERIFIED / ACTIVE",
-      skillsCovered: ["C++", "ESP32", "Arduino Framework", "Inverse Kinematics"]
     }
   ] as Certification[]
 };

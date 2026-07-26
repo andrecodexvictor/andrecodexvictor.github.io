@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
@@ -10,21 +12,31 @@ import { Certifications } from '@/components/Certifications';
 import { About } from '@/components/About';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
+import { AdminPanel, useAdminConfig } from '@/components/AdminPanel';
 
 export default function Home() {
+  const { config, updateConfig } = useAdminConfig();
+
   return (
-    <main className="min-h-screen bg-[#07080a] text-[#f4f5f8] selection:bg-[#00f0ff] selection:text-black">
+    <main className="min-h-screen bg-[#07080a] text-[#f4f5f8] selection:bg-[#00f0ff] selection:text-black relative">
       <Navbar />
       <Hero />
-      <LiveNewsFeed />
+      
+      {config.showLiveNews && <LiveNewsFeed />}
+      
       <Projects />
       <Skills />
-      <EvolutionCharts />
-      <CaseStudies />
-      <Certifications />
+      
+      {config.showEvolutionCharts && <EvolutionCharts />}
+      {config.showCaseStudies && <CaseStudies />}
+      {config.showCertifications && <Certifications />}
+      
       <About />
       <Contact />
       <Footer />
+
+      {/* Admin Panel Drawer Trigger & Controls */}
+      <AdminPanel config={config} onUpdate={updateConfig} />
     </main>
   );
 }

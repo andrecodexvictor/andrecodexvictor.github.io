@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { ExternalLink, Terminal } from 'lucide-react';
+import { ExternalLink, Terminal, ChevronRight } from 'lucide-react';
 import { GithubIcon } from './Icons';
 
 export const Projects: React.FC = () => {
@@ -106,32 +106,32 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* Card Actions */}
-                <div className="flex items-center justify-between pt-2 font-mono text-xs">
+                <div className="flex items-center justify-between pt-2 font-mono text-xs gap-2">
+                  
+                  {/* GitHub Repo Button */}
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[#8b95ad] hover:text-white transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#131622] border border-[#1e2436] text-[#8b95ad] hover:text-white hover:border-[#00f0ff]/40 transition-all text-xs font-semibold"
                   >
-                    <GithubIcon className="w-4 h-4" />
-                    <span>CÓDIGO</span>
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>REPOSITÓRIO</span>
                   </a>
 
+                  {/* 24podiums Live Demo Link ONLY */}
                   {project.demoUrl ? (
                     <a
                       href={project.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#00f0ff]/10 text-[#00f0ff] border border-[#00f0ff]/40 hover:bg-[#00f0ff]/20 font-bold transition-all"
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#00ff66]/10 text-[#00ff66] border border-[#00ff66]/40 hover:bg-[#00ff66]/20 font-bold transition-all text-xs"
                     >
-                      <span>LIVE DEMO</span>
+                      <span>24PODIUMS.COM</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
-                  ) : (
-                    <span className="text-[10px] text-[#535c73] font-mono">
-                      [ HARDWARE / BOT ]
-                    </span>
-                  )}
+                  ) : null}
+
                 </div>
 
               </div>
