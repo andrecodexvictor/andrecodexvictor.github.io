@@ -1,0 +1,372 @@
+'use client';
+
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { TechIcon } from '@/components/TechIcons';
+
+export type TechCategory = 'languages' | 'frontend' | 'backend' | 'ai-data' | 'infra';
+
+export interface TechItem {
+  id: string;
+  name: string;
+  category: TechCategory;
+  icon: string;
+  experience: {
+    en: string;
+    pt: string;
+  };
+}
+
+export const CURATED_TECH_STACK: TechItem[] = [
+  {
+    id: 'typescript',
+    name: 'TypeScript',
+    category: 'languages',
+    icon: 'typescript',
+    experience: {
+      en: 'Strict typing, AST analysis & production safety',
+      pt: 'Tipagem estrita, análise AST e segurança em produção',
+    },
+  },
+  {
+    id: 'python',
+    name: 'Python',
+    category: 'languages',
+    icon: 'python',
+    experience: {
+      en: 'AsyncIO, data pipelines & agent architectures',
+      pt: 'AsyncIO, pipelines de dados e arquitetura de agentes',
+    },
+  },
+  {
+    id: 'react',
+    name: 'React',
+    category: 'frontend',
+    icon: 'react',
+    experience: {
+      en: 'Server components, hooks & reactive interfaces',
+      pt: 'Server components, hooks e interfaces reativas',
+    },
+  },
+  {
+    id: 'nextjs',
+    name: 'Next.js',
+    category: 'frontend',
+    icon: 'nextjs',
+    experience: {
+      en: 'App Router, SSG static exports & edge optimization',
+      pt: 'App Router, exportação estática SSG e edge optimization',
+    },
+  },
+  {
+    id: 'tailwindcss',
+    name: 'Tailwind CSS',
+    category: 'frontend',
+    icon: 'tailwindcss',
+    experience: {
+      en: 'Design tokens, dark/light themes & fluid layouts',
+      pt: 'Tokens de design, temas dark/light e layouts fluidos',
+    },
+  },
+  {
+    id: 'nodejs',
+    name: 'Node.js',
+    category: 'backend',
+    icon: 'nodejs',
+    experience: {
+      en: 'Microservices, CLI tooling & high-efficiency runtimes',
+      pt: 'Microsserviços, tooling CLI e runtimes de alta eficiência',
+    },
+  },
+  {
+    id: 'fastapi',
+    name: 'FastAPI',
+    category: 'backend',
+    icon: 'fastapi',
+    experience: {
+      en: 'High-throughput async APIs & Pydantic validation',
+      pt: 'APIs assíncronas de alta vazão e validação Pydantic',
+    },
+  },
+  {
+    id: 'langgraph',
+    name: 'LangGraph',
+    category: 'ai-data',
+    icon: 'langgraph',
+    experience: {
+      en: 'Cyclic state machines & autonomous agent flows',
+      pt: 'Máquinas de estado cíclicas e fluxos agênticos autônomos',
+    },
+  },
+  {
+    id: 'chromadb',
+    name: 'ChromaDB',
+    category: 'ai-data',
+    icon: 'chromadb',
+    experience: {
+      en: 'Vector embeddings, cosine similarity & hybrid search',
+      pt: 'Embeddings vetoriais, similaridade por cosseno e busca híbrida',
+    },
+  },
+  {
+    id: 'postgresql',
+    name: 'PostgreSQL',
+    category: 'ai-data',
+    icon: 'postgresql',
+    experience: {
+      en: 'Relational design, indexing & pgvector retrieval',
+      pt: 'Modelagem relacional, indexação e busca vetorial pgvector',
+    },
+  },
+  {
+    id: 'kafka',
+    name: 'Apache Kafka',
+    category: 'ai-data',
+    icon: 'kafka',
+    experience: {
+      en: 'Event streaming, topic partitions & pub/sub topologies',
+      pt: 'Streaming de eventos, partições e topologias pub/sub',
+    },
+  },
+  {
+    id: 'docker',
+    name: 'Docker',
+    category: 'infra',
+    icon: 'docker',
+    experience: {
+      en: 'Multi-stage builds, container isolation & compose setups',
+      pt: 'Multi-stage builds, isolamento de containers e compose',
+    },
+  },
+  {
+    id: 'oracle',
+    name: 'Oracle Cloud (OCI)',
+    category: 'infra',
+    icon: 'oracle',
+    experience: {
+      en: 'OCI AI Foundations certified & resilient architectures',
+      pt: 'Certificado OCI AI Foundations e arquiteturas resilientes',
+    },
+  },
+  {
+    id: 'vercel',
+    name: 'Vercel',
+    category: 'infra',
+    icon: 'vercel',
+    experience: {
+      en: 'Static hosting, edge deployment & CI/CD preview workflows',
+      pt: 'Deploy estático, edge computing e pipelines de preview',
+    },
+  },
+];
+
+const CATEGORY_NAMES: Record<TechCategory, { en: string; pt: string }> = {
+  languages: { en: 'Language', pt: 'Linguagem' },
+  frontend: { en: 'Frontend', pt: 'Frontend' },
+  backend: { en: 'Backend', pt: 'Backend' },
+  'ai-data': { en: 'AI & Data', pt: 'IA & Dados' },
+  infra: { en: 'Cloud & Infra', pt: 'Cloud & Infra' },
+};
+
+export interface TechStackCarouselProps {
+  lang: 'en' | 'pt';
+}
+
+export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+
+  const checkScrollBounds = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    // Allow small 2px threshold for sub-pixel zoom discrepancies
+    const atStart = scrollLeft <= 2;
+    const atEnd = scrollLeft + clientWidth >= scrollWidth - 2;
+
+    setCanScrollPrev(!atStart);
+    setCanScrollNext(!atEnd);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    checkScrollBounds();
+
+    el.addEventListener('scroll', checkScrollBounds, { passive: true });
+    window.addEventListener('resize', checkScrollBounds);
+
+    return () => {
+      el.removeEventListener('scroll', checkScrollBounds);
+      window.removeEventListener('resize', checkScrollBounds);
+    };
+  }, [checkScrollBounds]);
+
+  const handleScroll = (direction: 'prev' | 'next') => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+
+    // Scroll by roughly 70% of the visible container width
+    const scrollAmount = Math.max(el.clientWidth * 0.72, 240);
+    const targetScrollLeft =
+      direction === 'prev' ? el.scrollLeft - scrollAmount : el.scrollLeft + scrollAmount;
+
+    // Respect prefers-reduced-motion
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    el.scrollTo({
+      left: targetScrollLeft,
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+  };
+
+  const copy = {
+    eyebrow: lang === 'pt' ? 'Stack Tecnológica Curada' : 'Curated Tech Stack',
+    title: lang === 'pt' ? 'Ferramentas & Tecnologias em Produção' : 'Production Tools & Technologies',
+    subtitle:
+      lang === 'pt'
+        ? '14 tecnologias reais verificadas nos projetos e estudos de caso deste portfólio.'
+        : '14 authentic technologies verified across projects and case studies in this portfolio.',
+    prevLabel: lang === 'pt' ? 'Tecnologias anteriores' : 'Previous technologies',
+    nextLabel: lang === 'pt' ? 'Próximas tecnologias' : 'Next technologies',
+    ariaLabel: lang === 'pt' ? 'Carrossel de tecnologias do portfólio' : 'Portfolio tech stack carousel',
+  };
+
+  return (
+    <section
+      id="tech-stack"
+      aria-label={copy.ariaLabel}
+      className="border-y border-line/60 bg-surface/40 py-8 md:py-10 transition-colors"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header with Title and Accessible Arrow Controls */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+          <div>
+            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-accent mb-1">
+              {copy.eyebrow}
+            </p>
+            <h2 className="text-xl sm:text-2xl font-bold text-ink tracking-tight">
+              {copy.title}
+            </h2>
+            <p className="text-xs sm:text-sm text-muted mt-1 max-w-2xl">
+              {copy.subtitle}
+            </p>
+          </div>
+
+          {/* Navigation Controls: STRICTLY USER-INITIATED (NO AUTOPLAY/MARQUEE) */}
+          <div className="flex items-center gap-2 self-end sm:self-auto shrink-0">
+            <button
+              type="button"
+              onClick={() => handleScroll('prev')}
+              disabled={!canScrollPrev}
+              aria-label={copy.prevLabel}
+              aria-disabled={!canScrollPrev}
+              className={`p-2.5 rounded-lg border text-sm transition-all focus:outline-none focus:ring-2 focus:ring-accent ${
+                canScrollPrev
+                  ? 'border-line bg-surface text-ink hover:border-accent hover:bg-surface-raised active:scale-95 cursor-pointer shadow-xs'
+                  : 'border-line/40 bg-surface/30 text-muted-low/40 cursor-not-allowed opacity-40'
+              }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleScroll('next')}
+              disabled={!canScrollNext}
+              aria-label={copy.nextLabel}
+              aria-disabled={!canScrollNext}
+              className={`p-2.5 rounded-lg border text-sm transition-all focus:outline-none focus:ring-2 focus:ring-accent ${
+                canScrollNext
+                  ? 'border-line bg-surface text-ink hover:border-accent hover:bg-surface-raised active:scale-95 cursor-pointer shadow-xs'
+                  : 'border-line/40 bg-surface/30 text-muted-low/40 cursor-not-allowed opacity-40'
+              }`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Carousel Scroll Container
+            - Responsive visible items:
+              * Mobile (<768px): 2–3 visible items
+              * Tablet (768px–1023px): 3–4 visible items
+              * Desktop (>=1024px): 6–8 visible items
+            - Scroll snap: snap-x snap-mandatory
+            - Horizontal touch swipe & trackpad supported natively
+            - Zero marquee / zero ticker / zero autoplay
+        */}
+        <div
+          ref={scrollContainerRef}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={copy.ariaLabel}
+          className="flex gap-3 sm:gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory py-2 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 focus:outline-none scrollbar-none select-none"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {CURATED_TECH_STACK.map((tech) => (
+            <div
+              key={tech.id}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${tech.name} - ${CATEGORY_NAMES[tech.category][lang]}`}
+              className="shrink-0 snap-start w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.67rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(16.666%-0.84rem)] xl:w-[calc(12.5%-0.875rem)] p-3.5 rounded-xl border border-line bg-surface hover:border-accent/60 hover:bg-surface-raised transition-all duration-200 flex flex-col justify-between group shadow-xs"
+            >
+              <div>
+                {/* Header row: Local SVG Icon + Category Pill */}
+                <div className="flex items-center justify-between gap-2 mb-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-surface-raised flex items-center justify-center p-1 border border-line/60 group-hover:border-accent/40 transition-colors shrink-0">
+                    <TechIcon id={tech.icon} size={20} title={tech.name} />
+                  </div>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-muted-low bg-surface-raised px-1.5 py-0.5 rounded border border-line/40 truncate">
+                    {CATEGORY_NAMES[tech.category][lang]}
+                  </span>
+                </div>
+
+                {/* Technology Name */}
+                <h3 className="font-medium text-ink text-sm tracking-tight group-hover:text-accent transition-colors truncate">
+                  {tech.name}
+                </h3>
+              </div>
+
+              {/* Verified Experience / Capability Summary */}
+              <p className="text-[11px] text-muted line-clamp-2 mt-2 leading-relaxed">
+                {tech.experience[lang]}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

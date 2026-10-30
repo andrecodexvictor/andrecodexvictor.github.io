@@ -1,58 +1,59 @@
 @import "tailwindcss";
 
 :root,
-[data-theme="light"] {
-  --canvas: #F5F3EF;
-  --surface: #FFFFFF;
-  --subtle: #EBEBE6;
-  --ink: #222321;
-  --muted: #666A65;
-  --line: #DCDDD7;
-  --accent: #59695A;
-  --accent-ink: #354537;
-  --accent-soft: rgba(89, 105, 90, 0.11);
-  --inverted: #202321;
-  --inverted-ink: #F5F3EF;
-  --shadow-editorial: 0 20px 44px -22px rgba(34, 35, 33, 0.10);
-  color-scheme: light;
-}
-
 [data-theme="dark"] {
-  --canvas: #181B1A;
-  --surface: #222625;
-  --subtle: #272C29;
-  --ink: #F1F0EC;
-  --muted: #ABAFA9;
-  --line: #3B403D;
-  --accent: #A1AD9B;
-  --accent-ink: #D1D9CB;
-  --accent-soft: rgba(161, 173, 155, 0.14);
-  --inverted: #F5F3EF;
-  --inverted-ink: #222321;
+  --canvas: #14171B;
+  --surface: #1D2228;
+  --surface-raised: #252C34;
+  --subtle: #252C34;
+  --ink: #F0F3F6;
+  --muted: #ADB7C1;
+  --muted-low: #8E9BA7;
+  --line: #343E48;
+  --accent: #89ADCF;
+  --accent-hover: #A7C7E3;
+  --accent-soft: rgba(137, 173, 207, 0.12);
+  --on-accent: #101923;
+  --accent-ink: #A7C7E3;
+  --inverted: #F0F3F6;
+  --inverted-ink: #101923;
   --shadow-editorial: 0 22px 48px -22px rgba(0, 0, 0, 0.45);
   color-scheme: dark;
 }
 
-[data-accent="bronze"] {
-  --accent: #8A7663;
-  --accent-ink: #6B5645;
-  --accent-soft: rgba(138, 118, 99, 0.12);
-}
-
-[data-theme="dark"][data-accent="bronze"] {
-  --accent: #C8A78C;
-  --accent-ink: #E1BCA1;
-  --accent-soft: rgba(200, 167, 140, 0.15);
+[data-theme="light"] {
+  --canvas: #F3F5F7;
+  --surface: #FFFFFF;
+  --surface-raised: #E9EEF2;
+  --subtle: #E9EEF2;
+  --ink: #202731;
+  --muted: #596674;
+  --muted-low: #64717E;
+  --line: #D7DFE6;
+  --accent: #537A9F;
+  --accent-hover: #365D82;
+  --accent-soft: rgba(83, 122, 159, 0.10);
+  --on-accent: #FFFFFF;
+  --accent-ink: #365D82;
+  --inverted: #202731;
+  --inverted-ink: #FFFFFF;
+  --shadow-editorial: 0 20px 44px -22px rgba(32, 39, 49, 0.08);
+  color-scheme: light;
 }
 
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-subtle: var(--subtle);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
+  --color-muted-low: var(--muted-low);
   --color-line: var(--line);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-on-accent: var(--on-accent);
   --color-accent-ink: var(--accent-ink);
   --color-inverted: var(--inverted);
   --color-inverted-ink: var(--inverted-ink);
@@ -155,7 +156,7 @@ body {
 /* Selection */
 ::selection {
   background-color: var(--accent);
-  color: #FFFFFF;
+  color: var(--on-accent);
 }
 
 /* Apex Buddy Gentle Idle Animation */

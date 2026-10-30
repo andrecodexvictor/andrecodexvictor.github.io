@@ -23,21 +23,21 @@ export interface EducationItem {
 
 export const ORACLE_CREDENTIALS: CredentialItem[] = [
   {
-    id: 'oci-ai-foundations-1',
+    id: 'oci-ai-foundations',
     title: {
       en: 'Oracle Cloud Infrastructure Certified AI Foundations Associate',
       pt: 'Oracle Cloud Infrastructure Certified AI Foundations Associate',
     },
     subtitle: {
-      en: 'Oracle Certified Foundations Associate · Official Recognition Record #1',
-      pt: 'Oracle Certified Foundations Associate · Registro Oficial de Certificação #1',
+      en: 'Oracle Certified Foundations Associate · Official Recognition & Share Badge',
+      pt: 'Oracle Certified Foundations Associate · Registro Oficial de Certificação e Share Badge',
     },
     issuer: 'Oracle University',
     date: {
-      en: 'Issued September 22, 2026',
-      pt: 'Emitido em 22 de setembro de 2026',
+      en: 'Issued September 2026',
+      pt: 'Emitido em setembro de 2026',
     },
-    certificateId: '331822278OCI26AICFA',
+    certificateId: '331822278OCI26AICFA · 331856991OCI26AICFA',
     verifyUrl:
       'https://catalog-education.oracle.com/ords/certview/sharebadge?id=3389CC2B297A522B8F5550D9FC1FA938765D5C565047DBE2C7892E',
     category: 'oracle',
@@ -45,40 +45,12 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
       en: [
         'Foundations of Machine Learning, Deep Learning, and Large Language Models (LLMs) on Oracle Cloud Infrastructure.',
         'OCI Generative AI Service, vector search / RAG architectures, and enterprise AI governance.',
+        'Verified Oracle University credential backing cloud AI deployments such as Axiom Tech on OCI (sa-saopaulo-1).',
       ],
       pt: [
         'Fundamentos de Machine Learning, Deep Learning e Grandes Modelos de Linguagem (LLMs) na Oracle Cloud Infrastructure.',
         'OCI Generative AI Service, arquiteturas de busca vetorial / RAG e governança de IA.',
-      ],
-    },
-  },
-  {
-    id: 'oci-ai-foundations-2',
-    title: {
-      en: 'Oracle Cloud Infrastructure Certified AI Foundations Associate',
-      pt: 'Oracle Cloud Infrastructure Certified AI Foundations Associate',
-    },
-    subtitle: {
-      en: 'Oracle Certified Foundations Associate · Official Share Badge Record #2',
-      pt: 'Oracle Certified Foundations Associate · Registro Oficial de Badge #2',
-    },
-    issuer: 'Oracle University',
-    date: {
-      en: 'Issued September 23, 2026',
-      pt: 'Emitido em 23 de setembro de 2026',
-    },
-    certificateId: '331856991OCI26AICFA',
-    verifyUrl:
-      'https://catalog-education.oracle.com/ords/certview/sharebadge_m?id=39DB464BA2AB87DEA9B1A4C51B7ACE5988234D167BADE5B841C413AF222EC11C',
-    category: 'oracle',
-    highlights: {
-      en: [
-        'Verified Oracle University credential backing cloud AI deployments such as Axiom Tech on OCI (`sa-saopaulo-1`) and the Oracle + Alura ONE G10 hackathon work.',
-        'Covers OCI AI Services (Vision, Speech, Language, Document Understanding) and responsible AI deployment.',
-      ],
-      pt: [
-        'Credencial oficial da Oracle University que respalda implantações como o Axiom Tech na OCI (`sa-saopaulo-1`) e os projetos no hackathon Oracle + Alura ONE G10.',
-        'Abrange serviços de IA da OCI (Vision, Speech, Language, Document Understanding) e implantação responsável.',
+        'Credencial oficial da Oracle University que respalda implantações de IA em nuvem como o Axiom Tech na OCI (sa-saopaulo-1).',
       ],
     },
   },

@@ -64,10 +64,10 @@ export const metadata: Metadata = {
       'Selected 2026 engineering work: GEAR (GP-PME) Book & TCC Framework, Axiom Tech (Grounded RAG on OCI), NovaMente Atlas, Quality Engine (MCP), SimPay, LaunchGuard, and Jev Gateway.',
     images: [
       {
-        url: '/images/andre-portrait.webp',
-        width: 960,
-        height: 1200,
-        alt: 'Portrait of André Victor Andrade Oliveira Santos',
+        url: '/images/andre-portrait-apex.png',
+        width: 1536,
+        height: 1024,
+        alt: 'Portrait of André Victor Andrade Oliveira Santos with Apex Companion',
       },
     ],
   },
@@ -75,8 +75,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'André Victor — Software Engineer · Applied AI & IT Governance',
     description:
-      'Applied AI & Full-Stack Engineering portfolio featuring GEAR (GP-PME), Axiom Tech on OCI, Quality Engine MCP, NovaMente Atlas, and OpenUI interactive exploration.',
-    images: ['/images/andre-portrait.webp'],
+      'Applied AI & Full-Stack Engineering portfolio featuring GEAR (GP-PME), Axiom Tech on OCI, Quality Engine MCP, NovaMente Atlas, and Jev Gateway.',
+    images: ['/images/andre-portrait-apex.png'],
   },
   robots: {
     index: true,
@@ -94,12 +94,11 @@ const jsonLd = {
       alternateName: 'André Victor',
       jobTitle: 'Software Engineer — Applied AI, Agent Systems & Full-Stack',
       url: 'https://andrecodexvictor.github.io/',
-      image: 'https://andrecodexvictor.github.io/images/andre-portrait.webp',
-      email: 'mailto:andrevictorandrade@gmail.com',
+      image: 'https://andrecodexvictor.github.io/images/andre-portrait-apex.png',
+      email: 'mailto:contato.andrecodex@gmail.com',
       sameAs: [
         'https://github.com/andrecodexvictor',
         'https://www.linkedin.com/in/andr%C3%A9-victor-andrade-oliveira-santos-22b142208/',
-        'https://www.instagram.com/dedevictr/',
       ],
       alumniOf: {
         '@type': 'CollegeOrUniversity',
@@ -132,7 +131,7 @@ const jsonLd = {
   ],
 };
 
-const preferenceBootstrapScript = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('av_editorial_theme')||localStorage.getItem('andre-design-theme');if(t==='dark'||t==='light'){d.setAttribute('data-theme',t);d.classList.toggle('dark',t==='dark');}var a=localStorage.getItem('av_editorial_accent')||localStorage.getItem('andre-design-accent');if(a==='sage'||a==='bronze'){d.setAttribute('data-accent',a);}var l=localStorage.getItem('av_editorial_lang');if(l==='pt'||l==='en'){d.lang=l==='pt'?'pt-BR':'en';}}catch(e){}})();`;
+const preferenceBootstrapScript = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('av_editorial_theme')||localStorage.getItem('andre-design-theme');var theme=(t==='light')?'light':'dark';d.setAttribute('data-theme',theme);d.classList.toggle('dark',theme==='dark');d.removeAttribute('data-accent');var l=localStorage.getItem('av_editorial_lang');if(l==='pt'||l==='en'){d.lang=l==='pt'?'pt-BR':'en';}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -142,8 +141,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="light"
-      data-accent="sage"
+      data-theme="dark"
       suppressHydrationWarning
       className={`${inter.variable} ${newsreader.variable} ${geistMono.variable}`}
     >

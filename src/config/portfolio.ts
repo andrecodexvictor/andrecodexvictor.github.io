@@ -5,7 +5,7 @@ export const PORTFOLIO_CONFIG = {
   personal: {
     name: 'André Victor',
     fullName: 'André Victor Andrade Oliveira Santos',
-    role: 'Software Engineer · Applied AI, Agent Systems & IT Governance',
+    role: 'Applied AI Engineer & Full-Stack Developer',
     location: 'Bahia, Brazil (IFBA — Vitória da Conquista)',
     email: 'andrevictorandrade@gmail.com',
     secondaryEmail: 'andrevictorandrade@hotmail.com',
@@ -14,7 +14,7 @@ export const PORTFOLIO_CONFIG = {
     githubUrl: 'https://github.com/andrecodexvictor',
     linkedinUrl: 'https://www.linkedin.com/in/andr%C3%A9-victor-andrade-oliveira-santos-22b142208/',
     instagramUrl: 'https://www.instagram.com/dedevictr/',
-    portraitSrc: '/images/andre-portrait.webp',
+    portraitSrc: '/images/andre-portrait-apex.png',
     resumeEnUrl: '/docs/andre-victor-resume.pdf',
     resumePtUrl: '/docs/andre-victor-curriculo-pt.pdf',
   },

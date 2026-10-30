@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'motion/react';
-import { animate } from 'animejs';
 import {
   ArrowUpRight,
   BookOpen,
@@ -12,6 +11,7 @@ import {
   ChevronUp,
   ExternalLink,
   GitBranch,
+  GitPullRequest,
   Layers,
   ShieldAlert,
 } from 'lucide-react';
@@ -32,54 +32,8 @@ interface ProjectsProps {
 export default function Projects({ lang }: ProjectsProps) {
   const t = TRANSLATIONS[lang].work;
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all');
-  const [expandedSlug, setExpandedSlug] = useState<string | null>('gear');
+  const [expandedSlug, setExpandedSlug] = useState<string | null>(null);
   const shouldReduceMotion = useReducedMotion();
-
-  const trackPathRef = useRef<SVGPathElement | null>(null);
-  const apexPulseRef = useRef<SVGCircleElement | null>(null);
-  const dividerRef = useRef<HTMLDivElement | null>(null);
-
-  // Anime.js v4 choreographed F1 circuit line draw on scroll into view
-  useEffect(() => {
-    if (shouldReduceMotion) return;
-    const pathEl = trackPathRef.current;
-    const pulseEl = apexPulseRef.current;
-    const containerEl = dividerRef.current;
-    if (!pathEl || !containerEl) return;
-
-    const totalLen = pathEl.getTotalLength ? pathEl.getTotalLength() : 1600;
-    pathEl.style.strokeDasharray = `${totalLen}`;
-    pathEl.style.strokeDashoffset = `${totalLen}`;
-
-    let hasAnimated = false;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            hasAnimated = true;
-            animate(pathEl, {
-              strokeDashoffset: [totalLen, 0],
-              duration: 1800,
-              ease: 'inOutQuad',
-            });
-            if (pulseEl) {
-              animate(pulseEl, {
-                scale: [0.6, 1.35, 1],
-                opacity: [0.2, 1, 0.85],
-                duration: 1200,
-                delay: 900,
-                ease: 'outBack',
-              });
-            }
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(containerEl);
-    return () => observer.disconnect();
-  }, [shouldReduceMotion]);
 
   const filterProjects = (list: PortfolioProject[]) => {
     if (selectedCategory === 'all') return list;
@@ -204,10 +158,7 @@ export default function Projects({ lang }: ProjectsProps) {
                       </Link>
                     </h3>
                     <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
-                      {project.tagline[lang]}
-                    </p>
-                    <p className="mt-2.5 text-sm leading-relaxed text-muted">
-                      {project.summary[lang]}
+                      {project.shortSummary[lang]}
                     </p>
                   </div>
 
@@ -342,7 +293,7 @@ export default function Projects({ lang }: ProjectsProps) {
                 {/* Stack Tags & Action Footer */}
                 <div className="mt-6 border-t border-line pt-4">
                   <div className="flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
+                    {project.stack.slice(0, 3).map((tech) => (
                       <span
                         key={tech}
                         className="rounded-md border border-line bg-subtle px-2 py-0.5 font-mono text-[11px] text-muted"
@@ -387,6 +338,30 @@ export default function Projects({ lang }: ProjectsProps) {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+                      {project.links.prGemini && (
+                        <a
+                          href={project.links.prGemini}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-accent hover:text-ink transition-colors"
+                        >
+                          <GitPullRequest className="h-3.5 w-3.5 text-accent" />
+                          <span>PR #5 (Merged)</span>
+                        </a>
+                      )}
+
+                      {project.links.prAntigravity && (
+                        <a
+                          href={project.links.prAntigravity}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 text-muted hover:text-ink transition-colors"
+                        >
+                          <GitPullRequest className="h-3.5 w-3.5 text-muted" />
+                          <span>PR #16 (Open)</span>
+                        </a>
+                      )}
+
                       {project.links.branchNote && (
                         <span
                           title={
@@ -444,45 +419,8 @@ export default function Projects({ lang }: ProjectsProps) {
           })}
         </div>
 
-        {/* Subtle F1 Circuit Racing Line Divider (Choreographed via Anime.js v4) */}
-        <div
-          ref={dividerRef}
-          className="my-16 flex flex-col items-center justify-between gap-4 rounded-2xl border border-line bg-surface px-6 py-5 sm:flex-row"
-        >
-          <div className="flex items-center gap-3">
-            <span className="inline-block h-2 w-2 rounded-full bg-accent" />
-            <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
-              {t.racingLineCaption}
-            </span>
-          </div>
-          <svg
-            viewBox="160 30 720 370"
-            className="h-16 w-48 sm:w-64 text-ink shrink-0"
-            role="img"
-            aria-label={
-              lang === 'pt'
-                ? 'Traçado minimalista de circuito de Fórmula 1 com marcador de ápice'
-                : 'Minimalist Formula 1 circuit racing line with sage apex marker'
-            }
-          >
-            <path
-              ref={trackPathRef}
-              d="M470 380C480 286 558 256 616 279S719 288 721 222 832 149 847 106 784 42 740 65 689 166 604 152 518 74 461 97 419 175 354 168 248 100 206 140 176 256 270 283 391 237 459 192"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="4.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <circle
-              ref={apexPulseRef}
-              cx="603"
-              cy="152"
-              r="11"
-              fill="var(--accent)"
-            />
-          </svg>
-        </div>
+        {/* Archive Divider */}
+        <div className="my-16 border-t border-line" />
 
         {/* Secondary / Archive Engineering Projects */}
         {filteredArchive.length > 0 && (
@@ -524,13 +462,13 @@ export default function Projects({ lang }: ProjectsProps) {
                       </Link>
                     </h4>
                     <p className="mt-2 text-xs leading-relaxed text-muted">
-                      {item.tagline[lang]}
+                      {item.shortSummary[lang]}
                     </p>
                   </div>
 
                   <div className="mt-5 border-t border-line pt-4">
                     <div className="flex flex-wrap gap-1.5 mb-3">
-                      {item.stack.slice(0, 4).map((s) => (
+                      {item.stack.slice(0, 3).map((s) => (
                         <span
                           key={s}
                           className="rounded border border-line bg-subtle px-2 py-0.5 font-mono text-[10px] text-muted"

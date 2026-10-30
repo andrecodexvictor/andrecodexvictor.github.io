@@ -4,14 +4,19 @@
  * Security note (2026 Architecture Revision):
  * Client-side password hash comparison and browser-local "admin" gates have been
  * intentionally removed. All portfolio content is versioned at build time in `src/content/`.
- * This module only manages non-sensitive reader display preferences (theme, accent, reduced motion).
+ * This module only manages non-sensitive reader display preferences (theme, language, reduced motion).
  */
 
 import { useSyncExternalStore } from 'react';
 import type { Language } from '@/config/i18n';
 
 export type ThemeMode = 'light' | 'dark';
-export type AccentTone = 'sage' | 'bronze';
+
+/**
+ * @deprecated Accent customization has been removed in favor of the unified CDX Desaturated Blue palette.
+ * Retained for backward-compatibility with remaining components during migration.
+ */
+export type AccentTone = 'sage' | 'bronze' | 'blue';
 
 const THEME_STORAGE_KEY = 'av_editorial_theme';
 const ACCENT_STORAGE_KEY = 'av_editorial_accent';
@@ -35,28 +40,34 @@ function notifyPrefsChange(): void {
 }
 
 export function getStoredTheme(): ThemeMode {
-  if (typeof window === 'undefined') return 'light';
+  if (typeof window === 'undefined') return 'dark';
   const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-  return stored === 'dark' ? 'dark' : 'light';
+  return stored === 'light' ? 'light' : 'dark';
 }
 
 export function setStoredTheme(theme: ThemeMode): void {
   if (typeof window === 'undefined') return;
   window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   document.documentElement.setAttribute('data-theme', theme);
+  document.documentElement.classList.toggle('dark', theme === 'dark');
   notifyPrefsChange();
 }
 
+/**
+ * @deprecated Retained for backward-compatibility.
+ */
 export function getStoredAccent(): AccentTone {
-  if (typeof window === 'undefined') return 'sage';
-  const stored = window.localStorage.getItem(ACCENT_STORAGE_KEY);
-  return stored === 'bronze' ? 'bronze' : 'sage';
+  return 'sage';
 }
 
-export function setStoredAccent(accent: AccentTone): void {
+/**
+ * @deprecated Accent customization removed. Cleans up legacy accent storage and removes data-accent.
+ */
+export function setStoredAccent(_accent?: unknown): void {
+  void _accent;
   if (typeof window === 'undefined') return;
-  window.localStorage.setItem(ACCENT_STORAGE_KEY, accent);
-  document.documentElement.setAttribute('data-accent', accent);
+  window.localStorage.removeItem(ACCENT_STORAGE_KEY);
+  document.documentElement.removeAttribute('data-accent');
   notifyPrefsChange();
 }
 
@@ -86,11 +97,14 @@ export function useStoredTheme(): [ThemeMode, (next: ThemeMode) => void] {
   const theme = useSyncExternalStore<ThemeMode>(
     subscribePrefs,
     getStoredTheme,
-    () => 'light'
+    () => 'dark'
   );
   return [theme, setStoredTheme];
 }
 
+/**
+ * @deprecated Accent customization removed.
+ */
 export function useStoredAccent(): [AccentTone, (next: AccentTone) => void] {
   const accent = useSyncExternalStore<AccentTone>(
     subscribePrefs,

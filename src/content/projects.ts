@@ -35,6 +35,7 @@ export interface PortfolioProject {
   lastVerifiedAt: string;
   eyebrow: Record<Locale, string>;
   tagline: Record<Locale, string>;
+  shortSummary: Record<Locale, string>;
   summary: Record<Locale, string>;
   problem: Record<Locale, string>;
   solution: Record<Locale, string>;
@@ -48,6 +49,8 @@ export interface PortfolioProject {
   links: {
     repo?: string;
     upstreamRepo?: string;
+    prGemini?: string;
+    prAntigravity?: string;
     live?: string;
     branchNote?: string;
   };
@@ -95,6 +98,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'A 10-chapter technical book and Minimum Viable Governance (MVG) framework built on 3 essential pillars and a transversal, optional AI layer under human verification.',
       pt: 'Livro técnico de 10 capítulos e framework de Governança Mínima Viável (MVG) estruturado em 3 pilares essenciais e uma camada transversal e opcional de IA sob verificação humana.',
+    },
+    shortSummary: {
+      en: 'Authored an IT management framework for lean teams, connecting essential governance, agile execution, and critical security.',
+      pt: 'Desenvolvi um framework de gestão de TI para equipes pequenas, unindo governança, execução e segurança.',
     },
     summary: {
       en: 'Evolved from the GP-PME repository into a comprehensive 2026.10 technical book and undergraduate thesis (TCC) at IFBA. GEAR gives lean IT teams (1–15 people) an auditable 30-day operating system without corporate bureaucracy.',
@@ -223,6 +230,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: 'Multi-format RAG assistant orchestrated with LangGraph and ChromaDB on Oracle Cloud Infrastructure—citing exact sources and abstaining when evidence is insufficient.',
       pt: 'Assistente RAG multifomato orquestrado com LangGraph e ChromaDB na Oracle Cloud Infrastructure — citando fontes exatas e abstendo-se quando a evidência é insuficiente.',
     },
+    shortSummary: {
+      en: 'Engineered a grounded AI assistant on OCI that queries enterprise documents, cites verifiable sources, and refrains without evidence.',
+      pt: 'Desenvolvi um assistente de IA que consulta documentos, cita fontes e evita respostas quando faltam evidências.',
+    },
     summary: {
       en: 'Built to solve hallucination risk in corporate knowledge bases (HR policies, LGPD compliance, engineering runbooks, and OpenAPI specs). Axiom Tech validates retrieved chunks before synthesis and returns an explicit ungrounded status (`grounded=false`) instead of guessing.',
       pt: 'Construído para mitigar alucinações em bases documentais corporativas (políticas de RH, LGPD, runbooks de engenharia e especificações OpenAPI). O Axiom Tech valida os trechos recuperados antes da síntese e retorna abstensão explícita (`grounded=false`) em vez de improvisar.',
@@ -347,6 +358,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: 'Transforms user PDFs, Markdown, and notes into cited study guides, flashcards, quizzes, and adaptive tutoring powered by Invokta Action Engines, FastAPI RAG, and TypeSafe Jev.',
       pt: 'Transforma PDFs, Markdown e notas em guias de estudo citados, flashcards, quizzes e tutoria adaptativa com Invokta Action Engines, FastAPI RAG e TypeSafe Jev.',
     },
+    shortSummary: {
+      en: 'Co-built an educational platform combining AI study agents, adaptive quizzes, and curriculum graphs backed by verifiable sources.',
+      pt: 'Coconstrui uma plataforma educacional com agentes e materiais de estudo apoiados em fontes verificáveis.',
+    },
     summary: {
       en: 'Developed during the Oracle + Alura ONE G10 hackathon (`Oracle-hackatom-g10-team-4`) and expanded on branch `feat/andre-pos-mvp-quality-20261028`. NovaMente Atlas pairs a Next.js study workspace with three NestJS `@invokta/core` Action Engines and a Python FastAPI cognitive service.',
       pt: 'Desenvolvido no hackathon Oracle + Alura ONE G10 (`Oracle-hackatom-g10-team-4`) e expandido na branch `feat/andre-pos-mvp-quality-20261028`. O NovaMente Atlas combina um workspace Next.js com três Action Engines NestJS (`@invokta/core`) e um serviço cognitivo Python/FastAPI.',
@@ -469,6 +484,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: 'An Invokta Action Engine served over MCP Streamable HTTP (`127.0.0.1:7420/mcp`) that enforces cognitive complexity ratchets, Tarjan cycle detection, and architectural boundaries on AI-generated code.',
       pt: 'Uma Action Engine Invokta servida via MCP Streamable HTTP (`127.0.0.1:7420/mcp`) que aplica ratchet de complexidade cognitiva, detecção de ciclos (Tarjan) e fronteiras arquiteturais sobre código gerado por IA.',
     },
+    shortSummary: {
+      en: 'Built deterministic MCP ratchets and graph analyzers that enforce architectural boundaries and coding quality on autonomous agents.',
+      pt: 'Criei verificações que ajudam agentes de código a respeitar padrões de qualidade e limites arquiteturais.',
+    },
     summary: {
       en: 'AI coding agents frequently introduce subtle architectural drift, circular imports, or bloated functions while making tests pass. Quality Engine exposes deterministic quality gates to agents via MCP while isolating baseline mutations and exceptions inside a human-only CLI (`quality-admin`).',
       pt: 'Agentes de código frequentemente introduzem deriva arquitetural, dependências circulares ou funções inchadas apenas para fazer testes passarem. O Quality Engine expõe gates determinísticos aos agentes via MCP enquanto isola alterações de baseline e exceções em uma CLI exclusiva para humanos (`quality-admin`).',
@@ -589,6 +608,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'User-centric fintech web experience featuring an interactive PIX-to-Solana token converter, physical POS terminal simulation, merchant savings calculator, and whitepaper reader.',
       pt: 'Experiência web fintech centrada no usuário com conversor interativo PIX-para-Solana, simulação de maquininha POS física, calculadora de economia para lojistas e leitor de whitepaper.',
+    },
+    shortSummary: {
+      en: 'Engineered interactive web payment flows, a terminal simulator, and merchant tooling for a collaborative Solana hackathon solution.',
+      pt: 'Desenvolvi experiências web de pagamento, incluindo simulador de terminal e ferramentas para lojistas, em projeto colaborativo.',
     },
     summary: {
       en: 'Built with Next.js 16, React 19, Tailwind CSS v4, Motion, and Anime.js, SimPay presents a cohesive consumer and merchant payment journey—allowing visitors to test wallet connection flows, simulate POS checkout with instant cashback, and compare merchant fee savings.',
@@ -712,6 +735,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: 'Correlates high-velocity checkout telemetry against release metadata using Confluent Cloud Kafka, Schema Registry (Avro), and Flink SQL temporal joins—with human-approved rollback.',
       pt: 'Correlaciona telemetria de checkout em tempo real com metadados de deploy usando Confluent Cloud Kafka, Schema Registry (Avro) e joins temporais em Flink SQL — com rollback aprovado por humano.',
     },
+    shortSummary: {
+      en: 'Constructed an automated deployment gate that correlates release events with real-time operational health indicators.',
+      pt: 'Construí um pipeline que relaciona eventos de implantação com indicadores de funcionamento de sistemas.',
+    },
     summary: {
       en: 'Canary releases in payment checkouts often degrade silently before static threshold alerts fire. LaunchGuard demonstrates a deterministic streaming pipeline (`checkout.telemetry.raw` + `releases.metadata`) that isolates version regressions and requires explicit operator approval before triggering rollback.',
       pt: 'Deploys canário em fluxos de checkout frequentemente degradam antes que alertas estáticos disparem. O LaunchGuard demonstra um pipeline determinístico de streaming (`checkout.telemetry.raw` + `releases.metadata`) que isola regressões por versão e exige aprovação explícita do operador antes do rollback.',
@@ -822,8 +849,8 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       pt: 'Contribuição Open Source · Fork',
     },
     roleBadge: {
-      en: 'Open-Source Contributor (Upstream: vinilana/jev-gateway)',
-      pt: 'Contribuidor Open Source (Upstream: vinilana/jev-gateway)',
+      en: 'Open-source contributor · Gemini (merged) / Antigravity (open PR)',
+      pt: 'Contribuidor open source · Gemini (merged) / Antigravity (proposta)',
     },
     eyebrow: {
       en: 'Local Tool-Routing Gateway for Coding Agents Powered by TypeSafe Jev',
@@ -832,6 +859,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'Intercepts OpenAI and Anthropic coding-agent requests (`jev-codex`, `jev-claude`), routes tool selection through TypeSafe’s System One model Jev, and exposes a live localhost telemetry dashboard.',
       pt: 'Intercepta requisições de agentes de código (`jev-codex`, `jev-claude`), roteia a seleção de ferramentas pelo modelo Jev da TypeSafe e expõe um dashboard local de inspeção em tempo real.',
+    },
+    shortSummary: {
+      en: 'Added Gemini support (merged PR) and proposed Antigravity CLI integration (open PR), with adapters and tests.',
+      pt: 'Integrei suporte ao Gemini (PR incorporado) e propus integração com Antigravity CLI (PR aberta), incluindo adaptadores e testes.',
     },
     summary: {
       en: 'Contributed to `jev-gateway` (forked from `vinilana/jev-gateway`), a local proxy that decouples fast tool-calling judgment from heavy reasoning models. Supports five routing modes (`direct`, `forced`, `hint`, `none`, `passthrough`) so developers can benchmark latency and tool accuracy.',
@@ -847,12 +878,14 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     myContribution: {
       en: [
-        'Contributed to the open-source gateway workflow, local CLI wrappers (`jev-codex`, `jev-claude`), and multi-mode routing inspection.',
-        'Tested and documented TypeSafe Jev integration patterns across `direct`, `forced`, `hint`, `none`, and `passthrough` execution modes.',
+        'PR #5 (Merged): Engineered Google Gemini API adapter, streaming response handler, and jev-gemini CLI wrapper merged upstream.',
+        'PR #16 (Open Proposal): Architected and submitted full integration proposal with Antigravity CLI (agy) and Cloud Code workflows.',
+        'Verification: Conducted end-to-end streaming tests and latency benchmarks connecting the gateway to TypeSafe Jev models.',
       ],
       pt: [
-        'Contribuí com o fluxo do gateway open source, wrappers de CLI local (`jev-codex`, `jev-claude`) e inspeção de roteamento multimodo.',
-        'Testei e documentei padrões de integração com o modelo Jev da TypeSafe nos modos `direct`, `forced`, `hint`, `none` e `passthrough`.',
+        'PR #5 (Incorporado): Desenvolvi o adaptador para Google Gemini API, streaming e wrapper executável jev-gemini incorporados ao upstream.',
+        'PR #16 (Proposta Aberta): Arquitetei e submeti proposta completa para integração com a Antigravity CLI (agy) e fluxos Cloud Code.',
+        'Verificação: Conduzi testes locais de streaming e benchmark de latência conectando o gateway ao modelo TypeSafe Jev.',
       ],
     },
     architectureFlow: [
@@ -907,8 +940,8 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       pt: 'Preservar a compatibilidade de streaming ao interceptar e reescrever payloads de ferramentas nos formatos OpenAI e Anthropic exigiu tratamento cuidadoso de eventos SSE; os próximos passos ampliam métricas para chamadas encadeadas.',
     },
     honestyAndScopeNote: {
-      en: 'Attribution & Independence: Open-source fork/contribution to `vinilana/jev-gateway`. Independent community project; not affiliated with or endorsed by TypeSafe.',
-      pt: 'Atribuição e Independência: Fork e contribuição open source para `vinilana/jev-gateway`. Projeto comunitário independente, não afiliado nem endossado oficialmente pela TypeSafe.',
+      en: 'Attribution & Independence: Open-source contribution to vinilana/jev-gateway. André contributed Google Gemini API support (PR #5, merged) and proposed Antigravity CLI integration (PR #16, open proposal). Independent community project not affiliated with TypeSafe.',
+      pt: 'Atribuição e Independência: Contribuição open source para vinilana/jev-gateway. André contribuiu com o suporte à API Gemini (PR #5, incorporado) e propôs a integração com a CLI Antigravity (PR #16, aberta). Projeto comunitário independente.',
     },
     verifiedFacts: [
       { label: { en: 'Routing Modes', pt: 'Modos de Roteamento' }, value: { en: '5 (direct, forced, hint, none, passthrough)', pt: '5 (direct, forced, hint, none, passthrough)' } },
@@ -916,10 +949,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       { label: { en: 'Decision Engine', pt: 'Motor de Decisão' }, value: { en: 'TypeSafe System One (Jev)', pt: 'TypeSafe System One (Jev)' } },
       { label: { en: 'Project Type', pt: 'Tipo de Projeto' }, value: { en: 'Open-Source Contribution', pt: 'Contribuição Open Source' } },
     ],
-    stack: ['TypeScript', 'Node.js', 'TypeSafe Jev', 'OpenAI API', 'Anthropic API', 'MCP / Tool Calling'],
+    stack: ['TypeSafe Jev', 'Gemini API', 'MCP', 'TypeScript', 'Node.js'],
     links: {
       repo: 'https://github.com/andrecodexvictor/jev-gateway',
       upstreamRepo: 'https://github.com/vinilana/jev-gateway',
+      prGemini: 'https://github.com/vinilana/jev-gateway/pull/5',
+      prAntigravity: 'https://github.com/vinilana/jev-gateway/pull/16',
+      branchNote: 'upstream/main (PR #5) · dev/agy-cli (PR #16)',
     },
   },
 ];
@@ -955,6 +991,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'High-contrast brutalist-editorial F1 team draft and race simulator supporting pass-and-play and 4-player online rooms backed by Upstash Redis.',
       pt: 'Simulador de corridas e recrutamento de equipes de F1 com estilo editorial de alto contraste, modo local pass-and-play e salas online para até 4 jogadores via Upstash Redis.',
+    },
+    shortSummary: {
+      en: 'Built a Formula 1 strategy simulator featuring historical driver drafts, telemetry simulation, and multiplayer game rooms.',
+      pt: 'Criei um simulador de Fórmula 1 com draft histórico, corridas e salas multiplayer.',
     },
     summary: {
       en: 'Inspired by classic tabletop draft games, 24 Podiums lets players draft historic constructors and drivers across classic F1 seasons and simulate full championship calendars.',
@@ -1054,6 +1094,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
       en: 'Polyglot defensive security platform combining a TypeScript CLI & MCP server (`sk`), Python Web2/Web3 and LLM guardrail scanners, and a Rust hash-chained audit engine.',
       pt: 'Plataforma defensiva poliglota combinando CLI e servidor MCP em TypeScript (`sk`), módulos de análise Web2/Web3 e guardrails de IA em Python e motor de auditoria criptográfica em Rust.',
     },
+    shortSummary: {
+      en: 'Developed defensive security CLI tools combining automated vulnerability scanning, attack surface discovery, and compliance auditing.',
+      pt: 'Criei ferramentas defensivas de análise de segurança, combinando linha de comando, automações e auditoria.',
+    },
     summary: {
       en: 'Provides authorized security validation across 5 operating modes (`Scout, Verify, Patch, Recheck, Lab`) with human-in-the-loop approval gates and native ZenPR bridge integration.',
       pt: 'Oferece validação defensiva autorizada em 5 modos operacionais (`Scout, Verify, Patch, Recheck, Lab`) com gates de aprovação humana e ponte nativa com o ZenPR.',
@@ -1150,6 +1194,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
       en: 'Solves stateless AI code review by recording developer decisions (Applied, Rejected, Adjusted) and synthesizing persistent repository-specific review rules.',
       pt: 'Resolve o problema de revisores de IA sem memória ao registrar decisões do desenvolvedor (Aplicado, Rejeitado, Ajustado) e sintetizar regras persistentes por repositório.',
     },
+    shortSummary: {
+      en: 'Engineered an automated code review engine that codifies team engineering standards into persistent, repository-level rules.',
+      pt: 'Desenvolvi um revisor de código que transforma decisões do time em regras persistentes por repositório.',
+    },
     summary: {
       en: 'Runs as both a Next.js 15 / React 19 web workbench and a dual-transport MCP server (`stdio` and `/api/mcp` Streamable HTTP) for Claude Desktop, Cursor, and Antigravity.',
       pt: 'Opera tanto como aplicação web Next.js 15 / React 19 quanto como servidor MCP de transporte duplo (`stdio` e `/api/mcp` HTTP) para Claude Desktop, Cursor e Antigravity.',
@@ -1241,6 +1289,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'Evaluates project constraints across 13 architectural categories using a pure TypeScript scoring compiler and provides offline TF-IDF cosine-similarity code search over MCP.',
       pt: 'Avalia restrições de projeto em 13 categorias arquiteturais com um compilador determinístico em TypeScript puro e oferece busca semântica offline via TF-IDF e MCP.',
+    },
+    shortSummary: {
+      en: 'Created an architectural decision tool that evaluates engineering trade-offs and recommends technology stacks using explicit criteria.',
+      pt: 'Construí uma ferramenta para avaliar escolhas arquiteturais e recomendar stacks com critérios explícitos.',
     },
     summary: {
       en: 'Produces machine-readable `.stack/stack.yaml` specifications, ADR documentation, migration blueprints, and local vector code search for humans and AI coding agents.',
@@ -1335,6 +1387,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
       en: 'Tests management frameworks (Scrum, SAFe, COBIT, ITIL) against ~350 RAG-hydrated employee personas, seeded behavioral state (`EmployeeBrain`), and deterministic ROI/J-Curve math.',
       pt: 'Testa frameworks de gestão (Scrum, SAFe, COBIT, ITIL) contra ~350 personas reais via RAG, estado comportamental determinístico (`EmployeeBrain`) e cálculo financeiro de Curva J e ROI.',
     },
+    shortSummary: {
+      en: 'Developed a management simulator allowing business leaders to stress-test strategic decisions and observe operational impacts.',
+      pt: 'Desenvolvi um simulador para explorar decisões de gestão e seus impactos operacionais e financeiros.',
+    },
     summary: {
       en: 'Prevents LLMs from inventing financial numbers: while agents narrate stakeholder reactions, all ROI, Cost of Non-Quality (CoNQ), technical debt interest, and burnout/turnover transitions are computed deterministically.',
       pt: 'Impede que o LLM invente números financeiros: enquanto os agentes narram reações políticas e culturais, todo o ROI, Custo da Não-Qualidade (CoNQ), juros de dívida técnica e burnout são calculados por modelos matemáticos determinísticos.',
@@ -1426,6 +1482,10 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     tagline: {
       en: 'Connects multi-persona AI scriptwriting agents directly to a local Obsidian Markdown vault via shared-brain RAG for YouTube, course, and podcast production.',
       pt: 'Conecta agentes de roteirização com múltiplas personas diretamente a um vault local do Obsidian via RAG para produção de vídeos, aulas e podcasts.',
+    },
+    shortSummary: {
+      en: 'Connected autonomous content agents to Obsidian vaults to streamline technical video drafting and research workflows.',
+      pt: 'Conectei agentes de produção de conteúdo a arquivos do Obsidian para facilitar a criação de roteiros.',
     },
     summary: {
       en: 'Reads local Markdown notes without uploading private vaults to third-party SaaS storage, supporting OpenAI, Gemini, Claude, OpenRouter, and local Ollama models.',

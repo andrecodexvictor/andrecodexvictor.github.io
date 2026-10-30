@@ -5,17 +5,17 @@ export type Language = Locale;
 export interface UIStrings {
   nav: {
     work: string;
-    gear: string;
-    openui: string;
-    experience: string;
+    journey: string;
+    gear?: string;
+    experience?: string;
     credentials: string;
     about: string;
     contact: string;
     resume: string;
     themeLight: string;
     themeDark: string;
-    accentSage: string;
-    accentBronze: string;
+    accentSage?: string;
+    accentBronze?: string;
   };
   hero: {
     sectorTag: string;
@@ -115,8 +115,6 @@ export interface UIStrings {
     copyEmail: string;
     copiedEmail: string;
     sendEmailCta: string;
-    downloadResumeEn: string;
-    downloadResumePt: string;
     availabilityBadge: string;
   };
   footer: {
@@ -130,8 +128,8 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
   en: {
     nav: {
       work: 'Selected Work',
+      journey: 'Journey',
       gear: 'GEAR Framework',
-      openui: 'Explore (OpenUI)',
       experience: 'Experience',
       credentials: 'Credentials',
       about: 'About',
@@ -159,7 +157,7 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
         { label: 'Focus', value: 'Applied AI, Agents (LangGraph / MCP) & Full-Stack' },
         { label: 'Current Role', value: 'Full Stack & Applied AI Intern @ VittalWeb' },
         { label: 'Thesis / Book', value: 'GEAR Framework (2026.10 · Evolution of GP-PME)' },
-        { label: 'Cloud & Certs', value: 'Oracle OCI Certified AI Foundations (2x Records)' },
+        { label: 'Cloud & Certs', value: 'Oracle OCI Certified AI Foundations' },
       ],
     },
     work: {
@@ -252,7 +250,7 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
     },
     contactSection: {
       sectionNumber: '07',
-      eyebrow: 'DIRECT CHANNELS & RESUME',
+      eyebrow: 'DIRECT CHANNELS & CONTACT',
       title: 'Let’s Build Something Reliable',
       subtitle:
         'Open to AI Engineer, Backend, and Full-Stack opportunities, research collaborations on governed AI/MCP tooling, and technical conversations.',
@@ -260,12 +258,10 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
       copyEmail: 'Copy Email',
       copiedEmail: 'Copied to Clipboard',
       sendEmailCta: 'Send Email Directly',
-      downloadResumeEn: 'Resume PDF (English)',
-      downloadResumePt: 'Currículo PDF (Português)',
       availabilityBadge: 'Available for AI Engineering & Full-Stack Roles · Bahia, Brazil / Remote',
     },
     footer: {
-      colophon: 'Designed with the 2026 Warm Editorial System (Ivory, Charcoal & Sage). Built with Next.js, OpenUI Lang, Motion & Anime.js.',
+      colophon: 'Designed with Graphite, Slate & Desaturated Blue. Built with Next.js 16, React 19 & Tailwind CSS.',
       rights: '© 2026 André Victor Andrade Oliveira Santos. All repositories and case studies reflect verified engineering artifacts.',
       backToTop: 'Back to Top ↑',
     },
@@ -273,8 +269,8 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
   pt: {
     nav: {
       work: 'Projetos',
+      journey: 'Trajetória',
       gear: 'Framework GEAR',
-      openui: 'Explorar (OpenUI)',
       experience: 'Experiência',
       credentials: 'Certificações',
       about: 'Sobre',
@@ -302,7 +298,7 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
         { label: 'Foco Técnico', value: 'IA Aplicada, Agentes (LangGraph / MCP) & Full-Stack' },
         { label: 'Atuação Atual', value: 'Estagiário Full Stack & IA Aplicada @ VittalWeb' },
         { label: 'TCC / Livro Autoral', value: 'Framework GEAR (2026.10 · Evolução do GP-PME)' },
-        { label: 'Cloud & Certificações', value: 'Oracle OCI Certified AI Foundations (2 Registros)' },
+        { label: 'Cloud & Certificações', value: 'Oracle OCI Certified AI Foundations' },
       ],
     },
     work: {
@@ -395,7 +391,7 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
     },
     contactSection: {
       sectionNumber: '07',
-      eyebrow: 'CANAIS DIRETOS E CURRÍCULO',
+      eyebrow: 'CANAIS DIRETOS E CONTATO',
       title: 'Vamos Construir Algo Confiável',
       subtitle:
         'Aberto a oportunidades como Engenheiro de IA, Backend ou Full-Stack, colaborações em ferramentas governadas para agentes/MCP e boas conversas técnicas.',
@@ -403,12 +399,10 @@ export const TRANSLATIONS: Record<Language, UIStrings> = {
       copyEmail: 'Copiar E-mail',
       copiedEmail: 'E-mail Copiado',
       sendEmailCta: 'Enviar E-mail Agora',
-      downloadResumeEn: 'Resume PDF (Inglês)',
-      downloadResumePt: 'Currículo PDF (Português)',
       availabilityBadge: 'Disponível para Engenharia de IA, Backend & Full-Stack · Bahia / Remoto',
     },
     footer: {
-      colophon: 'Projetado com o Sistema Editorial Monocromático Quente 2026 (Marfim, Carvão & Sálvia). Construído com Next.js, OpenUI Lang, Motion & Anime.js.',
+      colophon: 'Projetado em Grafite, Slate e Azul Dessaturado. Construído com Next.js 16, React 19 & Tailwind CSS.',
       rights: '© 2026 André Victor Andrade Oliveira Santos. Todos os repositórios e estudos de caso refletem artefatos verificados.',
       backToTop: 'Voltar ao Topo ↑',
     },

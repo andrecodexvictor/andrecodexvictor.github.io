@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Sun, Moon, Menu, X, FileText, Palette } from 'lucide-react';
+import Image from 'next/image';
+import { Sun, Moon, Menu, X, FileText } from 'lucide-react';
 import { Language, TRANSLATIONS } from '@/config/i18n';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { AccentTone, ThemeMode } from '@/utils/security';
+import { ThemeMode } from '@/utils/security';
 import LanguageSelector from './LanguageSelector';
 
 interface NavbarProps {
@@ -12,8 +13,8 @@ interface NavbarProps {
   setLang: (lang: Language) => void;
   theme: ThemeMode;
   onToggleTheme: () => void;
-  accent: AccentTone;
-  onToggleAccent: () => void;
+  accent?: unknown;
+  onToggleAccent?: () => void;
 }
 
 export default function Navbar({
@@ -21,8 +22,6 @@ export default function Navbar({
   setLang,
   theme,
   onToggleTheme,
-  accent,
-  onToggleAccent,
 }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,21 +54,12 @@ export default function Navbar({
   }, [mobileOpen]);
 
   const navItems = [
-    { href: '#work', label: t.work },
-    { href: '#gear', label: t.gear },
-    { href: '#explore-openui', label: t.openui },
-    { href: '#experience', label: t.experience },
-    { href: '#credentials', label: t.credentials },
-    { href: '#about', label: t.about },
-    { href: '#contact', label: t.contact },
+    { href: '#work', label: lang === 'pt' ? 'Projetos' : 'Work' },
+    { href: '#journey', label: lang === 'pt' ? 'Trajetória' : 'Journey' },
+    { href: '#about', label: lang === 'pt' ? 'Sobre' : 'About' },
+    { href: '#credentials', label: lang === 'pt' ? 'Credenciais' : 'Credentials' },
+    { href: '#contact', label: lang === 'pt' ? 'Contato' : 'Contact' },
   ];
-
-  const accentLabel =
-    lang === 'pt'
-      ? accent === 'sage'
-        ? 'sálvia'
-        : 'bronze'
-      : accent;
 
   return (
     <header
@@ -83,54 +73,56 @@ export default function Navbar({
           isScrolled ? 'py-2.5' : 'py-3.5'
         }`}
       >
-        {/* Brand Monogram */}
+        {/* Brand Monogram: CDX */}
         <a
           href="#top"
-          className="group inline-flex items-center gap-3 text-ink no-underline shrink-0"
+          className="group inline-flex items-center gap-2.5 text-ink no-underline shrink-0"
+          aria-label={lang === 'pt' ? 'Início · André Victor (CDX)' : 'Home · André Victor (CDX)'}
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface font-mono text-xs font-semibold tracking-tight text-ink transition-colors group-hover:border-accent">
-            AV
+          <span className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface overflow-hidden transition-colors group-hover:border-accent">
+            <Image
+              src="/images/logo-cdx.png"
+              alt="CDX"
+              width={36}
+              height={36}
+              className="h-7 w-7 object-contain"
+              priority
+            />
           </span>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold tracking-tight text-ink leading-tight whitespace-nowrap">
-              André Victor
-            </span>
+            <div className="flex items-center gap-1.5">
+              <span className="text-sm font-semibold tracking-tight text-ink leading-tight whitespace-nowrap">
+                André Victor
+              </span>
+              <span className="rounded bg-accent-soft px-1.5 py-0.5 font-mono text-[10px] font-bold text-accent">
+                CDX
+              </span>
+            </div>
             <span className="hidden xl:block font-mono text-[10px] uppercase tracking-widest text-muted whitespace-nowrap">
-              {lang === 'pt' ? 'IA Aplicada & Sistemas' : 'Applied AI & Systems'}
+              {lang === 'pt' ? 'IA Aplicada & Full-Stack' : 'Applied AI & Full-Stack'}
             </span>
           </div>
         </a>
 
-        {/* Desktop Nav Links */}
+        {/* Desktop Nav Links (5 items: Work, Journey, About, Credentials, Contact) */}
         <nav
           aria-label={lang === 'pt' ? 'Navegação principal' : 'Primary navigation'}
-          className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 2xl:gap-6"
+          className="hidden md:flex items-center gap-3 lg:gap-5 xl:gap-6"
         >
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-xs 2xl:text-sm font-medium text-muted hover:text-ink transition-colors whitespace-nowrap"
+              className="text-xs lg:text-sm font-medium text-muted hover:text-ink transition-colors whitespace-nowrap"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        {/* Controls: Language, Accent, Theme, Resume */}
-        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
+        {/* Controls: Language, Theme (Dark/Light), Resume */}
+        <div className="hidden md:flex items-center gap-1.5 xl:gap-2">
           <LanguageSelector currentLang={lang} onSelect={setLang} />
-
-          <button
-            type="button"
-            onClick={onToggleAccent}
-            title={accent === 'sage' ? t.accentBronze : t.accentSage}
-            aria-label={accent === 'sage' ? t.accentBronze : t.accentSage}
-            className="inline-flex h-9 w-9 xl:w-auto shrink-0 items-center justify-center gap-1.5 rounded-full border border-line bg-surface xl:px-3 font-mono text-[11px] text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
-          >
-            <Palette className="h-3.5 w-3.5 text-accent" />
-            <span className="hidden xl:inline uppercase">{accentLabel}</span>
-          </button>
 
           <button
             type="button"
@@ -156,18 +148,18 @@ export default function Navbar({
           >
             <FileText className="h-3.5 w-3.5" />
             <span className="hidden xl:inline">{t.resume}</span>
-            <span className="xl:hidden">PDF</span>
+            <span className="xl:hidden">CV</span>
           </a>
         </div>
 
-        {/* Mobile / Tablet Menu Trigger (< 1024px) */}
-        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+        {/* Mobile / Tablet Menu Trigger (< 768px) */}
+        <div className="flex shrink-0 items-center gap-2 md:hidden">
           <LanguageSelector currentLang={lang} onSelect={setLang} />
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={theme === 'light' ? t.themeDark : t.themeLight}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink cursor-pointer"
           >
             {theme === 'light' ? (
               <Moon className="h-4 w-4" />
@@ -190,7 +182,7 @@ export default function Navbar({
                   ? 'Close navigation menu'
                   : 'Toggle navigation menu'
             }
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink cursor-pointer"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -201,7 +193,7 @@ export default function Navbar({
       {mobileOpen && (
         <div
           id="mobile-navigation-drawer"
-          className="border-t border-line bg-surface px-5 py-4 lg:hidden"
+          className="border-t border-line bg-surface px-5 py-4 md:hidden"
         >
           <nav
             className="flex flex-col gap-3"
@@ -217,17 +209,7 @@ export default function Navbar({
                 {item.label}
               </a>
             ))}
-            <div className="mt-2 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-3">
-              <button
-                type="button"
-                onClick={onToggleAccent}
-                className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-subtle px-3.5 py-1.5 font-mono text-xs text-ink"
-              >
-                <Palette className="h-3.5 w-3.5 text-accent" />
-                <span>
-                  {accent === 'sage' ? t.accentSage : t.accentBronze}
-                </span>
-              </button>
+            <div className="mt-2 flex items-center justify-end border-t border-line pt-3">
               <a
                 href={resumeHref}
                 target="_blank"
