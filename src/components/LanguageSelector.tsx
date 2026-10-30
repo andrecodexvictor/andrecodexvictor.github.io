@@ -17,8 +17,8 @@ export default function LanguageSelector({ currentLang, onSelect }: LanguageSele
   return (
     <div
       role="group"
-      aria-label="Language selector"
-      className="inline-flex items-center rounded-full border border-line bg-subtle p-0.5 font-mono text-xs"
+      aria-label={currentLang === 'pt' ? 'Seletor de idioma' : 'Language selector'}
+      className="inline-flex h-9 items-center rounded-full border border-line bg-subtle p-1 font-mono text-xs"
     >
       {LANGUAGES.map((lang) => {
         const active = currentLang === lang.code;

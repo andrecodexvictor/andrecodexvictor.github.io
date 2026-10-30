@@ -25,10 +25,13 @@ export async function generateMetadata({
   return {
     title: `${project.title} — Case Study`,
     description: project.tagline.en,
+    alternates: {
+      canonical: `https://andrecodexvictor.github.io/work/${project.slug}/`,
+    },
     openGraph: {
       title: `${project.title} · André Victor Case Study`,
       description: project.tagline.en,
-      url: `https://andrecodexvictor.github.io/work/${project.slug}`,
+      url: `https://andrecodexvictor.github.io/work/${project.slug}/`,
       images: project.previewImage
         ? [{ url: project.previewImage }]
         : [{ url: '/images/andre-portrait.webp' }],

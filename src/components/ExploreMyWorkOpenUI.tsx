@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { createContext, useContext, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
   createLibrary,
@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { Language, TRANSLATIONS } from '@/config/i18n';
 
+const OpenUILocaleContext = createContext<Language>('en');
+
 /**
  * Real OpenUI Component Library (@openuidev/react-lang v1.0)
  * Defined at module scope so the parser and JSON Schema are cached once per session.
@@ -37,7 +39,8 @@ const OpenUIProjectCard = defineComponent({
     caseStudyHref: z.string(),
     externalUrl: z.string().optional(),
   }),
-  component: ({ props }) => {
+  component: function ProjectNodeCardView({ props }) {
+    const lang = useContext(OpenUILocaleContext);
     const tags = props.stackCsv
       .split(',')
       .map((s) => s.trim())
@@ -76,7 +79,7 @@ const OpenUIProjectCard = defineComponent({
               prefetch={false}
               className="inline-flex items-center gap-1 font-medium text-accent-ink hover:underline"
             >
-              <span>Case Study</span>
+              <span>{lang === 'pt' ? 'Estudo de Caso' : 'Case Study'}</span>
               <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
             {props.externalUrl && (
@@ -86,7 +89,7 @@ const OpenUIProjectCard = defineComponent({
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 text-muted hover:text-ink"
               >
-                <span>Repository</span>
+                <span>{lang === 'pt' ? 'Repositório' : 'Repository'}</span>
                 <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             )}
@@ -107,25 +110,30 @@ const OpenUIArchitectureStep = defineComponent({
     mechanism: z.string(),
     guardrail: z.string(),
   }),
-  component: ({ props }) => (
-    <div className="rounded-xl border border-line bg-canvas p-4 flex flex-col justify-between">
-      <div>
-        <div className="flex items-center justify-between font-mono text-[11px]">
-          <span className="font-bold text-accent">STAGE {props.stepNumber}</span>
-          <ShieldCheck className="h-3.5 w-3.5 text-accent" />
+  component: function ArchitectureStepView({ props }) {
+    const lang = useContext(OpenUILocaleContext);
+    return (
+      <div className="rounded-xl border border-line bg-canvas p-4 flex flex-col justify-between">
+        <div>
+          <div className="flex items-center justify-between font-mono text-[11px]">
+            <span className="font-bold text-accent">
+              {lang === 'pt' ? 'ETAPA' : 'STAGE'} {props.stepNumber}
+            </span>
+            <ShieldCheck className="h-3.5 w-3.5 text-accent" />
+          </div>
+          <h5 className="mt-1.5 text-sm font-semibold text-ink">
+            {props.stageTitle}
+          </h5>
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            {props.mechanism}
+          </p>
         </div>
-        <h5 className="mt-1.5 text-sm font-semibold text-ink">
-          {props.stageTitle}
-        </h5>
-        <p className="mt-1 text-xs leading-relaxed text-muted">
-          {props.mechanism}
-        </p>
+        <div className="mt-3 border-t border-line pt-2 font-mono text-[10px] text-accent-ink">
+          Guardrail: {props.guardrail}
+        </div>
       </div>
-      <div className="mt-3 border-t border-line pt-2 font-mono text-[10px] text-accent-ink">
-        Guardrail: {props.guardrail}
-      </div>
-    </div>
-  ),
+    );
+  },
 });
 
 const OpenUIExplorerCanvas = defineComponent({
@@ -140,42 +148,47 @@ const OpenUIExplorerCanvas = defineComponent({
     cards: z.array(OpenUIProjectCard.ref),
     synthesisNote: z.string(),
   }),
-  component: ({ props, renderNode }) => (
-    <div className="space-y-6">
-      <div className="rounded-2xl border border-line bg-canvas p-5 sm:p-6">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
-            {props.lensName}
-          </span>
-          <span className="editorial-pill">
-            <Cpu className="h-3.5 w-3.5 text-accent" />
-            <span>OpenUI Lang AST → React</span>
-          </span>
+  component: function ExplorerCanvasView({ props, renderNode }) {
+    const lang = useContext(OpenUILocaleContext);
+    return (
+      <div className="space-y-6">
+        <div className="rounded-2xl border border-line bg-canvas p-5 sm:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
+              {props.lensName}
+            </span>
+            <span className="editorial-pill">
+              <Cpu className="h-3.5 w-3.5 text-accent" />
+              <span>OpenUI Lang AST → React</span>
+            </span>
+          </div>
+          <h3 className="mt-2 text-xl font-semibold text-ink sm:text-2xl">
+            {props.headline}
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted">
+            {props.rationale}
+          </p>
         </div>
-        <h3 className="mt-2 text-xl font-semibold text-ink sm:text-2xl">
-          {props.headline}
-        </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-muted">
-          {props.rationale}
-        </p>
-      </div>
 
-      {/* Rendered Architecture / Governance Steps */}
-      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
-        {renderNode(props.steps)}
-      </div>
+        {/* Rendered Architecture / Governance Steps */}
+        <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
+          {renderNode(props.steps)}
+        </div>
 
-      {/* Rendered Project Cards */}
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {renderNode(props.cards)}
-      </div>
+        {/* Rendered Project Cards */}
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {renderNode(props.cards)}
+        </div>
 
-      <div className="rounded-xl border border-line bg-subtle px-4 py-3 font-mono text-xs text-muted">
-        <strong className="text-ink">Synthesis: </strong>
-        {props.synthesisNote}
+        <div className="rounded-xl border border-line bg-subtle px-4 py-3 font-mono text-xs text-muted">
+          <strong className="text-ink">
+            {lang === 'pt' ? 'Síntese: ' : 'Synthesis: '}
+          </strong>
+          {props.synthesisNote}
+        </div>
       </div>
-    </div>
-  ),
+    );
+  },
 });
 
 export const portfolioOpenUILibrary = createLibrary({
@@ -197,6 +210,82 @@ export const portfolioOpenUILibrary = createLibrary({
 type ExplorationMode = 'competency' | 'architecture' | 'gear';
 type SubLens = 'ai' | 'tooling' | 'cloud';
 
+interface StaticParsedProgram {
+  lensName: string;
+  headline: string;
+  rationale: string;
+  synthesisNote: string;
+  steps: {
+    stepNumber: string;
+    stageTitle: string;
+    mechanism: string;
+    guardrail: string;
+  }[];
+  cards: {
+    code: string;
+    title: string;
+    badge: string;
+    summary: string;
+    stackCsv: string;
+    caseStudyHref: string;
+    externalUrl?: string;
+  }[];
+}
+
+function extractQuotedStrings(line: string): string[] {
+  const matches: string[] = [];
+  const regex = /"([^"]*)"/g;
+  let match: RegExpExecArray | null = regex.exec(line);
+  while (match !== null) {
+    matches.push(match[1]);
+    match = regex.exec(line);
+  }
+  return matches;
+}
+
+function parseOpenUIProgramForStaticFallback(program: string): StaticParsedProgram {
+  const lines = program
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  let lensName = '';
+  let headline = '';
+  let rationale = '';
+  let synthesisNote = '';
+  const steps: StaticParsedProgram['steps'] = [];
+  const cards: StaticParsedProgram['cards'] = [];
+
+  for (const line of lines) {
+    const args = extractQuotedStrings(line);
+    if (line.includes('ExplorerCanvas(') && args.length >= 4) {
+      lensName = args[0];
+      headline = args[1];
+      rationale = args[2];
+      synthesisNote = args[3];
+    } else if (line.includes('ArchitectureStep(') && args.length >= 4) {
+      steps.push({
+        stepNumber: args[0],
+        stageTitle: args[1],
+        mechanism: args[2],
+        guardrail: args[3],
+      });
+    } else if (line.includes('ProjectNodeCard(') && args.length >= 6) {
+      cards.push({
+        code: args[0],
+        title: args[1],
+        badge: args[2],
+        summary: args[3],
+        stackCsv: args[4],
+        caseStudyHref: args[5],
+        externalUrl: args[6],
+      });
+    }
+  }
+
+  return { lensName, headline, rationale, synthesisNote, steps, cards };
+}
+
 function buildOpenUILangProgram(
   mode: ExplorationMode,
   subLens: SubLens,
@@ -210,8 +299,8 @@ s1 = ArchitectureStep("01", "Protocolo MCP Dual", "Exposição de ferramentas vi
 s2 = ArchitectureStep("02", "Análise Estática & Grafos", "SonarJS cognitive ratchet, ESLint estrutural, Tarjan SCC e busca vetorial TF-IDF offline.", "Execução 100% determinística e local")
 s3 = ArchitectureStep("03", "Auditoria e Regras Adaptativas", "Log criptográfico SHA-256 em Rust (Script Kitty) e regras aprendidas por repositório (ZenPR).", "Aprovação humana em gates críticos")
 c1 = ProjectNodeCard("P3 · MCP GATE", "Quality Engine", "Invokta Action Engine", "Enforça ratchet de complexidade cognitiva e ausência de ciclos em runtime sobre código de agentes via MCP HTTP.", "TypeScript, Invokta, MCP HTTP, SonarJS, Tarjan SCC", "/work/quality-engine", "https://github.com/andrecodexvictor/Quality-engine")
-c2 = ProjectNodeCard("A3 · CODE REVIEW", "ZenPR", "Dual MCP Workbench", "Agente de code review que aprende regras permanentes por repositório a partir de decisões Aplicado/Rejeitado/Ajustado.", "Next.js 15, React 19, TypeScript, MCP Stdio/HTTP", "/work/zenpr", "https://github.com/andrecodexvictor/ZenPR")
-c3 = ProjectNodeCard("A4 · STACK COMPILER", "dotstack", "Offline TF-IDF & MCP", "Compilador determinístico de recomendações de stack em 13 categorias com busca semântica TF-IDF offline.", "TypeScript, MCP Server, TF-IDF, Vitest", "/work/dotstack", "https://github.com/andrecodexvictor/dotstack")`
+c2 = ProjectNodeCard("A3 · CODE REVIEW", "ZenPR", "Workbench MCP Duplo", "Agente de code review que aprende regras permanentes por repositório a partir de decisões Aplicado/Rejeitado/Ajustado.", "Next.js 15, React 19, TypeScript, MCP Stdio/HTTP", "/work/zenpr", "https://github.com/andrecodexvictor/ZenPR")
+c3 = ProjectNodeCard("A4 · STACK COMPILER", "dotstack", "TF-IDF Offline & MCP", "Compilador determinístico de recomendações de stack em 13 categorias com busca semântica TF-IDF offline.", "TypeScript, MCP Server, TF-IDF, Vitest", "/work/dotstack", "https://github.com/andrecodexvictor/dotstack")`
         : `root = ExplorerCanvas("COMPETENCY LENS · DEVELOPER TOOLING & MCP", "MCP Servers, Quality Ratchets & Deterministic Stack Compilers", "Deterministic developer tooling designed to keep AI coding agents aligned with repository architecture and security boundaries.", [s1, s2, s3], [c1, c2, c3], "Every MCP tool surface separates read/verify agent operations from privileged human sign-off.")
 s1 = ArchitectureStep("01", "Dual-Transport MCP Surface", "Streamable HTTP (:7420/mcp) and stdio servers for Claude Code, Cursor, and Antigravity.", "Agents cannot mutate baselines or waivers")
 s2 = ArchitectureStep("02", "Static & Graph Analysis", "SonarJS cognitive complexity ratchet, Tarjan SCC cycle detection, and offline TF-IDF cosine search.", "100% deterministic local execution")
@@ -245,9 +334,9 @@ c3 = ProjectNodeCard("A1 · MULTIPLAYER SIM", "24 Podiums", "Vercel + Upstash Re
 s1 = ArchitectureStep("01", "Recuperação Fundamentada", "Indexação vetorial no ChromaDB e recuperação híbrida com rastreio de página e documento.", "Abstensão explícita (grounded=false) sem evidência")
 s2 = ArchitectureStep("02", "Orquestração Governada", "Grafos de estado em LangGraph e Action Engines tipadas com @invokta/core.", "Contratos estritos de entrada e saída")
 s3 = ArchitectureStep("03", "Julgamento Rápido (Jev)", "Roteamento local de ferramentas e avaliação pedagógica com o modelo System One Jev da TypeSafe.", "Redução de latência e validação sem regressão")
-c1 = ProjectNodeCard("P1 · OCI RAG", "Axiom Tech", "Deployed on OCI", "Assistente corporativo de documentos (RH, LGPD, Engenharia) com LangGraph, ChromaDB e abstensão explícita na OCI.", "Python, FastAPI, LangGraph, ChromaDB, React, OCI", "/work/axiom-tech", "https://github.com/andrecodexvictor/Axiom-Tech")
+c1 = ProjectNodeCard("P1 · OCI RAG", "Axiom Tech", "Implantado na OCI", "Assistente corporativo de documentos (RH, LGPD, Engenharia) com LangGraph, ChromaDB e abstensão explícita na OCI.", "Python, FastAPI, LangGraph, ChromaDB, React, OCI", "/work/axiom-tech", "https://github.com/andrecodexvictor/Axiom-Tech")
 c2 = ProjectNodeCard("P2 · STUDY STUDIO", "NovaMente Atlas", "Oracle + Alura ONE G10", "Estúdio que transforma PDFs e notas em guias citados, flashcards e tutoria com 5 personas e Invokta Action Engines.", "Next.js, NestJS, @invokta/core, FastAPI, TypeSafe Jev", "/work/novamente-atlas", "https://github.com/Oracle-hackatom-g10-team-4/Nova-mente-Solution")
-c3 = ProjectNodeCard("P6 · OPEN SOURCE", "Jev Gateway", "Tool-Routing Proxy", "Gateway local para agentes de código (jev-codex, jev-claude) que delega a seleção de ferramentas ao modelo Jev.", "TypeScript, Node.js, TypeSafe Jev, OpenAI/Anthropic", "/work/jev-gateway", "https://github.com/andrecodexvictor/jev-gateway")`
+c3 = ProjectNodeCard("P6 · OPEN SOURCE", "Jev Gateway", "Proxy de Roteamento", "Gateway local para agentes de código (jev-codex, jev-claude) que delega a seleção de ferramentas ao modelo Jev.", "TypeScript, Node.js, TypeSafe Jev, OpenAI/Anthropic", "/work/jev-gateway", "https://github.com/andrecodexvictor/jev-gateway")`
       : `root = ExplorerCanvas("COMPETENCY LENS · APPLIED AI & AGENT SYSTEMS", "Source-Grounded RAG, Invokta Action Engines & TypeSafe Jev Routing", "Applied AI systems engineered for reliability: citing exact sources, abstaining when evidence is missing, and decoupling fast tool routing from heavy generation.", [s1, s2, s3], [c1, c2, c3], "Across every AI project, probabilistic LLMs are wrapped inside deterministic state machines and explicit evidence gates.")
 s1 = ArchitectureStep("01", "Evidence-Grounded Retrieval", "ChromaDB persistent vector indexing and hybrid chunk retrieval with exact source attribution.", "Explicit abstention (grounded=false) when unsupported")
 s2 = ArchitectureStep("02", "Governed Orchestration", "LangGraph StateGraphs and typed @invokta/core Action Engines for multi-agent workflows.", "Deterministic schema contracts at every hop")
@@ -264,7 +353,7 @@ s1 = ArchitectureStep("01", "Fronteira de Entrada Tipada", "Parsers multiformato
 s2 = ArchitectureStep("02", "Núcleo Determinístico vs. IA", "Flink SQL, Tarjan SCC e modelos financeiros Curva J calculam métricas exatas; LLMs apenas sintetizam ou sugerem.", "O LLM nunca inventa ROI nem aprova rollback")
 s3 = ArchitectureStep("03", "Superfície Auditável", "Logs SHA-256 em Rust, banco de ratchet em SQLite e citações rastreáveis por trecho documental.", "Rastreabilidade ponta a ponta")
 c1 = ProjectNodeCard("ARQ 01 · OCI + RAG", "Axiom Tech StateGraph", "LangGraph + OCI Gateway", "Fluxo retrieve_context → evaluate → invoke_llm → build_response servido em OCI Compute atrás de API Gateway HTTPS.", "FastAPI, LangGraph, ChromaDB, OCI Block Volume", "/work/axiom-tech", "https://github.com/andrecodexvictor/Axiom-Tech")
-c2 = ProjectNodeCard("ARQ 02 · PRIVILEGE SPLIT", "Quality Engine MCP", "Agent HTTP vs Human CLI", "Agentes consultam 127.0.0.1:7420/mcp; apenas humanos executam quality-admin para alterar baselines ou exceções.", "TypeScript, Invokta, MCP HTTP, SQLite Ratchet", "/work/quality-engine", "https://github.com/andrecodexvictor/Quality-engine")
+c2 = ProjectNodeCard("ARQ 02 · PRIVILEGE SPLIT", "Quality Engine MCP", "MCP Agente vs CLI Humana", "Agentes consultam 127.0.0.1:7420/mcp; apenas humanos executam quality-admin para alterar baselines ou exceções.", "TypeScript, Invokta, MCP HTTP, SQLite Ratchet", "/work/quality-engine", "https://github.com/andrecodexvictor/Quality-engine")
 c3 = ProjectNodeCard("ARQ 03 · HYBRID SIM", "Frame-sim Kernel v8", "EmployeeBrain + Math ROI", "350 personas hidratadas via RAG com estado determinístico de estresse/memória e cálculo financeiro Curva J / CoNQ.", "React 19, Express, ChromaDB, Deterministic Math", "/work/frame-sim", "https://github.com/andrecodexvictor/Frame-sim")`
       : `root = ExplorerCanvas("ARCHITECTURE LENS · 2026 SYSTEM PATTERNS", "How Data, Agents, and Deterministic Controls Connect", "Direct architectural comparison across four implemented patterns: Grounded Cloud RAG, Privilege-Separated MCP, Flink SQL Streaming, and Hybrid Simulation.", [s1, s2, s3], [c1, c2, c3], "Unifying architectural rule: separate the deterministic control plane (schemas, math kernels, ratchets, human CLI) from the probabilistic AI plane.")
 s1 = ArchitectureStep("01", "Typed Ingress Boundary", "Multi-format parsers, Zod/Avro schemas, and YAML specs (.stack / scope.md) validate inputs before execution.", "Immediate rejection of out-of-contract payloads")
@@ -310,6 +399,11 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
     [mode, subLens, lang]
   );
 
+  const staticParsed = useMemo(
+    () => parseOpenUIProgramForStaticFallback(openuiProgram),
+    [openuiProgram]
+  );
+
   const generatedPromptSnippet = useMemo(() => {
     try {
       return portfolioOpenUILibrary.prompt({
@@ -320,6 +414,8 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
       return 'root = ExplorerCanvas(lensName, headline, rationale, steps, cards, synthesisNote)';
     }
   }, []);
+
+  const showFallbackView = useStaticFallback || runtimeErrors.length > 0;
 
   return (
     <section
@@ -348,7 +444,25 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
               </span>
               <button
                 type="button"
+                onClick={() => setUseStaticFallback((prev) => !prev)}
+                aria-pressed={useStaticFallback}
+                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
+              >
+                <Layers className="h-3.5 w-3.5 text-accent" />
+                <span>
+                  {useStaticFallback
+                    ? lang === 'pt'
+                      ? 'Usar <Renderer /> ao Vivo'
+                      : 'Switch to Live <Renderer />'
+                    : lang === 'pt'
+                      ? 'Modo Estático Acessível'
+                      : 'Static Accessible View'}
+                </span>
+              </button>
+              <button
+                type="button"
                 onClick={() => setShowSource((prev) => !prev)}
+                aria-expanded={showSource}
                 className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 font-mono text-xs text-ink hover:border-accent transition-colors cursor-pointer"
               >
                 <Code2 className="h-3.5 w-3.5 text-accent" />
@@ -367,7 +481,11 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
           <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-b border-line pb-5">
             <div
               role="tablist"
-              aria-label="OpenUI Exploration Modes"
+              aria-label={
+                lang === 'pt'
+                  ? 'Modos de exploração OpenUI'
+                  : 'OpenUI Exploration Modes'
+              }
               className="flex flex-wrap items-center gap-2"
             >
               {(
@@ -449,7 +567,11 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
               <div className="mb-2 flex items-center justify-between font-mono text-xs text-accent-ink">
                 <span className="inline-flex items-center gap-1.5 font-semibold">
                   <Terminal className="h-3.5 w-3.5" />
-                  <span>Active OpenUI Lang Program (`response` prop)</span>
+                  <span>
+                    {lang === 'pt'
+                      ? 'Programa OpenUI Lang Ativo (prop `response`)'
+                      : 'Active OpenUI Lang Program (`response` prop)'}
+                  </span>
                 </span>
                 <span>@openuidev/react-lang</span>
               </div>
@@ -461,7 +583,11 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
               <div className="mb-2 flex items-center justify-between font-mono text-xs text-accent-ink">
                 <span className="inline-flex items-center gap-1.5 font-semibold">
                   <Layers className="h-3.5 w-3.5" />
-                  <span>Generated `portfolioOpenUILibrary.prompt()`</span>
+                  <span>
+                    {lang === 'pt'
+                      ? 'Schema Gerado (`portfolioOpenUILibrary.prompt()`)'
+                      : 'Generated `portfolioOpenUILibrary.prompt()`'}
+                  </span>
                 </span>
                 <button
                   type="button"
@@ -469,8 +595,12 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
                   className="underline text-[11px] text-muted hover:text-ink cursor-pointer"
                 >
                   {useStaticFallback
-                    ? 'Switch to Live <Renderer />'
-                    : 'Test Static Fallback'}
+                    ? lang === 'pt'
+                      ? 'Alternar para <Renderer /> ao Vivo'
+                      : 'Switch to Live <Renderer />'
+                    : lang === 'pt'
+                      ? 'Testar Fallback Estático'
+                      : 'Test Static Fallback'}
                 </button>
               </div>
               <pre className="max-h-60 overflow-auto rounded-xl border border-line bg-canvas p-3.5 font-mono text-[11px] leading-relaxed text-muted">
@@ -480,30 +610,160 @@ export default function ExploreMyWorkOpenUI({ lang }: ExploreMyWorkOpenUIProps) 
           </div>
         )}
 
-        {/* Live OpenUI <Renderer /> Surface with Static Fallback */}
+        {/* Live OpenUI <Renderer /> Surface with Structured Accessible Static Fallback */}
         <div className="mt-8 rounded-[22px] border border-line bg-surface p-6 sm:p-8">
-          {!useStaticFallback ? (
-            <Renderer
-              library={portfolioOpenUILibrary}
-              response={openuiProgram}
-              isStreaming={false}
-              onError={(errs) => {
-                const critical = errs.filter((e) => e.severity !== 'warning');
-                if (critical.length > 0) {
-                  setRuntimeErrors(critical);
-                }
-              }}
-            />
-          ) : (
-            <div className="space-y-4">
-              <p className="font-mono text-xs text-accent-ink">
-                {t.fallbackNotice}
-              </p>
-              <pre className="overflow-auto rounded-xl border border-line bg-canvas p-4 font-mono text-xs text-ink">
-                <code>{openuiProgram}</code>
-              </pre>
-            </div>
-          )}
+          <OpenUILocaleContext.Provider value={lang}>
+            {!showFallbackView ? (
+              <Renderer
+                library={portfolioOpenUILibrary}
+                response={openuiProgram}
+                isStreaming={false}
+                onError={(errs) => {
+                  const critical = errs.filter((e) => e.severity !== 'warning');
+                  if (critical.length > 0) {
+                    setRuntimeErrors(critical);
+                  }
+                }}
+              />
+            ) : (
+              <div className="space-y-6" data-testid="openui-static-fallback">
+                <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line bg-subtle px-4 py-2.5 font-mono text-xs text-accent-ink">
+                  <span>{t.fallbackNotice}</span>
+                  <span className="text-muted">
+                    {lang === 'pt' ? 'HTML Estático Semântico' : 'Semantic Static HTML'}
+                  </span>
+                </div>
+
+                <div className="rounded-2xl border border-line bg-canvas p-5 sm:p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
+                      {staticParsed.lensName}
+                    </span>
+                    <span className="editorial-pill">
+                      <Layers className="h-3.5 w-3.5 text-accent" />
+                      <span>
+                        {lang === 'pt'
+                          ? 'Fallback Estático Estruturado'
+                          : 'Structured Static Fallback'}
+                      </span>
+                    </span>
+                  </div>
+                  <h3 className="mt-2 text-xl font-semibold text-ink sm:text-2xl">
+                    {staticParsed.headline}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                    {staticParsed.rationale}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-3">
+                  {staticParsed.steps.map((step) => (
+                    <div
+                      key={step.stepNumber}
+                      className="rounded-xl border border-line bg-canvas p-4 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="flex items-center justify-between font-mono text-[11px]">
+                          <span className="font-bold text-accent">
+                            {lang === 'pt' ? 'ETAPA' : 'STAGE'} {step.stepNumber}
+                          </span>
+                          <ShieldCheck className="h-3.5 w-3.5 text-accent" />
+                        </div>
+                        <h5 className="mt-1.5 text-sm font-semibold text-ink">
+                          {step.stageTitle}
+                        </h5>
+                        <p className="mt-1 text-xs leading-relaxed text-muted">
+                          {step.mechanism}
+                        </p>
+                      </div>
+                      <div className="mt-3 border-t border-line pt-2 font-mono text-[10px] text-accent-ink">
+                        Guardrail: {step.guardrail}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                  {staticParsed.cards.map((card) => {
+                    const tags = card.stackCsv
+                      .split(',')
+                      .map((s) => s.trim())
+                      .filter(Boolean);
+                    return (
+                      <div
+                        key={card.code}
+                        className="editorial-card rounded-2xl p-5 flex flex-col justify-between"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
+                            <span className="font-semibold text-accent-ink">
+                              {card.code}
+                            </span>
+                            <span className="editorial-pill">{card.badge}</span>
+                          </div>
+                          <h4 className="mt-3 text-lg font-semibold text-ink">
+                            {card.title}
+                          </h4>
+                          <p className="mt-2 text-xs leading-relaxed text-muted">
+                            {card.summary}
+                          </p>
+                        </div>
+
+                        <div className="mt-4 border-t border-line pt-3">
+                          <div className="flex flex-wrap gap-1.5 mb-3">
+                            {tags.map((tag) => (
+                              <span
+                                key={tag}
+                                className="rounded border border-line bg-subtle px-2 py-0.5 font-mono text-[10px] text-muted"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex items-center justify-between font-mono text-xs">
+                            <Link
+                              href={
+                                card.caseStudyHref.endsWith('/')
+                                  ? card.caseStudyHref
+                                  : `${card.caseStudyHref}/`
+                              }
+                              prefetch={false}
+                              className="inline-flex items-center gap-1 font-medium text-accent-ink hover:underline"
+                            >
+                              <span>
+                                {lang === 'pt' ? 'Estudo de Caso' : 'Case Study'}
+                              </span>
+                              <ArrowUpRight className="h-3.5 w-3.5" />
+                            </Link>
+                            {card.externalUrl && (
+                              <a
+                                href={card.externalUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-muted hover:text-ink"
+                              >
+                                <span>
+                                  {lang === 'pt' ? 'Repositório' : 'Repository'}
+                                </span>
+                                <ArrowUpRight className="h-3.5 w-3.5" />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="rounded-xl border border-line bg-subtle px-4 py-3 font-mono text-xs text-muted">
+                  <strong className="text-ink">
+                    {lang === 'pt' ? 'Síntese: ' : 'Synthesis: '}
+                  </strong>
+                  {staticParsed.synthesisNote}
+                </div>
+              </div>
+            )}
+          </OpenUILocaleContext.Provider>
 
           {runtimeErrors.length > 0 && (
             <div className="mt-4 rounded-xl border border-line bg-subtle p-3 font-mono text-xs text-muted">

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Sun, Moon, Menu, X, FileText, Palette } from 'lucide-react';
 import { Language, TRANSLATIONS } from '@/config/i18n';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
@@ -25,11 +25,34 @@ export default function Navbar({
   onToggleAccent,
 }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement | null>(null);
   const t = TRANSLATIONS[lang].nav;
   const resumeHref =
     lang === 'pt'
       ? PORTFOLIO_CONFIG.personal.resumePtUrl
       : PORTFOLIO_CONFIG.personal.resumeEnUrl;
+
+  useEffect(() => {
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMobileOpen(false);
+        mobileMenuButtonRef.current?.focus();
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
 
   const navItems = [
     { href: '#work', label: t.work },
@@ -41,37 +64,53 @@ export default function Navbar({
     { href: '#contact', label: t.contact },
   ];
 
+  const accentLabel =
+    lang === 'pt'
+      ? accent === 'sage'
+        ? 'sálvia'
+        : 'bronze'
+      : accent;
+
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur-md transition-colors">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+    <header
+      data-scrolled={isScrolled ? 'true' : 'false'}
+      className={`sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur-md transition-all duration-200 ${
+        isScrolled ? 'shadow-2xs' : ''
+      }`}
+    >
+      <div
+        className={`mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 sm:px-8 transition-all duration-200 ${
+          isScrolled ? 'py-2.5' : 'py-3.5'
+        }`}
+      >
         {/* Brand Monogram */}
         <a
           href="#top"
-          className="group inline-flex items-center gap-3 text-ink no-underline"
+          className="group inline-flex items-center gap-3 text-ink no-underline shrink-0"
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface font-mono text-xs font-semibold tracking-tight text-ink transition-colors group-hover:border-accent">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface font-mono text-xs font-semibold tracking-tight text-ink transition-colors group-hover:border-accent">
             AV
           </span>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold tracking-tight text-ink leading-tight">
+            <span className="text-sm font-semibold tracking-tight text-ink leading-tight whitespace-nowrap">
               André Victor
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-muted">
-              Applied AI &amp; Systems
+            <span className="hidden xl:block font-mono text-[10px] uppercase tracking-widest text-muted whitespace-nowrap">
+              {lang === 'pt' ? 'IA Aplicada & Sistemas' : 'Applied AI & Systems'}
             </span>
           </div>
         </a>
 
         {/* Desktop Nav Links */}
         <nav
-          aria-label="Primary navigation"
-          className="hidden xl:flex items-center gap-6"
+          aria-label={lang === 'pt' ? 'Navegação principal' : 'Primary navigation'}
+          className="hidden lg:flex items-center gap-2.5 xl:gap-3.5 2xl:gap-6"
         >
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-muted hover:text-ink transition-colors"
+              className="text-xs 2xl:text-sm font-medium text-muted hover:text-ink transition-colors whitespace-nowrap"
             >
               {item.label}
             </a>
@@ -79,7 +118,7 @@ export default function Navbar({
         </nav>
 
         {/* Controls: Language, Accent, Theme, Resume */}
-        <div className="hidden md:flex items-center gap-2.5">
+        <div className="hidden lg:flex items-center gap-1.5 xl:gap-2">
           <LanguageSelector currentLang={lang} onSelect={setLang} />
 
           <button
@@ -87,10 +126,10 @@ export default function Navbar({
             onClick={onToggleAccent}
             title={accent === 'sage' ? t.accentBronze : t.accentSage}
             aria-label={accent === 'sage' ? t.accentBronze : t.accentSage}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-2.5 py-1.5 font-mono text-[11px] text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
+            className="inline-flex h-9 w-9 xl:w-auto shrink-0 items-center justify-center gap-1.5 rounded-full border border-line bg-surface xl:px-3 font-mono text-[11px] text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
           >
             <Palette className="h-3.5 w-3.5 text-accent" />
-            <span className="uppercase">{accent}</span>
+            <span className="hidden xl:inline uppercase">{accentLabel}</span>
           </button>
 
           <button
@@ -98,7 +137,7 @@ export default function Navbar({
             onClick={onToggleTheme}
             title={theme === 'light' ? t.themeDark : t.themeLight}
             aria-label={theme === 'light' ? t.themeDark : t.themeLight}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-muted hover:text-ink hover:border-accent transition-colors cursor-pointer"
           >
             {theme === 'light' ? (
               <Moon className="h-4 w-4" />
@@ -111,21 +150,24 @@ export default function Navbar({
             href={resumeHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full bg-inverted px-3.5 py-1.5 font-mono text-xs font-medium text-inverted-ink hover:opacity-90 transition-opacity"
+            title={t.resume}
+            aria-label={t.resume}
+            className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-full bg-inverted px-2.5 xl:px-3.5 font-mono text-xs font-medium text-inverted-ink hover:opacity-90 transition-opacity whitespace-nowrap"
           >
             <FileText className="h-3.5 w-3.5" />
-            <span>{t.resume}</span>
+            <span className="hidden xl:inline">{t.resume}</span>
+            <span className="xl:hidden">PDF</span>
           </a>
         </div>
 
-        {/* Mobile Menu Trigger */}
-        <div className="flex items-center gap-2 md:hidden">
+        {/* Mobile / Tablet Menu Trigger (< 1024px) */}
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <LanguageSelector currentLang={lang} onSelect={setLang} />
           <button
             type="button"
             onClick={onToggleTheme}
             aria-label={theme === 'light' ? t.themeDark : t.themeLight}
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface text-ink"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink"
           >
             {theme === 'light' ? (
               <Moon className="h-4 w-4" />
@@ -134,11 +176,21 @@ export default function Navbar({
             )}
           </button>
           <button
+            ref={mobileMenuButtonRef}
             type="button"
             onClick={() => setMobileOpen((prev) => !prev)}
             aria-expanded={mobileOpen}
-            aria-label="Toggle navigation menu"
-            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-line bg-surface text-ink"
+            aria-controls="mobile-navigation-drawer"
+            aria-label={
+              lang === 'pt'
+                ? mobileOpen
+                  ? 'Fechar menu de navegação'
+                  : 'Abrir menu de navegação'
+                : mobileOpen
+                  ? 'Close navigation menu'
+                  : 'Toggle navigation menu'
+            }
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-ink"
           >
             {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -147,14 +199,20 @@ export default function Navbar({
 
       {/* Mobile Navigation Drawer */}
       {mobileOpen && (
-        <div className="border-t border-line bg-surface px-5 py-4 xl:hidden">
-          <nav className="flex flex-col gap-3" aria-label="Mobile navigation">
+        <div
+          id="mobile-navigation-drawer"
+          className="border-t border-line bg-surface px-5 py-4 lg:hidden"
+        >
+          <nav
+            className="flex flex-col gap-3"
+            aria-label={lang === 'pt' ? 'Navegação móvel' : 'Mobile navigation'}
+          >
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className="py-1 text-sm font-medium text-ink hover:text-accent transition-colors"
+                className="py-1.5 text-sm font-medium text-ink hover:text-accent transition-colors"
               >
                 {item.label}
               </a>
@@ -163,7 +221,7 @@ export default function Navbar({
               <button
                 type="button"
                 onClick={onToggleAccent}
-                className="inline-flex items-center gap-1.5 rounded-full border border-line bg-subtle px-3 py-1.5 font-mono text-xs text-ink"
+                className="inline-flex min-h-9 items-center gap-1.5 rounded-full border border-line bg-subtle px-3.5 py-1.5 font-mono text-xs text-ink"
               >
                 <Palette className="h-3.5 w-3.5 text-accent" />
                 <span>
@@ -174,7 +232,7 @@ export default function Navbar({
                 href={resumeHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-inverted px-4 py-1.5 font-mono text-xs font-medium text-inverted-ink"
+                className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-inverted px-4 py-1.5 font-mono text-xs font-medium text-inverted-ink"
               >
                 <FileText className="h-3.5 w-3.5" />
                 <span>{t.resume}</span>

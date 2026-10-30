@@ -39,7 +39,7 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
     },
     certificateId: '331822278OCI26AICFA',
     verifyUrl:
-      'https://catalog-education.oracle.com/pls/certview/sharebadge?id=317EF46601A72A0684C98BC91EB7E0C26C19CFEC2F9BA1AC8731AF576FF4FB1D',
+      'https://catalog-education.oracle.com/ords/certview/sharebadge?id=3389CC2B297A522B8F5550D9FC1FA938765D5C565047DBE2C7892E',
     category: 'oracle',
     highlights: {
       en: [
@@ -69,7 +69,7 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
     },
     certificateId: '331856991OCI26AICFA',
     verifyUrl:
-      'https://catalog-education.oracle.com/pls/certview/sharebadge?id=9EC5E59DA58C97BA737B01812E372D1FEFA84F8D292BA8C17AA43D9EE11FC447',
+      'https://catalog-education.oracle.com/ords/certview/sharebadge_m?id=39DB464BA2AB87DEA9B1A4C51B7ACE5988234D167BADE5B841C413AF222EC11C',
     category: 'oracle',
     highlights: {
       en: [

@@ -126,7 +126,11 @@ export default function Projects({ lang }: ProjectsProps) {
           {/* Category Filter Bar */}
           <div
             role="tablist"
-            aria-label="Filter projects by engineering domain"
+            aria-label={
+              lang === 'pt'
+                ? 'Filtrar projetos por domínio de engenharia'
+                : 'Filter projects by engineering domain'
+            }
             className="mt-8 flex flex-wrap items-center gap-2"
           >
             {categories.map((cat) => {
@@ -212,7 +216,11 @@ export default function Projects({ lang }: ProjectsProps) {
                     <div className="mt-5 overflow-hidden rounded-xl border border-line bg-subtle">
                       <Image
                         src={project.previewImage}
-                        alt={`${project.title} interface and architecture preview`}
+                        alt={
+                          lang === 'pt'
+                            ? `Prévia da interface e arquitetura do projeto ${project.title}`
+                            : `${project.title} interface and architecture preview`
+                        }
                         width={1200}
                         height={675}
                         unoptimized
@@ -269,11 +277,11 @@ export default function Projects({ lang }: ProjectsProps) {
                         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
                           {project.architectureFlow.map((step, sIdx) => (
                             <div
-                              key={step.node}
+                              key={step.node.en}
                               className="rounded-xl border border-line bg-surface p-3.5"
                             >
                               <div className="flex items-center justify-between font-mono text-[11px] text-accent-ink">
-                                <span className="font-semibold">{step.node}</span>
+                                <span className="font-semibold">{step.node[lang]}</span>
                                 <span>0{sIdx + 1}</span>
                               </div>
                               <p className="mt-1 font-mono text-[11px] text-ink">
@@ -381,7 +389,11 @@ export default function Projects({ lang }: ProjectsProps) {
                     <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
                       {project.links.branchNote && (
                         <span
-                          title="Active engineering branch"
+                          title={
+                            lang === 'pt'
+                              ? 'Branch ativa de engenharia'
+                              : 'Active engineering branch'
+                          }
                           className="inline-flex items-center gap-1 text-[11px] text-muted"
                         >
                           <GitBranch className="h-3.5 w-3.5 text-accent" />
@@ -447,7 +459,11 @@ export default function Projects({ lang }: ProjectsProps) {
             viewBox="160 30 720 370"
             className="h-16 w-48 sm:w-64 text-ink shrink-0"
             role="img"
-            aria-label="Minimalist Formula 1 circuit racing line with sage apex marker"
+            aria-label={
+              lang === 'pt'
+                ? 'Traçado minimalista de circuito de Fórmula 1 com marcador de ápice'
+                : 'Minimalist Formula 1 circuit racing line with sage apex marker'
+            }
           >
             <path
               ref={trackPathRef}

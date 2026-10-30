@@ -147,10 +147,10 @@ export default function Hero({ lang }: HeroProps) {
             <figure className="editorial-card overflow-hidden rounded-[22px] p-3 sm:p-4">
               {/* Top Frame Telemetry Bar */}
               <div className="mb-3 flex items-center justify-between px-1 font-mono text-[11px] text-muted">
-                <span>PORTRAIT · BAHIA, BR</span>
+                <span>{lang === 'pt' ? 'RETRATO · BAHIA, BR' : 'PORTRAIT · BAHIA, BR'}</span>
                 <span className="inline-flex items-center gap-1 text-accent-ink">
                   <ShieldCheck className="h-3.5 w-3.5 text-accent" />
-                  <span>VERIFIED PROFILE</span>
+                  <span>{lang === 'pt' ? 'PERFIL VERIFICADO' : 'VERIFIED PROFILE'}</span>
                 </span>
               </div>
 
@@ -158,7 +158,11 @@ export default function Hero({ lang }: HeroProps) {
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-line bg-subtle">
                 <Image
                   src={PORTFOLIO_CONFIG.personal.portraitSrc}
-                  alt="André Victor Andrade Oliveira Santos — Software Engineer and Applied AI Researcher"
+                  alt={
+                    lang === 'pt'
+                      ? 'André Victor Andrade Oliveira Santos — Engenheiro de Software e Pesquisador em IA Aplicada'
+                      : 'André Victor Andrade Oliveira Santos — Software Engineer and Applied AI Researcher'
+                  }
                   width={960}
                   height={1200}
                   priority

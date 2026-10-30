@@ -53,7 +53,9 @@ export default function Certifications({ lang }: CertificationsProps) {
                   <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
                     <ShieldCheck className="h-4 w-4 text-accent" />
                     <span>
-                      ORACLE UNIVERSITY · BADGE 0{index + 1}
+                      {lang === 'pt'
+                        ? `ORACLE UNIVERSITY · CREDENCIAL 0${index + 1}`
+                        : `ORACLE UNIVERSITY · BADGE 0${index + 1}`}
                     </span>
                   </span>
                   <span className="editorial-pill">ID: {cert.certificateId}</span>
@@ -78,7 +80,7 @@ export default function Certifications({ lang }: CertificationsProps) {
 
               <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
                 <span className="font-mono text-xs text-muted">
-                  Issuer: {cert.issuer}
+                  {lang === 'pt' ? 'Emissor:' : 'Issuer:'} {cert.issuer}
                 </span>
                 <a
                   href={cert.verifyUrl}

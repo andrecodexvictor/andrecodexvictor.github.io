@@ -88,15 +88,23 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
             {/* Clean Architectural SVG Diagram: 3 Core Pillars + Transversal Optional AI */}
             <div className="lg:col-span-5 flex flex-col justify-between rounded-xl border border-line bg-canvas p-4 sm:p-5">
               <div className="mb-2 flex items-center justify-between font-mono text-[11px] text-muted">
-                <span>GEAR MVG ARCHITECTURE</span>
-                <span className="text-accent-ink">3 PILLARS + OPTIONAL AI</span>
+                <span>
+                  {lang === 'pt' ? 'ARQUITETURA GMV GEAR' : 'GEAR MVG ARCHITECTURE'}
+                </span>
+                <span className="text-accent-ink">
+                  {lang === 'pt' ? '3 PILARES + IA OPCIONAL' : '3 PILLARS + OPTIONAL AI'}
+                </span>
               </div>
 
               <svg
                 viewBox="0 0 420 220"
                 className="w-full h-auto"
                 role="img"
-                aria-label="GEAR architecture diagram showing 3 foundational pillars and the transversal optional AI layer with human verification"
+                aria-label={
+                  lang === 'pt'
+                    ? 'Diagrama arquitetural do GEAR mostrando 3 pilares fundamentais e a camada transversal opcional de IA com verificação humana'
+                    : 'GEAR architecture diagram showing 3 foundational pillars and the transversal optional AI layer with human verification'
+                }
               >
                 {/* Three Pillars */}
                 <g>
@@ -118,7 +126,7 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     fontFamily="monospace"
                     fontWeight="bold"
                   >
-                    PILLAR 01
+                    {lang === 'pt' ? 'PILAR 01' : 'PILLAR 01'}
                   </text>
                   <text
                     x="22"
@@ -159,7 +167,7 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     fontFamily="monospace"
                     fontWeight="bold"
                   >
-                    PILLAR 02
+                    {lang === 'pt' ? 'PILAR 02' : 'PILLAR 02'}
                   </text>
                   <text
                     x="160"
@@ -174,10 +182,10 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     {lang === 'pt' ? 'Fila Única' : 'Single Queue'}
                   </text>
                   <text x="160" y="94" fill="var(--muted)" fontSize="10">
-                    Kanban 4 States
+                    {lang === 'pt' ? 'Kanban 4 Estados' : 'Kanban 4 States'}
                   </text>
                   <text x="160" y="110" fill="var(--muted)" fontSize="10">
-                    Hard WIP = 3
+                    {lang === 'pt' ? 'WIP Rígido = 3' : 'Hard WIP = 3'}
                   </text>
                 </g>
 
@@ -200,7 +208,7 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     fontFamily="monospace"
                     fontWeight="bold"
                   >
-                    PILLAR 03
+                    {lang === 'pt' ? 'PILAR 03' : 'PILLAR 03'}
                   </text>
                   <text
                     x="298"
@@ -212,13 +220,13 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     {lang === 'pt' ? 'Segurança' : 'Security'}
                   </text>
                   <text x="298" y="78" fill="var(--muted)" fontSize="10">
-                    3-2-1 Restore Test
+                    {lang === 'pt' ? 'Teste Restore 3-2-1' : '3-2-1 Restore Test'}
                   </text>
                   <text x="298" y="94" fill="var(--muted)" fontSize="10">
                     RTO / RPO &amp; MFA
                   </text>
                   <text x="298" y="110" fill="var(--muted)" fontSize="10">
-                    PRI 1-Page Plan
+                    {lang === 'pt' ? 'PRI de 1 Página' : 'PRI 1-Page Plan'}
                   </text>
                 </g>
 
@@ -321,7 +329,7 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                 >
                   <div className="flex items-center justify-between font-mono text-xs">
                     <span className="font-semibold text-accent-ink">
-                      PILLAR {pillar.number}
+                      {lang === 'pt' ? 'PILAR' : 'PILLAR'} {pillar.number}
                     </span>
                     <span className="text-muted">{pillar.standardsRef}</span>
                   </div>
@@ -365,7 +373,8 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
               <span>{GEAR_DATA.transversalAi.badge[lang]}</span>
             </div>
             <span className="editorial-pill">
-              {selectedPillar.title[lang]} + AI Guardrail
+              {selectedPillar.title[lang]} +{' '}
+              {lang === 'pt' ? 'Guardrail de IA' : 'AI Guardrail'}
             </span>
           </div>
 
@@ -392,7 +401,7 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                   >
                     <div>
                       <span className="font-mono text-[11px] font-bold text-accent">
-                        STEP {s.step}
+                        {lang === 'pt' ? 'ETAPA' : 'STEP'} {s.step}
                       </span>
                       <h4 className="mt-1 text-xs font-semibold text-ink">
                         {s.label[lang]}
@@ -417,12 +426,50 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
                     </p>
                     <p className="mt-1 text-xs text-ink">{item.useCase}</p>
                     <p className="mt-1.5 font-mono text-[10px] text-muted">
-                      Guardrail: {item.guardrail}
+                      {lang === 'pt' ? 'Guardrail:' : 'Guardrail:'} {item.guardrail}
                     </p>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* 10-Chapter Book & TCC Architecture Index */}
+        <div className="mt-12 rounded-2xl border border-line bg-surface p-6 sm:p-8">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-4">
+            <h3 className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-widest text-accent-ink">
+              <BookOpen className="h-4 w-4 text-accent" />
+              <span>
+                {lang === 'pt'
+                  ? 'Estrutura Editorial da Obra (10 Capítulos · Edição 2026.10)'
+                  : 'Editorial Book Architecture (10 Chapters · 2026.10 Edition)'}
+              </span>
+            </h3>
+            <span className="font-mono text-xs text-muted">
+              {lang === 'pt' ? 'TCC IFBA + Livro Técnico' : 'IFBA Thesis + Technical Book'}
+            </span>
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            {GEAR_DATA.chapters.map((ch) => (
+              <div
+                key={ch.number}
+                className="rounded-xl border border-line bg-canvas p-3.5 flex flex-col justify-between"
+              >
+                <div>
+                  <span className="font-mono text-[11px] font-bold text-accent-ink">
+                    {lang === 'pt' ? 'CAP.' : 'CH.'} {ch.number}
+                  </span>
+                  <h4 className="mt-1 text-xs font-semibold text-ink">
+                    {ch.title[lang]}
+                  </h4>
+                </div>
+                <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                  {ch.focus[lang]}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -436,11 +483,11 @@ export default function CaseStudies({ lang }: CaseStudiesProps) {
             <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {GEAR_DATA.adoption30Days.map((w) => (
                 <div
-                  key={w.week}
+                  key={w.week.en}
                   className="rounded-xl border border-line bg-canvas p-4"
                 >
                   <span className="font-mono text-xs font-semibold text-accent-ink">
-                    {w.week}
+                    {w.week[lang]}
                   </span>
                   <h4 className="mt-1 text-sm font-semibold text-ink">
                     {w.title[lang]}

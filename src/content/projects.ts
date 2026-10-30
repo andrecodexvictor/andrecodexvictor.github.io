@@ -9,7 +9,7 @@ export type ProjectCategory =
   | 'open-source';
 
 export interface ProjectArchitectureStep {
-  node: string;
+  node: Record<Locale, string>;
   role: Record<Locale, string>;
   detail: Record<Locale, string>;
 }
@@ -23,12 +23,16 @@ export interface PortfolioProject {
   slug: string;
   code: string;
   title: string;
+  year: string;
   featured: boolean;
   priorityOrder: number;
   categories: Exclude<ProjectCategory, 'all'>[];
   competencies: ('applied-ai' | 'backend-cloud' | 'dev-tooling' | 'governance-risk' | 'product-frontend')[];
   stageBadge: Record<Locale, string>;
   roleBadge: Record<Locale, string>;
+  collaboration: Record<Locale, string>;
+  publicationStatus: 'public-verified' | 'pending-client-approval';
+  lastVerifiedAt: string;
   eyebrow: Record<Locale, string>;
   tagline: Record<Locale, string>;
   summary: Record<Locale, string>;
@@ -37,6 +41,7 @@ export interface PortfolioProject {
   myContribution: Record<Locale, string[]>;
   architectureFlow: ProjectArchitectureStep[];
   decisionsAndTradeoffs: Record<Locale, string[]>;
+  challengesAndNextSteps: Record<Locale, string>;
   honestyAndScopeNote: Record<Locale, string>;
   verifiedFacts: ProjectMetricOrFact[];
   stack: string[];
@@ -64,6 +69,7 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'gear',
     code: 'P0 · TCC & BOOK',
     title: 'GEAR Framework (GP-PME Evolution)',
+    year: '2026',
     featured: true,
     priorityOrder: 0,
     categories: ['governance-ops', 'architecture-tooling'],
@@ -76,6 +82,12 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: 'Sole Author & Researcher · IFBA',
       pt: 'Autor e Pesquisador · IFBA',
     },
+    collaboration: {
+      en: 'Individual Authored Framework & Undergraduate Thesis (IFBA)',
+      pt: 'Framework Autoral Individual e Trabalho de Conclusão de Curso (IFBA)',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     eyebrow: {
       en: 'IT Governance, Execution, Agility & Risk for SMEs',
       pt: 'Gestão, Execução, Agilidade e Risco de TI para PMEs',
@@ -98,19 +110,19 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     myContribution: {
       en: [
-        'Authored the complete 10-chapter technical manuscript (2026.10 edition), operational templates, and vector diagrams.',
+        'Authored the complete 10-chapter technical manuscript (2026.10 edition), 18 operational templates, and vector diagrams.',
         'Designed the binary 0–10 IM-TI maturity diagnostic, proving teams can reach Level 4 (10/10) with zero AI dependency.',
         'Formulated the Design Science Research (DSR) evaluation protocol using paired synthetic SME cases (B2B Software House & Regional Medical Clinic).',
       ],
       pt: [
-        'Autoria integral do livro técnico de 10 capítulos (Edição 2026.10), templates operacionais e diagramas vetoriais.',
+        'Autoria integral do livro técnico de 10 capítulos (Edição 2026.10), 18 templates operacionais e diagramas vetoriais.',
         'Desenho do diagnóstico binário de maturidade IM-TI (0 a 10), garantindo que o Nível 4 (10/10) seja atingível sem dependência de IA.',
         'Estruturação do protocolo metodológico em Design Science Research (DSR) com casos sintéticos pareados.',
       ],
     },
     architectureFlow: [
       {
-        node: '01 · Essential Governance',
+        node: { en: '01 · Essential Governance', pt: '01 · Governança Essencial' },
         role: { en: 'ADM-Lite + RACI-Lite + CD-TI Lite', pt: 'ADM-Lite + RACI-Lite + CD-TI Lite' },
         detail: {
           en: 'Single Accountable (A) owner per service and a 30-minute biweekly prioritization cadence across 4 demand purposes.',
@@ -118,7 +130,7 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: '02 · Agile Execution',
+        node: { en: '02 · Agile Execution', pt: '02 · Execução Ágil' },
         role: { en: 'Single Official Queue + WIP=3', pt: 'Fila Única Oficial + WIP=3' },
         detail: {
           en: '4-column board (To Do, In Progress, In Test, Done) with hard WIP=3 per executor and explicit Expedite displacement.',
@@ -126,7 +138,7 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: '03 · Critical Security',
+        node: { en: '03 · Critical Security', pt: '03 · Segurança Crítica' },
         role: { en: '3-2-1 Restore Drills + PRI Playbook', pt: 'Restauração Testada 3-2-1 + PRI' },
         detail: {
           en: 'Backup ≠ Restoration: scheduled recovery verification within RTO/RPO, MFA hygiene, and 1-page incident response.',
@@ -134,7 +146,7 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Transversal · Optional AI',
+        node: { en: 'Transversal · Optional AI', pt: 'Transversal · IA Opcional' },
         role: { en: 'Context → Draft → Human Verify → Authority → Action', pt: 'Contexto → Rascunho → Verificação → Autoridade → Ação' },
         detail: {
           en: 'Accelerates ticket triage and documentation without ever bypassing human sign-off or exposing sensitive data (LGPD).',
@@ -153,6 +165,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         'WIP = 3 inclui itens em teste e bloqueados: impede que a equipe esconda gargalos abrindo novas tarefas enquanto outras aguardam validação.',
         'Pontuação binária 0/1 no IM-TI: elimina escalas subjetivas em favor de evidências operacionais objetivas e auditáveis.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Consolidating 44 fragmented operational documents from the initial GP-PME repository into 10 cohesive didactic book chapters without losing the 18 copyable templates; next steps include TCC defense at IFBA and prospective longitudinal field observation across partnering SMEs.',
+      pt: 'Consolidar 44 documentos operacionais fragmentados do repositório GP-PME original em 10 capítulos didáticos coesos sem perder os 18 templates copiáveis; os próximos passos incluem a defesa acadêmica do TCC no IFBA e observação empírica longitudinal em PMEs parceiras.',
     },
     honestyAndScopeNote: {
       en: 'Methodological status: Complete normative artifact and paired synthetic demonstration cases under Design Science Research (DSR). Empirical multi-company field validation is prospective and scheduled as future work.',
@@ -180,6 +196,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'axiom-tech',
     code: 'P1 · GROUNDED RAG ON OCI',
     title: 'Axiom Tech',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · End-to-End Architecture & OCI Cloud Deployment',
+      pt: 'Autoria Individual · Arquitetura Ponta a Ponta e Deploy na OCI',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 1,
     categories: ['ai-agents', 'architecture-tooling'],
@@ -226,7 +249,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Ingestion & Chunking',
+        node: {
+          en: 'Ingestion & Chunking',
+          pt: 'Ingestão e Chunking',
+        },
         role: { en: 'PDF / DOCX / XLSX / OpenAPI YAML', pt: 'PDF / DOCX / XLSX / OpenAPI YAML' },
         detail: {
           en: 'Extracts text and metadata across 9 corporate document formats and indexes embeddings into ChromaDB.',
@@ -234,7 +260,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'LangGraph StateGraph',
+        node: {
+          en: 'LangGraph StateGraph',
+          pt: 'StateGraph LangGraph',
+        },
         role: { en: 'Retrieve → Evaluate → Synthesize', pt: 'Recuperar → Avaliar → Sintetizar' },
         detail: {
           en: 'Checks evidence threshold; if context does not support a factual answer, sets `grounded=false` and abstains.',
@@ -242,7 +271,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'OCI + API Gateway',
+        node: {
+          en: 'OCI + API Gateway',
+          pt: 'OCI + API Gateway',
+        },
         role: { en: 'HTTPS Edge → FastAPI + Chroma Volume', pt: 'HTTPS Edge → FastAPI + Volume Chroma' },
         detail: {
           en: 'Served from OCI Compute (`sa-saopaulo-1`) behind Oracle API Gateway with automated GHCR image rollout.',
@@ -261,6 +293,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         'ChromaDB auto-hospedado em Block Volume na OCI: mantém os vetores co-localizados com o container FastAPI, reduzindo latência e custos externos.',
         'Oracle API Gateway à frente da VM: garante terminação TLS gerenciada e controle de rotas na região `sa-saopaulo-1`.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Cross-format chunk boundaries in dense XLSX/OpenAPI files required format-specific metadata normalizers; next steps include hybrid BM25 + dense reranking and automated evaluation harnesses for citation recall.',
+      pt: 'Fronteiras de chunk em planilhas XLSX e contratos OpenAPI exigiram normalizadores específicos de metadados; os próximos passos incluem reranking híbrido (BM25 + vetorial) e suíte automatizada de avaliação de citações.',
     },
     honestyAndScopeNote: {
       en: 'Production-deployed portfolio system on OCI (`sa-saopaulo-1`). Live gateway availability depends on active OCI tenancy compute credits and NVIDIA NIM / OpenAI upstream quota.',
@@ -284,6 +320,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'novamente-atlas',
     code: 'P2 · MULTI-AGENT STUDY STUDIO',
     title: 'NovaMente Atlas',
+    year: '2026',
+    collaboration: {
+      en: 'Team Hackathon (Oracle + Alura ONE G10 Team 4) + Author of Post-MVP Quality Branch',
+      pt: 'Hackathon em Equipe (Oracle + Alura ONE G10 Time 4) + Autor da Branch de Qualidade Pós-MVP',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 2,
     categories: ['ai-agents', 'product-web'],
@@ -330,7 +373,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Next.js Study Studio (:3000)',
+        node: {
+          en: 'Next.js Study Studio (:3000)',
+          pt: 'Estúdio de Estudos Next.js (:3000)',
+        },
         role: { en: 'Upload, Citations & Persona Workspace', pt: 'Upload, Citações e Workspace de Personas' },
         detail: {
           en: 'Interactive interface for source documents, flashcards, quizzes, and 5 specialized study personas.',
@@ -338,7 +384,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'NestJS Invokta Engines (:4000)',
+        node: {
+          en: 'NestJS Invokta Engines (:4000)',
+          pt: 'Engines Invokta NestJS (:4000)',
+        },
         role: { en: 'atlas-learning · atlas-research · atlas-memory', pt: 'atlas-learning · atlas-research · atlas-memory' },
         detail: {
           en: 'Governed `@invokta/core` Action Engines managing study workflows, research synthesis, and learner state.',
@@ -346,7 +395,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'FastAPI Cognition & Jev (:8000)',
+        node: {
+          en: 'FastAPI Cognition & Jev (:8000)',
+          pt: 'Cognição FastAPI & Jev (:8000)',
+        },
         role: { en: 'Hybrid RAG + TypeSafe Jev + Dream-RSI', pt: 'RAG Híbrido + TypeSafe Jev + Dream-RSI' },
         detail: {
           en: 'Performs chunking, hybrid retrieval, pedagogical adequacy judgment via Jev, and offline policy replay.',
@@ -365,6 +417,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         'Serviço cognitivo Python dedicado: isola embeddings, chunking RAG e avaliação Jev da camada de API em Node.js.',
         'Cinco personas pedagógicas (Nilo, Lumi, Prisma, Fio, Soma): adapta o estilo didático sem comprometer a fidelidade ao texto-fonte.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Coordinating local multi-service startup (`:2000`, `:3000`, `:4000`, `:8000`) during a hackathon sprint was complex; next steps focus on unified Docker Compose orchestration and spaced-repetition telemetry persistence.',
+      pt: 'Coordenar a subida simultânea de múltiplos serviços (`:2000`, `:3000`, `:4000`, `:8000`) no ritmo de hackathon exigiu contratos rigorosos; o próximo passo é unificar o deploy via Docker Compose e persistir métricas de repetição espaçada.',
     },
     honestyAndScopeNote: {
       en: 'Current stage: First functional multi-service increment developed in a team hackathon workspace (`Oracle + Alura ONE G10`), not a public multi-tenant SaaS deployment.',
@@ -386,6 +442,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'quality-engine',
     code: 'P3 · MCP QUALITY GATE',
     title: 'Quality Engine (Quality Factory v2)',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · MCP Architecture & Static Analysis Engine',
+      pt: 'Autoria Individual · Arquitetura MCP e Motor de Análise Estática',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 3,
     categories: ['architecture-tooling', 'ai-agents'],
@@ -432,7 +495,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Agent MCP Surface (:7420/mcp)',
+        node: {
+          en: 'Agent MCP Surface (:7420/mcp)',
+          pt: 'Superfície MCP para Agentes (:7420/mcp)',
+        },
         role: { en: 'check · explain · status · verify_fix', pt: 'check · explain · status · verify_fix' },
         detail: {
           en: 'Read-only verification tools for Claude Code / AI terminals; agents cannot lower thresholds or approve waivers.',
@@ -440,7 +506,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Deterministic Analyzers',
+        node: {
+          en: 'Deterministic Analyzers',
+          pt: 'Analisadores Determinísticos',
+        },
         role: { en: 'SonarJS + ESLint + Tarjan SCC', pt: 'SonarJS + ESLint + Tarjan SCC' },
         detail: {
           en: 'Evaluates cognitive complexity, structural rules, runtime dependency cycles, and layer boundary violations.',
@@ -448,7 +517,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Human CLI (quality-admin)',
+        node: {
+          en: 'Human CLI (quality-admin)',
+          pt: 'CLI Humana (quality-admin)',
+        },
         role: { en: 'Baselines, Waivers & Ratchet Store', pt: 'Baselines, Exceções e Ratchet SQLite' },
         detail: {
           en: 'Out-of-band CLI reserved for human engineers to record baselines or grant time-bounded architectural exceptions.',
@@ -467,6 +539,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         'Ratchet de complexidade cognitiva em vez de bloqueio global imediato: viabiliza refatoração incremental de código legado.',
         'Componentes Fortemente Conexos (Tarjan SCC) no grafo de imports: detecta ciclos indiretos de runtime com precisão determinística.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Keeping ESLint/SonarJS AST evaluation sub-second across large TypeScript monorepos required incremental file-hash caching; upcoming milestones add Semgrep/Trivy security gates and runtime contract checks (G4–G6).',
+      pt: 'Manter a análise AST (ESLint/SonarJS) abaixo de um segundo em monorepos exigiu cache incremental por hash de arquivo; os próximos marcos adicionam scanners Semgrep/Trivy e gates de runtime (G4–G6).',
     },
     honestyAndScopeNote: {
       en: 'Current stage: Active developer tooling (`v2`). JS/TS structural, cognitive ratchet, and cycle/boundary gates are implemented and tested; external security scanners (`Semgrep`, `Trivy`, `SBOM`) and runtime gates (`G4–G6`) are documented on the roadmap as partial/in-progress.',
@@ -487,6 +563,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'simpay',
     code: 'P4 · FINTECH & WEB3 PRODUCT',
     title: 'SimPay',
+    year: '2026',
+    collaboration: {
+      en: 'Collaborative Product Engineering (RafaScripts/simpay) · Frontend & Interactive Simulators',
+      pt: 'Engenharia Colaborativa de Produto (RafaScripts/simpay) · Frontend e Simuladores Interativos',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 4,
     categories: ['product-web'],
@@ -533,7 +616,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Interactive Hero Wallet',
+        node: {
+          en: 'Interactive Hero Wallet',
+          pt: 'Carteira Interativa no Hero',
+        },
         role: { en: 'PIX / USD → SPL Token Simulation', pt: 'Simulação PIX / USD → Token SPL' },
         detail: {
           en: 'Lets users test wallet state, balance updates, and instant conversion at the R$ 0.11 phase rate.',
@@ -541,7 +627,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'POS Terminal Showcase',
+        node: {
+          en: 'POS Terminal Showcase',
+          pt: 'Simulador de Maquininha POS',
+        },
         role: { en: 'Consumer Checkout & Cashback Flow', pt: 'Fluxo de Checkout e Cashback no POS' },
         detail: {
           en: 'Simulates physical merchant terminal tap/QR payment with real-time balance deduction and reward feedback.',
@@ -549,7 +638,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Merchant Portal & Whitepaper',
+        node: {
+          en: 'Merchant Portal & Whitepaper',
+          pt: 'Portal Lojista e Whitepaper',
+        },
         role: { en: 'Fee Calculator & Documentation', pt: 'Calculadora de Taxas e Whitepaper v1.0' },
         detail: {
           en: 'Dedicated B2B onboarding view and structured technical whitepaper reader.',
@@ -561,11 +653,17 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: [
         'Interactive simulation before wallet friction: visitors can experience the POS checkout and fee math immediately in the browser without mandatory extension installs.',
         'Dual consumer/merchant IA: keeps everyday shopper benefits on the main canvas while giving business owners a clear path to merchant onboarding.',
+        'Coordinated Motion + Anime.js choreography: uses declarative layout transitions for React state changes while reserving Anime.js timelines for tactile POS hardware micro-interactions.',
       ],
       pt: [
         'Simulação interativa antes da fricção de carteira: visitantes experimentam o pagamento no POS e o cálculo de taxas imediatamente no navegador.',
         'Arquitetura de informação dupla (consumidor e lojista): mantém os benefícios de compra claros na home e oferece caminho direto para empresas.',
+        'Coreografia combinada Motion + Anime.js: utiliza transições declarativas para mudanças de estado React e reserva timelines Anime.js para microinterações táteis da maquininha POS.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Balancing rich hardware animations with mobile responsiveness required careful GPU-composited transforms and viewport-aware layout bounds; next steps involve connecting testnet Solana Pay QR settlement.',
+      pt: 'Equilibrar animações ricas de hardware com desempenho em telas móveis exigiu transformações compostas via GPU e limites responsivos estritos; os próximos passos preveem liquidação QR em testnet Solana Pay.',
     },
     honestyAndScopeNote: {
       en: 'Interactive web frontend and product experience (`simpay.tech` / `RafaScripts/simpay`). In-page wallet balances and POS terminal transactions on the landing page are interactive client-side simulations.',
@@ -587,6 +685,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'launchguard',
     code: 'P5 · EVENT STREAMING & FLINK SQL',
     title: 'LaunchGuard',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Event-Streaming Architecture & Operator Console',
+      pt: 'Autoria Individual · Arquitetura de Event-Streaming e Console Operacional',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 5,
     categories: ['architecture-tooling', 'governance-ops'],
@@ -633,7 +738,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Kafka + Avro Producer',
+        node: {
+          en: 'Kafka + Avro Producer',
+          pt: 'Produtor Kafka + Avro',
+        },
         role: { en: 'checkout.telemetry.raw & releases.metadata', pt: 'checkout.telemetry.raw & releases.metadata' },
         detail: {
           en: 'Streams baseline (80% v2.4.1) and canary (20% v2.5.0-canary) checkout events with Avro schema validation.',
@@ -641,7 +749,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Apache Flink SQL Pipeline',
+        node: {
+          en: 'Apache Flink SQL Pipeline',
+          pt: 'Pipeline Apache Flink SQL',
+        },
         role: { en: 'Temporal Join → 10s Window → ML_FORECAST', pt: 'Join Temporal → Janela 10s → ML_FORECAST' },
         detail: {
           en: 'Correlates events with release context (`FOR SYSTEM_TIME AS OF`) and computes 10-second p99 latency & error rates.',
@@ -649,7 +760,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'FastAPI Operator Console',
+        node: {
+          en: 'FastAPI Operator Console',
+          pt: 'Console Operacional FastAPI',
+        },
         role: { en: 'WebSocket Telemetry & Human Rollback Gate', pt: 'Telemetria WebSocket e Gate Humano de Rollback' },
         detail: {
           en: 'Streams health transitions (`HEALTHY → PREDICTIVE_WARNING → CRITICAL_INCIDENT`) and awaits operator-approved rollback.',
@@ -661,11 +775,17 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: [
         'Deterministic stream math instead of LLM anomaly guessing: sub-second checkout telemetry requires predictable window aggregations and temporal joins.',
         'Human-in-the-loop rollback confirmation: the system prepares the rollback command and isolates the canary blast radius, but a human operator authorizes execution.',
+        'Dual Confluent Cloud + local simulator mode: allows deterministic local execution and testing even when external Kafka/Schema Registry credentials are absent.',
       ],
       pt: [
         'Matemática determinística de streams em vez de inferência por LLM: telemetria de checkout exige agregações em janela e joins temporais previsíveis.',
         'Rollback sujeito à aprovação humana: o sistema isola o incidente e prepara a reversão, mas a decisão final pertence ao operador humano.',
+        'Modo duplo Confluent Cloud + simulador local: permite execução e validação determinística local mesmo sem credenciais externas de Kafka/Schema Registry.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Aligning watermark semantics for `FOR SYSTEM_TIME AS OF` temporal joins with bursty canary events required strict event-time timestamps; next steps include executing the SQL stages against a live managed Flink compute pool.',
+      pt: 'Alinhar a semântica de watermarks nos joins temporais `FOR SYSTEM_TIME AS OF` com rajadas de eventos canário exigiu timestamps estritos de tempo de evento; o próximo passo é validar os scripts em um compute pool gerenciado de Flink.',
     },
     honestyAndScopeNote: {
       en: 'Prototype transparency: Checkout traffic and GMV figures are simulated by `producer.py`. The Flink SQL scripts in `flink_sql/` are documented deployment candidates and were not executed against a live Confluent Cloud Flink workspace during repository verification.',
@@ -686,6 +806,13 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     slug: 'jev-gateway',
     code: 'P6 · OPEN-SOURCE CONTRIBUTION',
     title: 'Jev Gateway',
+    year: '2026',
+    collaboration: {
+      en: 'Open-Source Contribution · Fork of vinilana/jev-gateway',
+      pt: 'Contribuição Open Source · Fork de vinilana/jev-gateway',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: true,
     priorityOrder: 6,
     categories: ['open-source', 'ai-agents', 'architecture-tooling'],
@@ -730,7 +857,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'CLI Wrappers (jev-codex / jev-claude)',
+        node: {
+          en: 'CLI Wrappers (jev-codex / jev-claude)',
+          pt: 'Wrappers de CLI (jev-codex / jev-claude)',
+        },
         role: { en: 'OpenAI Responses & Anthropic Messages', pt: 'OpenAI Responses & Anthropic Messages' },
         detail: {
           en: 'Points local coding agents to the localhost gateway without modifying agent source code.',
@@ -738,7 +868,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'TypeSafe Jev Router',
+        node: {
+          en: 'TypeSafe Jev Router',
+          pt: 'Roteador TypeSafe Jev',
+        },
         role: { en: 'direct · forced · hint · none · passthrough', pt: 'direct · forced · hint · none · passthrough' },
         detail: {
           en: 'Scores candidate tools via TypeSafe Jev and narrows or executes tool selection before forwarding.',
@@ -746,7 +879,10 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
         },
       },
       {
-        node: 'Live Localhost Inspector',
+        node: {
+          en: 'Live Localhost Inspector',
+          pt: 'Inspetor Local em Tempo Real',
+        },
         role: { en: 'Turn-by-Turn Tool & Latency Telemetry', pt: 'Telemetria de Ferramentas e Latência por Turno' },
         detail: {
           en: 'Web UI showing Jev probability scores, selected tools, and upstream token savings.',
@@ -758,11 +894,17 @@ export const PRIMARY_PROJECTS: PortfolioProject[] = [
       en: [
         'Five configurable routing modes: lets engineers compare `forced` (narrowed tool schema) vs. `direct` (Jev emits the tool call directly) against `passthrough` baseline.',
         'Localhost-first proxy architecture: keeps API keys and coding session transcripts on the developer’s machine.',
+        'Protocol normalization across OpenAI Responses and Anthropic Messages: translates heterogeneous tool definitions into uniform Jev assertions without breaking streaming.',
       ],
       pt: [
         'Cinco modos configuráveis de roteamento: permite comparar `forced` (schema reduzido) e `direct` (chamada direta pelo Jev) contra o baseline `passthrough`.',
         'Arquitetura de proxy local: mantém chaves de API e transcrições de sessão na própria máquina do desenvolvedor.',
+        'Normalização entre OpenAI Responses e Anthropic Messages: traduz definições heterogêneas de ferramentas em asserções Jev uniformes sem quebrar o streaming.',
       ],
+    },
+    challengesAndNextSteps: {
+      en: 'Maintaining streaming compatibility when intercepting and rewriting tool-choice payloads across both OpenAI and Anthropic formats required careful SSE framing; next steps expand benchmark telemetry for multi-tool chains.',
+      pt: 'Preservar a compatibilidade de streaming ao interceptar e reescrever payloads de ferramentas nos formatos OpenAI e Anthropic exigiu tratamento cuidadoso de eventos SSE; os próximos passos ampliam métricas para chamadas encadeadas.',
     },
     honestyAndScopeNote: {
       en: 'Attribution & Independence: Open-source fork/contribution to `vinilana/jev-gateway`. Independent community project; not affiliated with or endorsed by TypeSafe.',
@@ -787,6 +929,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: '24podiums',
     code: 'A1 · F1 STRATEGY & MULTIPLAYER SIM',
     title: '24 Podiums',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Full-Stack Simulation & Editorial UI',
+      pt: 'Autoria Individual · Simulação Full-Stack e UI Editorial',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 7,
     categories: ['product-web'],
@@ -831,19 +980,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'React + Motion Draft UI',
+        node: {
+          en: 'React + Motion Draft UI',
+          pt: 'UI de Draft React + Motion',
+        },
         role: { en: 'Pass-and-Play & Online Lobby', pt: 'Pass-and-Play e Lobby Online' },
         detail: { en: 'Drafts drivers and constructors across classic F1 eras.', pt: 'Sorteia pilotos e construtores em temporadas históricas da F1.' },
       },
       {
-        node: 'Vercel Serverless + Upstash Redis',
+        node: {
+          en: 'Vercel Serverless + Upstash Redis',
+          pt: 'Vercel Serverless + Upstash Redis',
+        },
         role: { en: 'Persistent 4-Player Room State', pt: 'Estado Persistente para 4 Jogadores' },
         detail: { en: 'Synchronizes draft picks and championship standings via REST Redis.', pt: 'Sincroniza escolhas de draft e tabela do campeonato via Redis REST.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['Dual Redis/In-Memory adapter so local contributors can run `npm run dev` with zero cloud credentials.'],
-      pt: ['Adaptador duplo Redis/Memória para permitir execução local (`npm run dev`) sem exigir credenciais de nuvem.'],
+      en: [
+        'Dual Redis/In-Memory adapter so local contributors can run `npm run dev` with zero cloud credentials.',
+        'REST-based Upstash Redis over stateful WebSocket servers so rooms survive cold starts on Vercel.',
+      ],
+      pt: [
+        'Adaptador duplo Redis/Memória para permitir execução local (`npm run dev`) sem exigir credenciais de nuvem.',
+        'Persistência REST via Upstash Redis para preservar salas multiplayer mesmo após cold starts na Vercel.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Preventing race conditions during simultaneous draft picks in 4-player online rooms required optimistic turn locking; next steps add custom telemetry replays.',
+      pt: 'Evitar condições de corrida durante escolhas simultâneas em salas com 4 jogadores exigiu travamento otimista de turno; os próximos passos adicionam replay de telemetria.',
     },
     honestyAndScopeNote: {
       en: 'Completed hobby and game engineering project; directly inspires the subtle motorsport precision linework across this portfolio.',
@@ -862,6 +1027,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: 'script-kitty',
     code: 'A2 · DEFENSIVE SECURITY & MCP',
     title: 'Script Kitty',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Polyglot Security Harness (TS + Python + Rust)',
+      pt: 'Autoria Individual · Plataforma Defensiva Poliglota (TS + Python + Rust)',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 8,
     categories: ['architecture-tooling', 'ai-agents', 'open-source'],
@@ -904,19 +1076,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'TypeScript CLI & MCP (sk)',
+        node: {
+          en: 'TypeScript CLI & MCP (sk)',
+          pt: 'CLI & MCP em TypeScript (sk)',
+        },
         role: { en: 'Interactive TUI & Agent Bridge', pt: 'TUI Interativa e Ponte MCP' },
         detail: { en: 'Orchestrates security suites and exports remediation PRs to ZenPR.', pt: 'Orquestra suítes de segurança e exporta PRs defensivos para o ZenPR.' },
       },
       {
-        node: 'Python Scanners + Rust Audit Core',
+        node: {
+          en: 'Python Scanners + Rust Audit Core',
+          pt: 'Scanners Python + Auditoria Rust',
+        },
         role: { en: 'SAST / AI Guardrails + SHA-256 Log', pt: 'SAST / Guardrails IA + Log SHA-256' },
         detail: { en: 'Runs validation suites and records tamper-evident Merkle audit entries.', pt: 'Executa validações e grava registros de auditoria encadeados em Rust.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['Enforces `scope.md` target allowlists and human approval before running active `Verify` or `Lab` checks.'],
-      pt: ['Exige lista de alvos autorizados (`scope.md`) e aprovação humana antes de executar verificações ativas.'],
+      en: [
+        'Enforces `scope.md` target allowlists and human approval before running active `Verify` or `Lab` checks.',
+        'Hash-chained SHA-256 audit log in Rust so defensive verification runs remain tamper-evident.',
+      ],
+      pt: [
+        'Exige lista de alvos autorizados (`scope.md`) e aprovação humana antes de executar verificações ativas.',
+        'Log de auditoria encadeado SHA-256 em Rust para manter cada execução defensiva verificável e à prova de adulteração.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Coordinating subprocess contracts across TypeScript, Python, and Rust binaries required strict JSON-RPC schemas; next steps expand SARIF report export.',
+      pt: 'Coordenar contratos de subprocessos entre binários TypeScript, Python e Rust exigiu schemas JSON-RPC estritos; os próximos passos ampliam a exportação SARIF.',
     },
     honestyAndScopeNote: {
       en: 'Open-source defensive validation and educational security engineering harness.',
@@ -935,6 +1123,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: 'zenpr',
     code: 'A3 · ADAPTIVE CODE REVIEW & MCP',
     title: 'ZenPR',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Adaptive PR Review & Dual MCP Server',
+      pt: 'Autoria Individual · Revisão Adaptativa de PR e Servidor MCP Duplo',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 9,
     categories: ['architecture-tooling', 'ai-agents', 'open-source'],
@@ -973,19 +1168,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'GitHub PR Import & Diff Parser',
+        node: {
+          en: 'GitHub PR Import & Diff Parser',
+          pt: 'Importação de PR e Parser de Diff',
+        },
         role: { en: 'Web Workbench or MCP Tool Call', pt: 'Workbench Web ou Chamada MCP' },
         detail: { en: 'Imports PR diffs directly via URL and anchors findings to exact lines.', pt: 'Importa diffs de PR via URL e ancora achados às linhas exatas de código.' },
       },
       {
-        node: 'Adaptive Feedback Loop',
+        node: {
+          en: 'Adaptive Feedback Loop',
+          pt: 'Ciclo de Feedback Adaptativo',
+        },
         role: { en: 'Applied · Rejected · Adjusted → Repo Rules', pt: 'Aplicado · Rejeitado · Ajustado → Regras' },
         detail: { en: 'Synthesizes team decisions into persistent repository review rules.', pt: 'Converte decisões da equipe em regras persistentes de revisão por repositório.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['100% unlocked open-source architecture with deterministic offline demo mode when no LLM key is configured.'],
-      pt: ['Arquitetura 100% open source sem bloqueios de plano e com modo determinístico offline quando não há chave de IA.'],
+      en: [
+        '100% unlocked open-source architecture with deterministic offline demo mode when no LLM key is configured.',
+        'Dual stdio + Streamable HTTP MCP transport so both local IDE agents and web clients share the same rule memory.',
+      ],
+      pt: [
+        'Arquitetura 100% open source sem bloqueios de plano e com modo determinístico offline quando não há chave de IA.',
+        'Transporte MCP duplo (stdio + HTTP) para que agentes locais de IDE e o painel web compartilhem a mesma memória de regras.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Preventing rule drift from single outlier PR rejections required minimum threshold voting before promoting a pattern to a repository rule.',
+      pt: 'Evitar distorção de regras por rejeições isoladas exigiu um limiar mínimo de ocorrências antes de promover um padrão a regra permanente.',
     },
     honestyAndScopeNote: {
       en: 'Self-hosted open-source developer tool with full local persistence.',
@@ -1004,6 +1215,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: 'dotstack',
     code: 'A4 · DETERMINISTIC STACK COMPILER & TF-IDF',
     title: 'dotstack',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Deterministic Stack Compiler & Offline TF-IDF Search',
+      pt: 'Autoria Individual · Compilador Determinístico de Stack e Busca TF-IDF Offline',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 10,
     categories: ['architecture-tooling', 'open-source'],
@@ -1042,19 +1260,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'dotstack-project.yaml',
+        node: {
+          en: 'dotstack-project.yaml',
+          pt: 'dotstack-project.yaml',
+        },
         role: { en: 'Scale, Budget & Team Constraints', pt: 'Restrições de Escala, Orçamento e Time' },
         detail: { en: 'Standardized project brief input.', pt: 'Especificação padronizada de entrada do projeto.' },
       },
       {
-        node: 'Rules Engine + Local TF-IDF',
+        node: {
+          en: 'Rules Engine + Local TF-IDF',
+          pt: 'Motor de Regras + TF-IDF Local',
+        },
         role: { en: '13 Stack Categories & Cosine Search', pt: '13 Categorias de Stack e Busca Cosseno' },
         detail: { en: 'Compiles `.stack/` specs, ADRs, and indexes local repository chunks.', pt: 'Compila especificações `.stack/`, ADRs e indexa trechos do repositório localmente.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['Pure TypeScript TF-IDF vector space instead of remote embeddings so semantic search runs 100% offline.'],
-      pt: ['Espaço vetorial TF-IDF em TypeScript puro em vez de embeddings remotos para garantir operação 100% offline.'],
+      en: [
+        'Pure TypeScript TF-IDF vector space instead of remote embeddings so semantic search runs 100% offline.',
+        'Machine-readable `.stack/stack.yaml` output so coding agents can ingest architectural constraints deterministically.',
+      ],
+      pt: [
+        'Espaço vetorial TF-IDF em TypeScript puro em vez de embeddings remotos para garantir operação 100% offline.',
+        'Saída `.stack/stack.yaml` legível por máquina para que agentes de código consumam restrições arquiteturais sem ambiguidade.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Tokenizing camelCase and snake_case identifiers accurately in pure TF-IDF required custom code-aware subword splitting.',
+      pt: 'Tokenizar identificadores camelCase e snake_case com precisão no TF-IDF puro exigiu divisão customizada de subpalavras orientada a código.',
     },
     honestyAndScopeNote: {
       en: 'Open-source CLI and MCP package with Vitest test coverage.',
@@ -1074,6 +1308,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: 'frame-sim',
     code: 'A5 · ENTERPRISE SIMULATION KERNEL',
     title: 'Frame-sim (v7.1 / v8)',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Hybrid Deterministic Financial Kernel & Multi-Agent Simulator',
+      pt: 'Autoria Individual · Kernel Financeiro Determinístico e Simulador Multiagente',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 11,
     categories: ['ai-agents', 'governance-ops'],
@@ -1112,19 +1353,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'EmployeeBrain v8 + ChromaDB RAG',
+        node: {
+          en: 'EmployeeBrain v8 + ChromaDB RAG',
+          pt: 'EmployeeBrain v8 + RAG ChromaDB',
+        },
         role: { en: '~350 Hydrated Personas & Seeded RNG', pt: '~350 Personas Hidratadas e RNG Semeado' },
         detail: { en: 'Computes morale, burnout, passive resistance, and turnover deterministically per turn.', pt: 'Calcula moral, burnout, resistência passiva e turnover de forma determinística por turno.' },
       },
       {
-        node: 'Deterministic Financial Engine',
+        node: {
+          en: 'Deterministic Financial Engine',
+          pt: 'Motor Financeiro Determinístico',
+        },
         role: { en: 'J-Curve · CoNQ · Compound Tech Debt', pt: 'Curva J · CoNQ · Dívida Técnica Composta' },
         detail: { en: 'Calculates financial ROI (-40% to +35%) across regional economic profiles.', pt: 'Calcula o ROI financeiro (-40% a +35%) calibrado por perfil econômico regional.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['Strict separation between LLM narrative and deterministic math so simulations remain reproducible and falsifiable.'],
-      pt: ['Separação estrita entre narrativa do LLM e matemática determinística para manter a simulação reproduzível.'],
+      en: [
+        'Strict separation between LLM narrative and deterministic math so simulations remain reproducible and falsifiable.',
+        'Seeded PRNG (`EmployeeBrain`) so identical governance interventions produce identical financial trajectories.',
+      ],
+      pt: [
+        'Separação estrita entre narrativa do LLM e matemática determinística para manter a simulação reproduzível.',
+        'Gerador pseudoaleatório com semente fixa (`EmployeeBrain`) para que intervenções idênticas produzam trajetórias comparáveis.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Calibrating the J-Curve productivity dip across heterogeneous company sizes required bounded compound debt curves.',
+      pt: 'Calibrar a queda inicial de produtividade (Curva J) para diferentes portes de empresa exigiu curvas limitadas de juros compostos de dívida técnica.',
     },
     honestyAndScopeNote: {
       en: 'Runs in both standalone offline mode and full Node/ChromaDB agentic mode.',
@@ -1143,6 +1400,13 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     slug: 'creator-kit-hub',
     code: 'A6 · LOCAL OBSIDIAN RAG STUDIO',
     title: 'Creator Kit Hub',
+    year: '2026',
+    collaboration: {
+      en: 'Solo Author · Local-First Obsidian RAG & Multi-Persona Studio',
+      pt: 'Autoria Individual · RAG Local no Obsidian e Estúdio Multipersona',
+    },
+    publicationStatus: 'public-verified',
+    lastVerifiedAt: '2026-10-30',
     featured: false,
     priorityOrder: 12,
     categories: ['ai-agents', 'product-web'],
@@ -1181,19 +1445,35 @@ export const ARCHIVE_PROJECTS: PortfolioProject[] = [
     },
     architectureFlow: [
       {
-        node: 'Local Obsidian Vault',
+        node: {
+          en: 'Local Obsidian Vault',
+          pt: 'Vault Local do Obsidian',
+        },
         role: { en: 'Filesystem Markdown Ingestion', pt: 'Leitura Direta de Notas Markdown' },
         detail: { en: 'Reads `.md` notes and links directly from the user’s machine.', pt: 'Lê notas `.md` e conexões diretamente da máquina do usuário.' },
       },
       {
-        node: 'Shared-Brain Multi-Persona Studio',
+        node: {
+          en: 'Shared-Brain Multi-Persona Studio',
+          pt: 'Estúdio Multipersona com Cérebro Compartilhado',
+        },
         role: { en: 'RAG Retrieval + Script Synthesis', pt: 'Recuperação RAG + Síntese de Roteiros' },
         detail: { en: 'Orchestrates specialized personas using local Ollama or cloud LLM keys.', pt: 'Orquestra personas especializadas usando Ollama local ou chaves de nuvem.' },
       },
     ],
     decisionsAndTradeoffs: {
-      en: ['Local-first storage of vault paths and API keys so personal knowledge bases remain private.'],
-      pt: ['Armazenamento estritamente local do caminho do vault e das chaves de API para preservar a privacidade do acervo.'],
+      en: [
+        'Local-first storage of vault paths and API keys so personal knowledge bases remain private.',
+        'Provider-agnostic model adapter supporting both cloud APIs and offline Ollama models.',
+      ],
+      pt: [
+        'Armazenamento estritamente local do caminho do vault e das chaves de API para preservar a privacidade do acervo.',
+        'Adaptador agnóstico de provedor compatível tanto com APIs em nuvem quanto com modelos locais no Ollama.',
+      ],
+    },
+    challengesAndNextSteps: {
+      en: 'Resolving Obsidian `[[wikilinks]]` and frontmatter tags across nested folders required a custom Markdown graph walker.',
+      pt: 'Resolver `[[wikilinks]]` e tags de frontmatter do Obsidian em pastas aninhadas exigiu um indexador customizado do grafo Markdown.',
     },
     honestyAndScopeNote: {
       en: 'Local desktop/web companion app (`localhost:3000`) designed for personal knowledge vaults.',

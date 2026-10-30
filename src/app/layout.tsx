@@ -120,7 +120,7 @@ const jsonLd = {
     },
     {
       '@type': 'Book',
-      '@id': 'https://andrecodexvictor.github.io/work/gear#book',
+      '@id': 'https://andrecodexvictor.github.io/work/gear/#book',
       name: 'GEAR — Gestão, Execução, Agilidade e Risco: Guia Operacional de TI para Pequenas e Médias Empresas',
       author: { '@id': 'https://andrecodexvictor.github.io/#person' },
       bookEdition: '2026.10',
@@ -131,6 +131,8 @@ const jsonLd = {
     },
   ],
 };
+
+const preferenceBootstrapScript = `(function(){try{var d=document.documentElement;var t=localStorage.getItem('av_editorial_theme')||localStorage.getItem('andre-design-theme');if(t==='dark'||t==='light'){d.setAttribute('data-theme',t);d.classList.toggle('dark',t==='dark');}var a=localStorage.getItem('av_editorial_accent')||localStorage.getItem('andre-design-accent');if(a==='sage'||a==='bronze'){d.setAttribute('data-accent',a);}var l=localStorage.getItem('av_editorial_lang');if(l==='pt'||l==='en'){d.lang=l==='pt'?'pt-BR':'en';}}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -146,6 +148,7 @@ export default function RootLayout({
       className={`${inter.variable} ${newsreader.variable} ${geistMono.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: preferenceBootstrapScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

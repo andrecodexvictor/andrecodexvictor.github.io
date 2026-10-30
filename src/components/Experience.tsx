@@ -117,7 +117,7 @@ export default function Experience({ lang }: ExperienceProps) {
               >
                 <div>
                   <span className="font-mono text-xs font-bold text-accent">
-                    PRINCIPLE {p.number}
+                    {lang === 'pt' ? 'PRINCÍPIO' : 'PRINCIPLE'} {p.number}
                   </span>
                   <h4 className="mt-2 text-lg font-semibold text-ink">
                     {p.title[lang]}

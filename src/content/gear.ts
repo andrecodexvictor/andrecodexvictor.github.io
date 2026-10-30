@@ -18,9 +18,15 @@ export interface GearAiStep {
 }
 
 export interface GearWeek {
-  week: string;
+  week: Record<Locale, string>;
   title: Record<Locale, string>;
   deliverables: Record<Locale, string[]>;
+}
+
+export interface GearChapter {
+  number: string;
+  title: Record<Locale, string>;
+  focus: Record<Locale, string>;
 }
 
 export interface GearContent {
@@ -54,6 +60,7 @@ export interface GearContent {
     body: Record<Locale, string>;
     syntheticCases: Record<Locale, { name: string; profile: string; focus: string }[]>;
   };
+  chapters: GearChapter[];
   links: {
     repoUrl: string;
     caseStudySlug: string;
@@ -296,7 +303,7 @@ export const GEAR_DATA: GearContent = {
   },
   adoption30Days: [
     {
-      week: 'W1 · Days 1–7',
+      week: { en: 'W1 · Days 1–7', pt: 'S1 · Dias 1–7' },
       title: {
         en: 'Visibility & Single Intake Queue',
         pt: 'Visibilidade e Fila Única Oficial',
@@ -315,7 +322,7 @@ export const GEAR_DATA: GearContent = {
       },
     },
     {
-      week: 'W2 · Days 8–14',
+      week: { en: 'W2 · Days 8–14', pt: 'S2 · Dias 8–14' },
       title: {
         en: 'Flow Protection & Essential Inventory',
         pt: 'Proteção de Fluxo e Inventário Essencial',
@@ -334,7 +341,7 @@ export const GEAR_DATA: GearContent = {
       },
     },
     {
-      week: 'W3 · Days 15–21',
+      week: { en: 'W3 · Days 15–21', pt: 'S3 · Dias 15–21' },
       title: {
         en: 'First CD-TI Lite & Real Restore Drill',
         pt: 'Primeiro CD-TI Lite e Teste Real de Restauração',
@@ -353,7 +360,7 @@ export const GEAR_DATA: GearContent = {
       },
     },
     {
-      week: 'W4 · Days 22–30',
+      week: { en: 'W4 · Days 22–30', pt: 'S4 · Dias 22–30' },
       title: {
         en: 'PRI Incident Playbook & Cycle Consolidation',
         pt: 'Roteiro PRI e Consolidação do Ciclo',
@@ -456,6 +463,118 @@ export const GEAR_DATA: GearContent = {
       ],
     },
   },
+  chapters: [
+    {
+      number: '01',
+      title: {
+        en: 'GEAR to Start: Three Pillars, One Routine',
+        pt: 'GEAR para começar: três pilares, uma rotina',
+      },
+      focus: {
+        en: 'Scope, Minimum Viable Governance principles, and accessible entry path for SME teams.',
+        pt: 'Escopo, princípios de Governança Mínima Viável e entrada acessível para equipes enxutas.',
+      },
+    },
+    {
+      number: '02',
+      title: {
+        en: 'Essential Governance: Deciding with Direction',
+        pt: 'Governança Essencial: decidir com direção',
+      },
+      focus: {
+        en: 'ADM-Lite decision loop, RACI-Lite single Accountable (A), and the 30-min CD-TI Lite ritual.',
+        pt: 'Ciclo ADM-Lite, matriz RACI-Lite com Autoridade única (A) e condução da revisão quinzenal CD-TI Lite.',
+      },
+    },
+    {
+      number: '03',
+      title: {
+        en: 'Agile Execution: From Demand to Delivery',
+        pt: 'Execução Ágil: da demanda à entrega',
+      },
+      focus: {
+        en: 'Single official intake queue, 4-state Kanban flow, demand prioritization, and hard WIP = 3.',
+        pt: 'Fila única oficial, fluxo Kanban de 4 estados, priorização de demandas e limite WIP = 3.',
+      },
+    },
+    {
+      number: '04',
+      title: {
+        en: 'Critical Security: Protect and Recover',
+        pt: 'Segurança Crítica: proteger e recuperar',
+      },
+      focus: {
+        en: 'Essential dependency map, incident containment (PRI), and 3-2-1 backup restoration verification.',
+        pt: 'Segurança e continuidade, resposta a incidentes (PRI) e teste prático de restauração 3-2-1.',
+      },
+    },
+    {
+      number: '05',
+      title: {
+        en: 'Transversal AI: Assistance Across the Method',
+        pt: 'IA transversal: assistência que atravessa o método',
+      },
+      focus: {
+        en: 'Optional AI catalyst, tool selection, LGPD sanitization, and the 5-step human verification chain.',
+        pt: 'Catalisador opcional de IA, escolha de ferramentas, sanitização LGPD e revisão humana em 5 etapas.',
+      },
+    },
+    {
+      number: '06',
+      title: {
+        en: 'Adoption & Maturity: Starting and Sustaining',
+        pt: 'Adoção e maturidade: começar e sustentar',
+      },
+      focus: {
+        en: 'First 30 days progressive roadmap, operational readiness, and the 0–10 binary IM-TI diagnostic.',
+        pt: 'Roteiro dos primeiros 30 dias, preparação operacional e diagnóstico binário de maturidade IM-TI (0 a 10).',
+      },
+    },
+    {
+      number: '07',
+      title: {
+        en: 'Measuring to Decide and Learn',
+        pt: 'Medir para decidir e aprender',
+      },
+      focus: {
+        en: 'Pragmatic operational, business, and financial indicators (Lead Time, Throughput, Restore Pass Rate).',
+        pt: 'Indicadores operacionais, de negócio e financeiros (Lead Time, Vazão, Taxa de Sucesso de Restauração).',
+      },
+    },
+    {
+      number: '08',
+      title: {
+        en: 'Application Workshop: One Problem, Three Pillars',
+        pt: 'Oficina de aplicação: um problema, três pilares',
+      },
+      focus: {
+        en: 'Didactic cases, historical scenarios, and paired synthetic SME evaluations (Software House & Clinic).',
+        pt: 'Caso didático, cenários históricos e avaliação em minimundo (Software House B2B e Clínica Médica).',
+      },
+    },
+    {
+      number: '09',
+      title: {
+        en: 'Artifact Playbook: PRDs, Prompts & Tools',
+        pt: 'Caderno de artefatos: PRDs, prompts e ferramentas',
+      },
+      focus: {
+        en: '18 operational templates in sequence of use (PRDs, user stories, prompts, test checklists, and MCP/manual modes).',
+        pt: 'Os 18 documentos de templates em sequência de uso (PRDs, histórias, prompts, testes e modo MCP/manual).',
+      },
+    },
+    {
+      number: '10',
+      title: {
+        en: 'Foundations, Vocabulary & Sources',
+        pt: 'Fundamentos, vocabulário e fontes',
+      },
+      focus: {
+        en: 'Theoretical origins and SME adaptations (ISO/IEC 38500, COBIT 2019, Kanban, NIST CSF 2.0), glossary, and references.',
+        pt: 'Origens teóricas e adaptações para PMEs (ISO/IEC 38500, COBIT 2019, Kanban, NIST CSF 2.0), glossário e fontes.',
+      },
+    },
+  ],
   links: {
     repoUrl: 'https://github.com/andrecodexvictor/gp-pme',
     caseStudySlug: 'gear',

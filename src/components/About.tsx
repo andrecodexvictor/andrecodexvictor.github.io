@@ -119,7 +119,11 @@ export default function About({ lang }: AboutProps) {
                         ? '/images/apex-buddy-flat.svg'
                         : '/images/apex-buddy.svg'
                     }
-                    alt="Apex — Original matte ivory and sage editorial desk companion"
+                    alt={
+                      lang === 'pt'
+                        ? 'Apex — Mascote editorial original em marfim fosco e verde-sálvia'
+                        : 'Apex — Original matte ivory and sage editorial desk companion'
+                    }
                     width={128}
                     height={128}
                     unoptimized
@@ -139,7 +143,7 @@ export default function About({ lang }: AboutProps) {
                 <div className="grid grid-cols-3 gap-2">
                   {(
                     [
-                      { id: 'idle', label: 'S1 · Paper' },
+                      { id: 'idle', label: lang === 'pt' ? 'S1 · Editorial' : 'S1 · Paper' },
                       { id: 'telemetry', label: 'S2 · RAG/WIP' },
                       { id: 'governance', label: 'S3 · GEAR' },
                     ] as const
