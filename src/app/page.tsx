@@ -1,51 +1,77 @@
 'use client';
 
-import React from 'react';
-import { LanguageProvider } from '@/components/LanguageSelector';
-import { Navbar } from '@/components/Navbar';
-import { Hero } from '@/components/Hero';
-import { LiveNewsFeed } from '@/components/LiveNewsFeed';
-import { Projects } from '@/components/Projects';
-import { Skills } from '@/components/Skills';
-import { EvolutionCharts } from '@/components/EvolutionCharts';
-import { CaseStudies } from '@/components/CaseStudies';
-import { Certifications } from '@/components/Certifications';
-import { About } from '@/components/About';
-import { Contact } from '@/components/Contact';
-import { Footer } from '@/components/Footer';
-import { AdminPanel, useAdminPortfolioConfig } from '@/components/AdminPanel';
-
-function PortfolioContent() {
-  const { config, updateConfig } = useAdminPortfolioConfig();
-
-  return (
-    <main className="min-h-screen bg-[#07080a] text-[#f4f5f8] selection:bg-[#00f0ff] selection:text-black relative">
-      <Navbar />
-      <Hero />
-      
-      {config.showLiveNews && <LiveNewsFeed items={config.liveUpdates} />}
-      
-      <Projects />
-      <Skills />
-      
-      {config.showEvolutionCharts && <EvolutionCharts />}
-      {config.showCaseStudies && <CaseStudies />}
-      {config.showCertifications && <Certifications items={config.certifications} />}
-      
-      <About />
-      <Contact />
-      <Footer />
-
-      {/* Admin Panel Drawer Trigger & Superuser Authenticated Controls */}
-      <AdminPanel config={config} onUpdate={updateConfig} />
-    </main>
-  );
-}
+import React, { useEffect } from 'react';
+import { Language } from '@/config/i18n';
+import {
+  AccentTone,
+  ThemeMode,
+  useStoredAccent,
+  useStoredLang,
+  useStoredTheme,
+} from '@/utils/security';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Projects from '@/components/Projects';
+import CaseStudies from '@/components/CaseStudies';
+import ExploreMyWorkOpenUI from '@/components/ExploreMyWorkOpenUI';
+import Experience from '@/components/Experience';
+import Certifications from '@/components/Certifications';
+import About from '@/components/About';
+import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
 
 export default function Home() {
+  const [lang, setLang] = useStoredLang();
+  const [theme, setTheme] = useStoredTheme();
+  const [accent, setAccent] = useStoredAccent();
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-accent', accent);
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  }, [theme, accent, lang]);
+
+  const handleSetLang = (nextLang: Language) => {
+    setLang(nextLang);
+  };
+
+  const handleToggleTheme = () => {
+    const next: ThemeMode = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+  };
+
+  const handleToggleAccent = () => {
+    const next: AccentTone = accent === 'sage' ? 'bronze' : 'sage';
+    setAccent(next);
+  };
+
   return (
-    <LanguageProvider>
-      <PortfolioContent />
-    </LanguageProvider>
+    <div className="min-h-screen flex flex-col bg-canvas text-ink">
+      <a href="#main-content" className="skip-link">
+        {lang === 'pt' ? 'Pular para o conteúdo principal' : 'Skip to main content'}
+      </a>
+
+      <Navbar
+        lang={lang}
+        setLang={handleSetLang}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
+        accent={accent}
+        onToggleAccent={handleToggleAccent}
+      />
+
+      <main id="main-content" className="flex-1">
+        <Hero lang={lang} />
+        <Projects lang={lang} />
+        <CaseStudies lang={lang} />
+        <ExploreMyWorkOpenUI lang={lang} />
+        <Experience lang={lang} />
+        <Certifications lang={lang} />
+        <About lang={lang} />
+        <Contact lang={lang} />
+      </main>
+
+      <Footer lang={lang} />
+    </div>
   );
 }

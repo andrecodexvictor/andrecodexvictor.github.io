@@ -1,35 +1,135 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Newsreader, Geist_Mono } from 'next/font/google';
+import './globals.css';
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const newsreader = Newsreader({
+  variable: '--font-newsreader',
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: "André Victor — Full-Stack Developer & Entusiasta de IA",
-  description: "Portfólio pessoal de André Victor (andrecodexvictor). Desenvolvedor Full-Stack, IA Builder & Criador de Produtos Digitais com estética Cyberpunk F1 Cockpit HUD.",
-  keywords: ["André Victor", "andrecodexvictor", "Full-Stack Developer", "AI Builder", "Entusiasta de IA", "Next.js", "React", "TypeScript", "Portfólio", "ZenPR", "24podiums"],
-  authors: [{ name: "André Victor", url: "https://github.com/andrecodexvictor" }],
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" },
-      { url: "/icon.png", type: "image/png" }
-    ],
-    shortcut: "/favicon.png",
-    apple: "/apple-icon.png",
+  metadataBase: new URL('https://andrecodexvictor.github.io'),
+  title: {
+    default: 'André Victor — Software Engineer · Applied AI, Agent Systems & IT Governance',
+    template: '%s · André Victor',
+  },
+  description:
+    'Portfolio of André Victor Andrade Oliveira Santos: Applied AI & Full-Stack Engineer (VittalWeb), Information Systems finalist at IFBA, creator of Axiom Tech (OCI RAG), Quality Engine (MCP), and the GEAR (GP-PME) IT governance book & framework.',
+  keywords: [
+    'André Victor',
+    'André Victor Andrade Oliveira Santos',
+    'AI Engineer',
+    'Applied AI',
+    'Software Engineer',
+    'LangGraph',
+    'Model Context Protocol',
+    'MCP',
+    'Oracle Cloud Infrastructure',
+    'RAG',
+    'GEAR Framework',
+    'GP-PME',
+    'IFBA',
+    'Next.js',
+    'TypeScript',
+    'Python',
+    'FastAPI',
+  ],
+  authors: [{ name: 'André Victor Andrade Oliveira Santos', url: 'https://andrecodexvictor.github.io/' }],
+  creator: 'André Victor Andrade Oliveira Santos',
+  alternates: {
+    canonical: 'https://andrecodexvictor.github.io/',
   },
   openGraph: {
-    title: "André Victor — Full-Stack Developer & Entusiasta de IA",
-    description: "Construo produtos web, interfaces e sistemas com IA, foco em execução e identidade visual forte.",
-    url: "https://andrecodexvictor.github.io",
-    siteName: "André Victor Portfolio",
-    images: [{ url: "/logo.png", width: 500, height: 500, alt: "André Victor CDX Logo" }],
-    locale: "en_US",
-    type: "website",
+    type: 'website',
+    locale: 'en_US',
+    alternateLocale: ['pt_BR'],
+    url: 'https://andrecodexvictor.github.io/',
+    siteName: 'André Victor · Engineering Portfolio',
+    title: 'André Victor — Applied AI, Agent Systems & IT Governance',
+    description:
+      'Selected 2026 engineering work: GEAR (GP-PME) Book & TCC Framework, Axiom Tech (Grounded RAG on OCI), NovaMente Atlas, Quality Engine (MCP), SimPay, LaunchGuard, and Jev Gateway.',
+    images: [
+      {
+        url: '/images/andre-portrait.webp',
+        width: 960,
+        height: 1200,
+        alt: 'Portrait of André Victor Andrade Oliveira Santos',
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "André Victor — Full-Stack Developer & Entusiasta de IA",
-    description: "Portfólio de alta performance com estética Cyberpunk F1 Cockpit HUD.",
-    images: ["/logo.png"],
+    card: 'summary_large_image',
+    title: 'André Victor — Software Engineer · Applied AI & IT Governance',
+    description:
+      'Applied AI & Full-Stack Engineering portfolio featuring GEAR (GP-PME), Axiom Tech on OCI, Quality Engine MCP, NovaMente Atlas, and OpenUI interactive exploration.',
+    images: ['/images/andre-portrait.webp'],
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': 'https://andrecodexvictor.github.io/#person',
+      name: 'André Victor Andrade Oliveira Santos',
+      alternateName: 'André Victor',
+      jobTitle: 'Software Engineer — Applied AI, Agent Systems & Full-Stack',
+      url: 'https://andrecodexvictor.github.io/',
+      image: 'https://andrecodexvictor.github.io/images/andre-portrait.webp',
+      email: 'mailto:andrevictorandrade@gmail.com',
+      sameAs: [
+        'https://github.com/andrecodexvictor',
+        'https://www.linkedin.com/in/andr%C3%A9-victor-andrade-oliveira-santos-22b142208/',
+        'https://www.instagram.com/dedevictr/',
+      ],
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista',
+      },
+      knowsAbout: [
+        'Applied Artificial Intelligence',
+        'Retrieval-Augmented Generation (RAG)',
+        'LangGraph',
+        'Model Context Protocol (MCP)',
+        'TypeScript',
+        'Python',
+        'FastAPI',
+        'Next.js',
+        'Oracle Cloud Infrastructure (OCI)',
+        'IT Governance for SMEs (GEAR / GP-PME)',
+      ],
+    },
+    {
+      '@type': 'Book',
+      '@id': 'https://andrecodexvictor.github.io/work/gear#book',
+      name: 'GEAR — Gestão, Execução, Agilidade e Risco: Guia Operacional de TI para Pequenas e Médias Empresas',
+      author: { '@id': 'https://andrecodexvictor.github.io/#person' },
+      bookEdition: '2026.10',
+      inLanguage: ['pt-BR', 'en'],
+      url: 'https://github.com/andrecodexvictor/gp-pme',
+      about:
+        'Minimum Viable Governance (MVG) framework for SMEs built on three pillars (Essential Governance, Agile Execution, Critical Security) and a transversal optional AI layer under human verification.',
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -38,13 +138,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html
+      lang="en"
+      data-theme="light"
+      data-accent="sage"
+      suppressHydrationWarning
+      className={`${inter.variable} ${newsreader.variable} ${geistMono.variable}`}
+    >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
-      <body className="antialiased bg-[#07080a] text-[#f4f5f8]">
+      <body className="min-h-screen flex flex-col bg-canvas text-ink antialiased">
         {children}
       </body>
     </html>

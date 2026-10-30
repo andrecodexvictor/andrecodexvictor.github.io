@@ -1,48 +1,101 @@
 /**
- * Script-Kitty Security Audit Utility: Client-side Hashed Authentication
- * Protects raw superuser credentials from bundle exposure using SHA-256 Web Crypto API.
+ * Public display preferences helper.
+ *
+ * Security note (2026 Architecture Revision):
+ * Client-side password hash comparison and browser-local "admin" gates have been
+ * intentionally removed. All portfolio content is versioned at build time in `src/content/`.
+ * This module only manages non-sensitive reader display preferences (theme, accent, reduced motion).
  */
 
-// SHA-256 hash of "andrecodexvictor:Çodexwelcome25gamemaster"
-const SUPERUSER_AUTH_HASH = "c3e1f316b6ee29c741e421266c6c5b34afd58bb6c9142ab14c8c6d0363fa9942";
-const SESSION_STORAGE_KEY = "hud_admin_session_token";
+import { useSyncExternalStore } from 'react';
+import type { Language } from '@/config/i18n';
 
-export async function hashCredentials(username: string, password: string): Promise<string> {
-  const combined = `${username.trim()}:${password}`;
-  const encoder = new TextEncoder();
-  const data = encoder.encode(combined);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+export type ThemeMode = 'light' | 'dark';
+export type AccentTone = 'sage' | 'bronze';
+
+const THEME_STORAGE_KEY = 'av_editorial_theme';
+const ACCENT_STORAGE_KEY = 'av_editorial_accent';
+const LANG_STORAGE_KEY = 'av_editorial_lang';
+const PREF_EVENT = 'av_editorial_pref_change';
+
+function subscribePrefs(callback: () => void): () => void {
+  if (typeof window === 'undefined') return () => {};
+  window.addEventListener('storage', callback);
+  window.addEventListener(PREF_EVENT, callback);
+  return () => {
+    window.removeEventListener('storage', callback);
+    window.removeEventListener(PREF_EVENT, callback);
+  };
 }
 
-export async function verifySuperuserLogin(username: string, password: string): Promise<boolean> {
-  const hash = await hashCredentials(username, password);
-  if (hash === SUPERUSER_AUTH_HASH) {
-    const sessionToken = btoa(`${username}:${Date.now()}`);
-    sessionStorage.setItem(SESSION_STORAGE_KEY, sessionToken);
-    return true;
-  }
-  return false;
-}
-
-export function isSuperuserAuthenticated(): boolean {
-  if (typeof window === 'undefined') return false;
-  const token = sessionStorage.getItem(SESSION_STORAGE_KEY);
-  if (!token) return false;
-  try {
-    const decoded = atob(token);
-    const [user, timestamp] = decoded.split(':');
-    const elapsed = Date.now() - parseInt(timestamp, 10);
-    // Session valid for 12 hours
-    return user === 'andrecodexvictor' && elapsed < 12 * 60 * 60 * 1000;
-  } catch (e) {
-    return false;
-  }
-}
-
-export function logoutSuperuser(): void {
+function notifyPrefsChange(): void {
   if (typeof window !== 'undefined') {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    window.dispatchEvent(new Event(PREF_EVENT));
   }
+}
+
+export function getStoredTheme(): ThemeMode {
+  if (typeof window === 'undefined') return 'light';
+  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+  return stored === 'dark' ? 'dark' : 'light';
+}
+
+export function setStoredTheme(theme: ThemeMode): void {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  document.documentElement.setAttribute('data-theme', theme);
+  notifyPrefsChange();
+}
+
+export function getStoredAccent(): AccentTone {
+  if (typeof window === 'undefined') return 'sage';
+  const stored = window.localStorage.getItem(ACCENT_STORAGE_KEY);
+  return stored === 'bronze' ? 'bronze' : 'sage';
+}
+
+export function setStoredAccent(accent: AccentTone): void {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(ACCENT_STORAGE_KEY, accent);
+  document.documentElement.setAttribute('data-accent', accent);
+  notifyPrefsChange();
+}
+
+export function getStoredLang(): Language {
+  if (typeof window === 'undefined') return 'en';
+  const stored = window.localStorage.getItem(LANG_STORAGE_KEY);
+  return stored === 'pt' ? 'pt' : 'en';
+}
+
+export function setStoredLang(lang: Language): void {
+  if (typeof window === 'undefined') return;
+  window.localStorage.setItem(LANG_STORAGE_KEY, lang);
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  notifyPrefsChange();
+}
+
+export function useStoredLang(): [Language, (next: Language) => void] {
+  const lang = useSyncExternalStore<Language>(
+    subscribePrefs,
+    getStoredLang,
+    () => 'en'
+  );
+  return [lang, setStoredLang];
+}
+
+export function useStoredTheme(): [ThemeMode, (next: ThemeMode) => void] {
+  const theme = useSyncExternalStore<ThemeMode>(
+    subscribePrefs,
+    getStoredTheme,
+    () => 'light'
+  );
+  return [theme, setStoredTheme];
+}
+
+export function useStoredAccent(): [AccentTone, (next: AccentTone) => void] {
+  const accent = useSyncExternalStore<AccentTone>(
+    subscribePrefs,
+    getStoredAccent,
+    () => 'sage'
+  );
+  return [accent, setStoredAccent];
 }

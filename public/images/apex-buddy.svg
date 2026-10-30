@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none" role="img" aria-labelledby="apex-title apex-desc">
+  <title id="apex-title">Apex — Editorial Desk Companion</title>
+  <desc id="apex-desc">Original matte porcelain and charcoal desk companion inspired by motorsport telemetry pods and warm anime studio figures.</desc>
+  <defs>
+    <radialGradient id="apex-shell" cx="34%" cy="26%" r="72%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="58%" stop-color="#F5F3EF" />
+      <stop offset="100%" stop-color="#DCDDD7" />
+    </radialGradient>
+    <radialGradient id="apex-visor" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#2E322F" />
+      <stop offset="100%" stop-color="#181B1A" />
+    </radialGradient>
+    <linearGradient id="apex-collar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B7D6C" />
+      <stop offset="100%" stop-color="#475648" />
+    </linearGradient>
+    <radialGradient id="apex-shadow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#222321" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#222321" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Soft contact shadow -->
+  <ellipse cx="80" cy="143" rx="42" ry="8" fill="url(#apex-shadow)" />
+
+  <!-- Subtle telemetry halo / racing apex arc -->
+  <path d="M26 98C26 57 50 28 80 28C110 28 134 57 134 98" stroke="#59695A" stroke-width="1.25" stroke-dasharray="3 4" stroke-linecap="round" opacity="0.45" />
+  <circle cx="80" cy="28" r="3.5" fill="#59695A" />
+
+  <!-- Left & right acoustic/telemetry ears -->
+  <rect x="28" y="68" width="12" height="26" rx="6" fill="url(#apex-collar)" stroke="#222321" stroke-width="1.5" />
+  <rect x="120" y="68" width="12" height="26" rx="6" fill="url(#apex-collar)" stroke="#222321" stroke-width="1.5" />
+
+  <!-- Lower porcelain base / torso -->
+  <path d="M52 114C52 104 63 98 80 98C97 98 108 104 108 114V125C108 132 98 137 80 137C62 137 52 132 52 125V114Z" fill="url(#apex-shell)" stroke="#222321" stroke-width="1.75" />
+  <!-- Sage racing stripe on torso -->
+  <path d="M67 116H93" stroke="#59695A" stroke-width="3" stroke-linecap="round" />
+  <circle cx="80" cy="126" r="2.5" fill="#59695A" />
+
+  <!-- Main 3D-shaded matte porcelain helmet/head -->
+  <rect x="36" y="40" width="88" height="72" rx="34" fill="url(#apex-shell)" stroke="#222321" stroke-width="1.75" />
+
+  <!-- Subtle top crown seam & Specular highlight -->
+  <path d="M58 48C65 44 95 44 102 48" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.85" />
+  <path d="M80 40V49" stroke="#666A65" stroke-width="1.25" stroke-linecap="round" opacity="0.5" />
+
+  <!-- Matte charcoal visor -->
+  <rect x="48" y="59" width="64" height="34" rx="17" fill="url(#apex-visor)" stroke="#222321" stroke-width="1.5" />
+
+  <!-- Warm paper/sage expressive eyes inside visor -->
+  <g class="apex-eyes">
+    <ellipse cx="66" cy="76" rx="4.5" ry="5.5" fill="#F5F3EF" />
+    <circle cx="67.5" cy="74.5" r="1.6" fill="#A1AD9B" />
+    <ellipse cx="94" cy="76" rx="4.5" ry="5.5" fill="#F5F3EF" />
+    <circle cx="95.5" cy="74.5" r="1.6" fill="#A1AD9B" />
+  </g>
+
+  <!-- Gentle calm expression indicator -->
+  <path d="M75 84Q80 87 85 84" stroke="#A1AD9B" stroke-width="1.75" stroke-linecap="round" fill="none" />
+
+  <!-- Corner visor reflection -->
+  <path d="M55 66C59 63 66 62 72 62" stroke="#F5F3EF" stroke-width="1.5" stroke-linecap="round" opacity="0.28" />
+</svg>

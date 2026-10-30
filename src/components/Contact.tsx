@@ -1,209 +1,160 @@
 'use client';
 
 import React, { useState } from 'react';
+import {
+  ArrowUpRight,
+  Check,
+  Copy,
+  Download,
+  Mail,
+} from 'lucide-react';
+import { GitHubIcon, InstagramIcon, LinkedInIcon } from './BrandIcons';
+import { Language, TRANSLATIONS } from '@/config/i18n';
 import { PORTFOLIO_CONFIG } from '@/config/portfolio';
-import { useLanguage } from './LanguageSelector';
-import { Mail, Copy, Check, Send } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from './Icons';
 
-export const Contact: React.FC = () => {
-  const { t } = useLanguage();
-  const [copiedEmail, setCopiedEmail] = useState<string | null>(null);
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
+interface ContactProps {
+  lang: Language;
+}
 
-  const handleCopyEmail = (email: string) => {
-    navigator.clipboard.writeText(email);
-    setCopiedEmail(email);
-    setTimeout(() => setCopiedEmail(null), 2500);
-  };
+export default function Contact({ lang }: ContactProps) {
+  const t = TRANSLATIONS[lang].contactSection;
+  const [copied, setCopied] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formState.name || !formState.email || !formState.message) return;
-    
-    const subject = encodeURIComponent(`Contact from ${formState.name} via Portfolio`);
-    const body = encodeURIComponent(`Name: ${formState.name}\nEmail: ${formState.email}\n\nMessage:\n${formState.message}`);
-    window.location.href = `mailto:${PORTFOLIO_CONFIG.profile.contacts.emailPrimary}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PORTFOLIO_CONFIG.personal.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      window.location.href = `mailto:${PORTFOLIO_CONFIG.personal.email}`;
+    }
   };
 
   return (
-    <section id="contato" className="py-20 bg-[#07080a] border-t border-[#1e2436] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00f0ff] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#00f0ff]"></span>
-            <span>{t.contact.sectionTag}</span>
+    <section id="contact" className="bg-canvas py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="editorial-card rounded-[24px] p-8 sm:p-12">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-5">
+            <div className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-accent-ink">
+              <span>{t.sectionNumber}</span>
+              <span>·</span>
+              <span>{t.eyebrow}</span>
+            </div>
+            <span className="editorial-pill">
+              <span className="inline-block h-2 w-2 rounded-full bg-accent" />
+              <span>{t.availabilityBadge}</span>
+            </span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            {t.contact.title}
-          </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
-            {t.contact.subtitle}
-          </p>
+
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+            <div className="lg:col-span-7">
+              <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+                {t.title}
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+                {t.subtitle}
+              </p>
+
+              {/* Primary Email & Resume Actions */}
+              <div className="mt-8 flex flex-wrap items-center gap-3.5">
+                <a
+                  href={`mailto:${PORTFOLIO_CONFIG.personal.email}`}
+                  className="inline-flex items-center gap-2 rounded-full bg-inverted px-6 py-3.5 text-sm font-medium text-inverted-ink hover:opacity-90 transition-opacity"
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>{t.sendEmailCta}</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-5 py-3.5 font-mono text-xs font-medium text-ink hover:border-accent transition-colors cursor-pointer"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-3.5 w-3.5 text-accent" />
+                      <span>{t.copiedEmail}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="h-3.5 w-3.5 text-accent" />
+                      <span>
+                        {t.copyEmail}: {PORTFOLIO_CONFIG.personal.email}
+                      </span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Direct Channels & Resume Downloads (5 cols) */}
+            <div className="lg:col-span-5 space-y-3 rounded-2xl border border-line bg-canvas p-6">
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                <a
+                  href={PORTFOLIO_CONFIG.personal.resumeEnUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface p-3.5 font-mono text-xs text-ink hover:border-accent transition-colors"
+                >
+                  <span>{t.downloadResumeEn}</span>
+                  <Download className="h-3.5 w-3.5 text-accent" />
+                </a>
+
+                <a
+                  href={PORTFOLIO_CONFIG.personal.resumePtUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface p-3.5 font-mono text-xs text-ink hover:border-accent transition-colors"
+                >
+                  <span>{t.downloadResumePt}</span>
+                  <Download className="h-3.5 w-3.5 text-accent" />
+                </a>
+              </div>
+
+              <div className="grid grid-cols-1 gap-2.5 pt-1">
+                <a
+                  href={PORTFOLIO_CONFIG.personal.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface p-3.5 font-mono text-xs text-muted hover:text-ink hover:border-accent transition-colors"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <GitHubIcon className="h-4 w-4 text-ink" />
+                    <span>GitHub · @andrecodexvictor</span>
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+
+                <a
+                  href={PORTFOLIO_CONFIG.personal.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface p-3.5 font-mono text-xs text-muted hover:text-ink hover:border-accent transition-colors"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <LinkedInIcon className="h-4 w-4 text-ink" />
+                    <span>LinkedIn · André Victor Andrade</span>
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+
+                <a
+                  href={PORTFOLIO_CONFIG.personal.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between rounded-xl border border-line bg-surface p-3.5 font-mono text-xs text-muted hover:text-ink hover:border-accent transition-colors"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <InstagramIcon className="h-4 w-4 text-ink" />
+                    <span>Instagram · @dedevictr</span>
+                  </span>
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Direct Channels Column */}
-          <div className="lg:col-span-6 space-y-4">
-
-            {/* Email Primary Card */}
-            <div className="bg-[#0e1017] p-5 rounded-lg border border-[#00f0ff]/40 flex items-center justify-between font-mono hud-border">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded bg-[#00f0ff]/10 border border-[#00f0ff]/30 flex items-center justify-center text-[#00f0ff]">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <span className="text-xs text-[#8b95ad]">{t.contact.primaryEmail}</span>
-                  <h3 className="text-white font-bold text-sm">
-                    {PORTFOLIO_CONFIG.profile.contacts.emailPrimary}
-                  </h3>
-                </div>
-              </div>
-              <button
-                onClick={() => handleCopyEmail(PORTFOLIO_CONFIG.profile.contacts.emailPrimary)}
-                className="px-3 py-1.5 rounded bg-[#131622] border border-[#1e2436] text-xs text-[#8b95ad] hover:text-[#00f0ff] hover:border-[#00f0ff]/40 flex items-center gap-1.5 transition-all"
-              >
-                {copiedEmail === PORTFOLIO_CONFIG.profile.contacts.emailPrimary ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#00ff66]" />
-                    <span className="text-[#00ff66]">{t.contact.copied}</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>{t.contact.copy}</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Email Secondary Card */}
-            <div className="bg-[#0e1017] p-5 rounded-lg border border-[#1e2436] flex items-center justify-between font-mono">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded bg-[#131622] border border-[#1e2436] flex items-center justify-center text-[#8b95ad]">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <span className="text-xs text-[#8b95ad]">{t.contact.secondaryEmail}</span>
-                  <h3 className="text-white font-bold text-sm">
-                    {PORTFOLIO_CONFIG.profile.contacts.emailAlt}
-                  </h3>
-                </div>
-              </div>
-              <button
-                onClick={() => handleCopyEmail(PORTFOLIO_CONFIG.profile.contacts.emailAlt)}
-                className="px-3 py-1.5 rounded bg-[#131622] border border-[#1e2436] text-xs text-[#8b95ad] hover:text-[#00f0ff] hover:border-[#00f0ff]/40 flex items-center gap-1.5 transition-all"
-              >
-                {copiedEmail === PORTFOLIO_CONFIG.profile.contacts.emailAlt ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#00ff66]" />
-                    <span className="text-[#00ff66]">{t.contact.copied}</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span>{t.contact.copy}</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Social Channels */}
-            <div className="grid grid-cols-2 gap-4 font-mono text-xs pt-2">
-              <a
-                href={PORTFOLIO_CONFIG.profile.contacts.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-lg bg-[#0e1017] border border-[#1e2436] hover:border-[#00f0ff]/50 text-[#8b95ad] hover:text-white flex items-center gap-3 transition-all"
-              >
-                <LinkedinIcon className="w-5 h-5 text-[#00f0ff]" />
-                <span>LinkedIn Profile</span>
-              </a>
-              <a
-                href={PORTFOLIO_CONFIG.profile.contacts.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-lg bg-[#0e1017] border border-[#1e2436] hover:border-[#00f0ff]/50 text-[#8b95ad] hover:text-white flex items-center gap-3 transition-all"
-              >
-                <GithubIcon className="w-5 h-5 text-white" />
-                <span>GitHub Profile</span>
-              </a>
-            </div>
-
-          </div>
-
-          {/* Quick Message Form Column */}
-          <div className="lg:col-span-6">
-            <form
-              onSubmit={handleSubmit}
-              className="bg-[#0e1017] rounded-xl border border-[#1e2436] p-6 sm:p-8 font-mono space-y-4"
-            >
-              <div className="flex items-center justify-between border-b border-[#1e2436] pb-3 text-xs">
-                <span className="text-white font-bold">{t.contact.formTitle}</span>
-                <span className="text-[#00f0ff]">DIRECT MAIL</span>
-              </div>
-
-              <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourName}</label>
-                <input
-                  type="text"
-                  required
-                  value={formState.name}
-                  onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                  placeholder="Ex: Alex Morgan"
-                  className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourEmail}</label>
-                <input
-                  type="email"
-                  required
-                  value={formState.email}
-                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                  placeholder="Ex: alex@company.com"
-                  className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-[#8b95ad] mb-1">{t.contact.yourMessage}</label>
-                <textarea
-                  rows={4}
-                  required
-                  value={formState.message}
-                  onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                  placeholder="Describe your project, inquiry or opportunity..."
-                  className="w-full bg-[#131622] border border-[#1e2436] rounded px-3 py-2 text-xs text-white focus:border-[#00f0ff] focus:outline-none"
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-3 rounded bg-[#00f0ff] text-black font-bold text-xs hover:bg-[#33f3ff] transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(0,240,255,0.3)]"
-              >
-                <Send className="w-4 h-4" />
-                <span>{t.contact.sendButton}</span>
-              </button>
-
-              {submitted && (
-                <p className="text-xs text-[#00ff66] text-center pt-2 font-sans">
-                  {t.contact.successMessage}
-                </p>
-              )}
-
-            </form>
-          </div>
-
-        </div>
-
       </div>
     </section>
   );
-};
+}

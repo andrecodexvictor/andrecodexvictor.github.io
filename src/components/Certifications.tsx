@@ -1,80 +1,175 @@
 'use client';
 
 import React from 'react';
-import { PORTFOLIO_CONFIG, Certification } from '@/config/portfolio';
-import { useLanguage } from './LanguageSelector';
-import { ShieldCheck, Award, CheckCircle2 } from 'lucide-react';
+import { Award, CheckCircle2, ExternalLink, GraduationCap, ShieldCheck } from 'lucide-react';
+import { Language, TRANSLATIONS } from '@/config/i18n';
+import {
+  COMPLEMENTARY_CREDENTIALS,
+  EDUCATION_DATA,
+  ORACLE_CREDENTIALS,
+} from '@/content/credentials';
 
-export const Certifications: React.FC<{ items?: Certification[] }> = ({ items }) => {
-  const { t } = useLanguage();
-  const certs = items || PORTFOLIO_CONFIG.certifications;
+interface CertificationsProps {
+  lang: Language;
+}
+
+export default function Certifications({ lang }: CertificationsProps) {
+  const t = TRANSLATIONS[lang].credentialsSection;
 
   return (
-    <section id="certificacoes" className="py-20 bg-[#07080a] border-t border-[#1e2436] relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+    <section
+      id="credentials"
+      className="border-b border-line bg-canvas py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
         {/* Section Header */}
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-[#00ff66] mb-2">
-            <span className="w-2 h-2 rounded-full bg-[#00ff66]"></span>
-            <span>{t.certifications.sectionTag}</span>
+        <div className="sector-rule pt-6">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div>
+              <div className="mb-2 flex items-center gap-2.5 font-mono text-xs uppercase tracking-widest text-accent-ink">
+                <span>{t.sectionNumber}</span>
+                <span>·</span>
+                <span>{t.eyebrow}</span>
+              </div>
+              <h2 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                {t.title}
+              </h2>
+            </div>
+            <p className="max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+              {t.subtitle}
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            {t.certifications.title}
-          </h2>
-          <p className="text-[#8b95ad] text-sm mt-2 max-w-xl font-sans">
-            {t.certifications.subtitle}
-          </p>
         </div>
 
-        {/* Certifications Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {certs.map((cert) => (
-            <div
+        {/* Primary Oracle University Verified Badges */}
+        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {ORACLE_CREDENTIALS.map((cert, index) => (
+            <article
               key={cert.id}
-              className="bg-[#0e1017] rounded-xl border border-[#1e2436] p-6 font-mono flex flex-col justify-between hud-border-hover group"
+              className="editorial-card rounded-[22px] p-6 sm:p-8 flex flex-col justify-between"
             >
               <div>
-                {/* Badge Top Header */}
-                <div className="flex items-center justify-between border-b border-[#1e2436] pb-3 mb-4">
-                  <div className="w-10 h-10 rounded bg-[#00ff66]/10 border border-[#00ff66]/40 flex items-center justify-center text-[#00ff66]">
-                    <Award className="w-5 h-5" />
-                  </div>
-                  <div className="text-right">
-                    <span className="text-[10px] text-[#00ff66] font-bold block flex items-center justify-end gap-1">
-                      <ShieldCheck className="w-3.5 h-3.5" /> {t.certifications.verified}
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-4">
+                  <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
+                    <ShieldCheck className="h-4 w-4 text-accent" />
+                    <span>
+                      ORACLE UNIVERSITY · BADGE 0{index + 1}
                     </span>
-                    <span className="text-[10px] text-[#535c73]">{cert.badgeCode}</span>
-                  </div>
+                  </span>
+                  <span className="editorial-pill">ID: {cert.certificateId}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white group-hover:text-[#00ff66] transition-colors leading-snug">
-                  {cert.title}
+                <h3 className="mt-4 text-xl font-semibold text-ink sm:text-2xl">
+                  {cert.title[lang]}
                 </h3>
-                <p className="text-xs text-[#8b95ad] mt-1">{cert.issuer} • {cert.date}</p>
+                <p className="mt-1 font-mono text-xs text-muted">
+                  {cert.subtitle[lang]} · {cert.date[lang]}
+                </p>
 
-                {/* Skills Covered list */}
-                <div className="mt-4 pt-3 border-t border-[#1e2436] space-y-1.5 text-xs text-[#8b95ad]">
-                  {cert.skillsCovered.map((skill) => (
-                    <div key={skill} className="flex items-center gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#00ff66] shrink-0" />
-                      <span className="text-white font-sans text-xs">{skill}</span>
-                    </div>
+                <ul className="mt-4 space-y-2 text-xs leading-relaxed text-muted sm:text-sm">
+                  {cert.highlights[lang].map((h) => (
+                    <li key={h} className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                      <span>{h}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
 
-              {/* Footer status */}
-              <div className="mt-6 pt-3 border-t border-[#1e2436] flex items-center justify-between text-[10px] text-[#535c73]">
-                <span>{t.certifications.verified}</span>
-                <span className="text-[#00ff66]">{t.certifications.validated}</span>
+              <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
+                <span className="font-mono text-xs text-muted">
+                  Issuer: {cert.issuer}
+                </span>
+                <a
+                  href={cert.verifyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-inverted px-4 py-2 font-mono text-xs font-medium text-inverted-ink hover:opacity-90 transition-opacity"
+                >
+                  <span>{t.verifyCta}</span>
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </a>
               </div>
-
-            </div>
+            </article>
           ))}
         </div>
 
+        {/* Academic Degree & Complementary Verified Certificates */}
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
+          {/* IFBA Information Systems Degree (7 cols) */}
+          <article className="lg:col-span-7 editorial-card rounded-2xl p-6 sm:p-7">
+            <div className="flex items-center justify-between border-b border-line pb-4">
+              <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
+                <GraduationCap className="h-4 w-4 text-accent" />
+                <span>{t.educationHeading}</span>
+              </span>
+              <span className="editorial-pill">
+                {EDUCATION_DATA.period[lang]}
+              </span>
+            </div>
+
+            <h3 className="mt-4 text-xl font-semibold text-ink">
+              {EDUCATION_DATA.degree[lang]}
+            </h3>
+            <p className="mt-1 text-sm font-medium text-muted">
+              {EDUCATION_DATA.institution} · {EDUCATION_DATA.campus[lang]}
+            </p>
+
+            <div className="mt-4 rounded-xl border border-line bg-canvas p-4">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-accent-ink">
+                {lang === 'pt'
+                  ? 'Trabalho de Conclusão de Curso (TCC) & Livro:'
+                  : 'Undergraduate Thesis (TCC) & Technical Book:'}
+              </span>
+              <p className="mt-1 text-xs font-medium leading-relaxed text-ink sm:text-sm">
+                {EDUCATION_DATA.thesisTitle[lang]}
+              </p>
+            </div>
+
+            <ul className="mt-4 space-y-2 text-xs leading-relaxed text-muted">
+              {EDUCATION_DATA.leadership[lang].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+
+          {/* Complementary Verified Certificates (5 cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <h3 className="flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-ink">
+              <Award className="h-4 w-4 text-accent" />
+              <span>{t.complementaryHeading}</span>
+            </h3>
+
+            {COMPLEMENTARY_CREDENTIALS.map((comp) => (
+              <article
+                key={comp.id}
+                className="editorial-card rounded-2xl p-5 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between font-mono text-[11px] text-muted">
+                    <span className="font-semibold text-accent-ink">
+                      {comp.issuer}
+                    </span>
+                    <span>{comp.certificateId}</span>
+                  </div>
+                  <h4 className="mt-2 text-base font-semibold text-ink">
+                    {comp.title[lang]}
+                  </h4>
+                  <p className="mt-0.5 font-mono text-[11px] text-muted">
+                    {comp.subtitle[lang]} · {comp.date[lang]}
+                  </p>
+                  <p className="mt-2 text-xs leading-relaxed text-muted">
+                    {comp.highlights[lang][0]}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
-};
+}

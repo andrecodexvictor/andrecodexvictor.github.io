@@ -1,67 +1,44 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Language, TRANSLATIONS, Translations } from '@/config/i18n';
-import { Globe } from 'lucide-react';
+import React from 'react';
+import { Language } from '@/config/i18n';
 
-interface LanguageContextProps {
-  lang: Language;
-  setLang: (lang: Language) => void;
-  t: Translations;
+interface LanguageSelectorProps {
+  currentLang: Language;
+  onSelect: (lang: Language) => void;
 }
 
-const LanguageContext = createContext<LanguageContextProps>({
-  lang: 'EN',
-  setLang: () => {},
-  t: TRANSLATIONS.EN,
-});
+const LANGUAGES: { code: Language; label: string; title: string }[] = [
+  { code: 'en', label: 'EN', title: 'English (Default)' },
+  { code: 'pt', label: 'PT-BR', title: 'Português (Brasil)' },
+];
 
-export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [lang, setLangState] = useState<Language>('EN');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('portfolio_lang') as Language;
-    if (saved && (saved === 'EN' || saved === 'PT' || saved === 'ES' || saved === 'ZH')) {
-      setLangState(saved);
-    }
-  }, []);
-
-  const setLang = (newLang: Language) => {
-    setLangState(newLang);
-    localStorage.setItem('portfolio_lang', newLang);
-  };
-
-  const t = TRANSLATIONS[lang] || TRANSLATIONS.EN;
-
+export default function LanguageSelector({ currentLang, onSelect }: LanguageSelectorProps) {
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t }}>
-      {children}
-    </LanguageContext.Provider>
-  );
-};
-
-export const useLanguage = () => useContext(LanguageContext);
-
-export const LanguageSelector: React.FC = () => {
-  const { lang, setLang } = useLanguage();
-  const languages: Language[] = ['EN', 'PT', 'ES', 'ZH'];
-
-  return (
-    <div className="inline-flex items-center gap-1 bg-[#0e1017] p-1 rounded border border-[#00f0ff]/30 font-mono text-[10px] shadow-[0_0_10px_rgba(0,240,255,0.1)]">
-      <Globe className="w-3.5 h-3.5 text-[#00f0ff] ml-1.5 mr-0.5" />
-      {languages.map((l) => (
-        <button
-          key={l}
-          onClick={() => setLang(l)}
-          className={`px-2 py-0.5 rounded transition-all uppercase font-bold ${
-            lang === l
-              ? 'bg-[#00f0ff] text-black shadow-[0_0_8px_rgba(0,240,255,0.4)]'
-              : 'text-[#8b95ad] hover:text-white'
-          }`}
-        >
-          {l}
-        </button>
-      ))}
+    <div
+      role="group"
+      aria-label="Language selector"
+      className="inline-flex items-center rounded-full border border-line bg-subtle p-0.5 font-mono text-xs"
+    >
+      {LANGUAGES.map((lang) => {
+        const active = currentLang === lang.code;
+        return (
+          <button
+            key={lang.code}
+            type="button"
+            onClick={() => onSelect(lang.code)}
+            aria-pressed={active}
+            title={lang.title}
+            className={`px-2.5 py-1 rounded-full transition-colors cursor-pointer font-medium ${
+              active
+                ? 'bg-inverted text-inverted-ink shadow-2xs'
+                : 'text-muted hover:text-ink'
+            }`}
+          >
+            {lang.label}
+          </button>
+        );
+      })}
     </div>
   );
-};
+}
