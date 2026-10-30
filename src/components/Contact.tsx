@@ -15,7 +15,7 @@ interface ContactProps {
   lang: Language;
 }
 
-const DIRECT_EMAIL = 'contato.andrecodex@gmail.com';
+const DIRECT_EMAIL = PORTFOLIO_CONFIG.personal.email;
 
 export default function Contact({ lang }: ContactProps) {
   const t = TRANSLATIONS[lang].contactSection;

@@ -78,6 +78,18 @@ export const metadata: Metadata = {
       'Applied AI & Full-Stack Engineering portfolio featuring GEAR (GP-PME), Axiom Tech on OCI, Quality Engine MCP, NovaMente Atlas, and Jev Gateway.',
     images: ['/images/andre-portrait-apex.png'],
   },
+  icons: {
+    icon: [
+      { url: '/images/logo-cdx.png', sizes: 'any' },
+      { url: '/icon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/images/logo-cdx.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: ['/favicon.ico'],
+  },
   robots: {
     index: true,
     follow: true,
@@ -95,7 +107,7 @@ const jsonLd = {
       jobTitle: 'Software Engineer — Applied AI, Agent Systems & Full-Stack',
       url: 'https://andrecodexvictor.github.io/',
       image: 'https://andrecodexvictor.github.io/images/andre-portrait-apex.png',
-      email: 'mailto:contato.andrecodex@gmail.com',
+      email: 'mailto:andrevictorandrade@gmail.com',
       sameAs: [
         'https://github.com/andrecodexvictor',
         'https://www.linkedin.com/in/andr%C3%A9-victor-andrade-oliveira-santos-22b142208/',

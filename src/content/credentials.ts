@@ -29,15 +29,15 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
       pt: 'Oracle Cloud Infrastructure Certified AI Foundations Associate',
     },
     subtitle: {
-      en: 'Oracle Certified Foundations Associate · Official Recognition & Share Badge',
-      pt: 'Oracle Certified Foundations Associate · Registro Oficial de Certificação e Share Badge',
+      en: 'Oracle Certified Foundations Associate · 2026 Official Recognition',
+      pt: 'Oracle Certified Foundations Associate · Certificação Oficial 2026',
     },
     issuer: 'Oracle University',
     date: {
       en: 'Issued September 2026',
       pt: 'Emitido em setembro de 2026',
     },
-    certificateId: '331822278OCI26AICFA · 331856991OCI26AICFA',
+    certificateId: '331822278OCI26AICFA',
     verifyUrl:
       'https://catalog-education.oracle.com/ords/certview/sharebadge?id=3389CC2B297A522B8F5550D9FC1FA938765D5C565047DBE2C7892E',
     category: 'oracle',
@@ -51,6 +51,38 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
         'Fundamentos de Machine Learning, Deep Learning e Grandes Modelos de Linguagem (LLMs) na Oracle Cloud Infrastructure.',
         'OCI Generative AI Service, arquiteturas de busca vetorial / RAG e governança de IA.',
         'Credencial oficial da Oracle University que respalda implantações de IA em nuvem como o Axiom Tech na OCI (sa-saopaulo-1).',
+      ],
+    },
+  },
+  {
+    id: 'oracle-foundations-associate',
+    title: {
+      en: 'Oracle Certified Foundations Associate · Cloud & Enterprise AI',
+      pt: 'Oracle Certified Foundations Associate · Nuvem e IA Corporativa',
+    },
+    subtitle: {
+      en: 'Oracle University Official Credential · CertView Digital Badge',
+      pt: 'Credencial Oficial Oracle University · Badge Digital CertView',
+    },
+    issuer: 'Oracle University',
+    date: {
+      en: 'Issued September 2026',
+      pt: 'Emitido em setembro de 2026',
+    },
+    certificateId: '331856991OCI26AICFA',
+    verifyUrl:
+      'https://catalog-education.oracle.com/ords/certview/sharebadge?id=3389CC2B297A522B8F5550D9FC1FA938765D5C565047DBE2C7892E',
+    category: 'oracle',
+    highlights: {
+      en: [
+        'Cloud infrastructure security, identity domains, compartment isolation, and enterprise governance.',
+        'Architecture and engineering patterns for scalable cloud services and automated model integration.',
+        'Official recognition validated by Oracle University CertView badge system.',
+      ],
+      pt: [
+        'Segurança em nuvem, domínios de identidade, isolamento de compartimentos e governança corporativa.',
+        'Padrões de arquitetura e engenharia para serviços escaláveis em nuvem e integração de modelos.',
+        'Reconhecimento oficial validado pelo sistema de badges digitais Oracle University CertView.',
       ],
     },
   },
@@ -120,8 +152,8 @@ export const EDUCATION_DATA: EducationItem = {
     pt: 'Campus Vitória da Conquista, Bahia, Brasil',
   },
   period: {
-    en: 'Expected Completion: 2026',
-    pt: 'Conclusão Prevista: 2026',
+    en: 'Expected Graduation: December 2026',
+    pt: 'Formatura Prevista: Dezembro de 2026',
   },
   thesisTitle: {
     en: 'GEAR (Governance, Execution, Agility & Risk): Minimum Viable IT Governance & Execution Framework for SMEs with Optional Governed AI',

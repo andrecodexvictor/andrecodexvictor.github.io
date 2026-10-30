@@ -10,6 +10,7 @@ export interface TechItem {
   name: string;
   category: TechCategory;
   icon: string;
+  badge?: string;
   experience: {
     en: string;
     pt: string;
@@ -17,6 +18,7 @@ export interface TechItem {
 }
 
 export const CURATED_TECH_STACK: TechItem[] = [
+  // Row 1 - Languages
   {
     id: 'typescript',
     name: 'TypeScript',
@@ -25,6 +27,16 @@ export const CURATED_TECH_STACK: TechItem[] = [
     experience: {
       en: 'Strict typing, AST analysis & production safety',
       pt: 'Tipagem estrita, análise AST e segurança em produção',
+    },
+  },
+  {
+    id: 'javascript',
+    name: 'JavaScript',
+    category: 'languages',
+    icon: 'javascript',
+    experience: {
+      en: 'ESNext standards, event loop & DOM/V8 optimization',
+      pt: 'Padrões ESNext, event loop e otimização no V8',
     },
   },
   {
@@ -37,6 +49,28 @@ export const CURATED_TECH_STACK: TechItem[] = [
       pt: 'AsyncIO, pipelines de dados e arquitetura de agentes',
     },
   },
+  {
+    id: 'kotlin',
+    name: 'Kotlin',
+    category: 'languages',
+    icon: 'kotlin',
+    experience: {
+      en: 'Coroutines, null safety & multiplatform backends',
+      pt: 'Coroutines, null safety e backends multiplataforma',
+    },
+  },
+  {
+    id: 'rust',
+    name: 'Rust',
+    category: 'languages',
+    icon: 'rust',
+    experience: {
+      en: 'Memory safety, zero-cost abstractions & high-perf CLI',
+      pt: 'Segurança de memória, abstrações de custo zero e CLIs de alta performance',
+    },
+  },
+
+  // Row 2 - Frontend & Frameworks
   {
     id: 'react',
     name: 'React',
@@ -58,6 +92,36 @@ export const CURATED_TECH_STACK: TechItem[] = [
     },
   },
   {
+    id: 'vue',
+    name: 'Vue.js',
+    category: 'frontend',
+    icon: 'vue',
+    experience: {
+      en: 'Composition API, Pinia state & reactive component trees',
+      pt: 'Composition API, estado Pinia e árvores reativas de componentes',
+    },
+  },
+  {
+    id: 'angular',
+    name: 'Angular',
+    category: 'frontend',
+    icon: 'angular',
+    experience: {
+      en: 'Enterprise SPAs, RxJS signals & modular dependency injection',
+      pt: 'SPAs corporativas, sinais RxJS e injeção modular de dependências',
+    },
+  },
+  {
+    id: 'vite',
+    name: 'Vite',
+    category: 'frontend',
+    icon: 'vite',
+    experience: {
+      en: 'Lightning-fast HMR, Rollup bundling & modern tooling',
+      pt: 'HMR ultrarrápido, bundling Rollup e ferramental moderno',
+    },
+  },
+  {
     id: 'tailwindcss',
     name: 'Tailwind CSS',
     category: 'frontend',
@@ -67,6 +131,8 @@ export const CURATED_TECH_STACK: TechItem[] = [
       pt: 'Tokens de design, temas dark/light e layouts fluidos',
     },
   },
+
+  // Row 3 - Backend
   {
     id: 'nodejs',
     name: 'Node.js',
@@ -82,9 +148,62 @@ export const CURATED_TECH_STACK: TechItem[] = [
     name: 'FastAPI',
     category: 'backend',
     icon: 'fastapi',
+    badge: 'APIs',
     experience: {
       en: 'High-throughput async APIs & Pydantic validation',
       pt: 'APIs assíncronas de alta vazão e validação Pydantic',
+    },
+  },
+  {
+    id: 'django',
+    name: 'Django',
+    category: 'backend',
+    icon: 'django',
+    experience: {
+      en: 'Robust ORM, REST framework & scalable Python backends',
+      pt: 'ORM robusto, REST framework e backends Python escaláveis',
+    },
+  },
+  {
+    id: 'spring',
+    name: 'Spring',
+    category: 'backend',
+    icon: 'spring',
+    experience: {
+      en: 'Spring Boot microservices, dependency injection & security',
+      pt: 'Microsserviços Spring Boot, injeção de dependências e segurança',
+    },
+  },
+  {
+    id: 'laravel',
+    name: 'Laravel',
+    category: 'backend',
+    icon: 'laravel',
+    experience: {
+      en: 'Eloquent ORM, robust routing & developer ergonomics',
+      pt: 'Eloquent ORM, roteamento robusto e ergonomia de desenvolvimento',
+    },
+  },
+
+  // Row 4 - AI, Agents, Models & Pipelines
+  {
+    id: 'llms',
+    name: 'LLMs',
+    category: 'ai-data',
+    icon: 'llms',
+    experience: {
+      en: 'Prompt engineering, model alignment & structured output validation',
+      pt: 'Engenharia de prompts, alinhamento de modelos e saída estruturada',
+    },
+  },
+  {
+    id: 'langchain',
+    name: 'LangChain',
+    category: 'ai-data',
+    icon: 'langchain',
+    experience: {
+      en: 'Chain orchestration, memory stores & multi-model abstraction',
+      pt: 'Orquestração de cadeias, stores de memória e abstração multi-modelo',
     },
   },
   {
@@ -98,13 +217,80 @@ export const CURATED_TECH_STACK: TechItem[] = [
     },
   },
   {
+    id: 'crewai',
+    name: 'CrewAI',
+    category: 'ai-data',
+    icon: 'crewai',
+    experience: {
+      en: 'Role-playing multi-agent swarms & collaborative task delegation',
+      pt: 'Enxames de agentes por papéis e delegação colaborativa de tarefas',
+    },
+  },
+  {
+    id: 'n8n',
+    name: 'n8n',
+    category: 'ai-data',
+    icon: 'n8n',
+    experience: {
+      en: 'Workflow automation, webhook triggers & integration nodes',
+      pt: 'Automação de workflows, gatilhos de webhooks e nós de integração',
+    },
+  },
+  {
+    id: 'rag',
+    name: 'RAG',
+    category: 'ai-data',
+    icon: 'rag',
+    badge: 'Document QA & KB',
+    experience: {
+      en: 'Semantic document search, chunking & grounded QA pipelines',
+      pt: 'Busca semântica de documentos, chunking e pipelines de QA fundamentadas',
+    },
+  },
+  {
+    id: 'scikit-tensorflow',
+    name: 'Machine Learning',
+    category: 'ai-data',
+    icon: 'scikit-tensorflow',
+    badge: 'Scikit Learn & TF',
+    experience: {
+      en: 'Predictive models, classification, regression & model training',
+      pt: 'Modelos preditivos, classificação, regressão e treinamento de redes',
+    },
+  },
+  {
+    id: 'neural-networks',
+    name: 'Neural Networks',
+    category: 'ai-data',
+    icon: 'neural-networks',
+    badge: 'Custom Specs',
+    experience: {
+      en: 'Custom architectural specs, deep layers & tensor computations',
+      pt: 'Especificações de arquiteturas personalizadas, camadas profundas e tensores',
+    },
+  },
+
+  // Row 5 - Databases & Data Wrangling
+  {
     id: 'chromadb',
     name: 'ChromaDB',
     category: 'ai-data',
     icon: 'chromadb',
+    badge: 'Vector DB',
     experience: {
       en: 'Vector embeddings, cosine similarity & hybrid search',
       pt: 'Embeddings vetoriais, similaridade por cosseno e busca híbrida',
+    },
+  },
+  {
+    id: 'pinecone',
+    name: 'Pinecone',
+    category: 'ai-data',
+    icon: 'pinecone',
+    badge: 'Vector DB',
+    experience: {
+      en: 'Managed cloud vector indexing, low latency & namespace filtering',
+      pt: 'Indexação vetorial em nuvem gerenciada, baixa latência e filtros por namespace',
     },
   },
   {
@@ -118,6 +304,46 @@ export const CURATED_TECH_STACK: TechItem[] = [
     },
   },
   {
+    id: 'mysql',
+    name: 'MySQL',
+    category: 'ai-data',
+    icon: 'mysql',
+    experience: {
+      en: 'ACID compliance, relational queries & schema optimization',
+      pt: 'Conformidade ACID, consultas relacionais e otimização de esquemas',
+    },
+  },
+  {
+    id: 'mongodb',
+    name: 'MongoDB',
+    category: 'ai-data',
+    icon: 'mongodb',
+    experience: {
+      en: 'Document-oriented storage, flexible schemas & aggregation pipelines',
+      pt: 'Armazenamento orientado a documentos, esquemas flexíveis e pipelines de agregação',
+    },
+  },
+  {
+    id: 'prisma',
+    name: 'Prisma',
+    category: 'ai-data',
+    icon: 'prisma',
+    experience: {
+      en: 'Type-safe database client, schema migrations & relations',
+      pt: 'Cliente de banco tipado, migrações de esquema e relações consistentes',
+    },
+  },
+  {
+    id: 'pandas',
+    name: 'Pandas',
+    category: 'ai-data',
+    icon: 'pandas',
+    experience: {
+      en: 'Dataframe wrangling, feature engineering & exploratory analysis',
+      pt: 'Manipulação de dataframes, feature engineering e análise exploratória',
+    },
+  },
+  {
     id: 'kafka',
     name: 'Apache Kafka',
     category: 'ai-data',
@@ -127,6 +353,8 @@ export const CURATED_TECH_STACK: TechItem[] = [
       pt: 'Streaming de eventos, partições e topologias pub/sub',
     },
   },
+
+  // Row 6 - Cloud & Infra
   {
     id: 'docker',
     name: 'Docker',
@@ -229,11 +457,16 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
     title: lang === 'pt' ? 'Ferramentas & Tecnologias em Produção' : 'Production Tools & Technologies',
     subtitle:
       lang === 'pt'
-        ? '14 tecnologias reais verificadas nos projetos e estudos de caso deste portfólio.'
-        : '14 authentic technologies verified across projects and case studies in this portfolio.',
+        ? `${CURATED_TECH_STACK.length} tecnologias reais verificadas nos projetos e estudos de caso deste portfólio.`
+        : `${CURATED_TECH_STACK.length} authentic technologies verified across projects and case studies in this portfolio.`,
     prevLabel: lang === 'pt' ? 'Tecnologias anteriores' : 'Previous technologies',
     nextLabel: lang === 'pt' ? 'Próximas tecnologias' : 'Next technologies',
     ariaLabel: lang === 'pt' ? 'Carrossel de tecnologias do portfólio' : 'Portfolio tech stack carousel',
+    focusPrefix: lang === 'pt' ? 'Foco principal:' : 'Main focus:',
+    focusDescription:
+      lang === 'pt'
+        ? 'TypeScript/Node, Python/Django, dados (SQL/NoSQL, bancos vetoriais como ChromaDB e Pinecone, pipelines de RAG) e frameworks de agentes (LangChain, LangGraph, CrewAI, n8n), expostos via APIs REST.'
+        : 'TypeScript/Node, Python/Django, data (SQL/NoSQL, vector DBs such as ChromaDB and Pinecone, RAG pipelines) and agent frameworks (LangChain, LangGraph, CrewAI, n8n), exposed via REST APIs.',
   };
 
   return (
@@ -348,9 +581,16 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
                   <div className="w-8 h-8 rounded-lg bg-surface-raised flex items-center justify-center p-1 border border-line/60 group-hover:border-accent/40 transition-colors shrink-0">
                     <TechIcon id={tech.icon} size={20} title={tech.name} />
                   </div>
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-muted-low bg-surface-raised px-1.5 py-0.5 rounded border border-line/40 truncate">
-                    {CATEGORY_NAMES[tech.category][lang]}
-                  </span>
+                  <div className="flex items-center gap-1 shrink-0 overflow-hidden">
+                    {tech.badge && (
+                      <span className="font-mono text-[8px] uppercase tracking-wider text-accent bg-accent/10 px-1 py-0.5 rounded border border-accent/20 truncate">
+                        {tech.badge}
+                      </span>
+                    )}
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-muted-low bg-surface-raised px-1.5 py-0.5 rounded border border-line/40 truncate">
+                      {CATEGORY_NAMES[tech.category][lang]}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Technology Name */}
@@ -365,6 +605,16 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* Focus note matching user's tech badge spec */}
+        <div className="mt-6 pt-4 border-t border-line/40 text-xs text-muted flex flex-col sm:flex-row gap-2 sm:items-baseline">
+          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent shrink-0">
+            {copy.focusPrefix}
+          </span>
+          <p className="text-xs leading-relaxed text-muted font-sans">
+            {copy.focusDescription}
+          </p>
         </div>
       </div>
     </section>

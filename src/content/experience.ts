@@ -84,8 +84,8 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
       pt: 'Executivo de Vendas Consultivas e Mentor de Equipe',
     },
     period: {
-      en: 'Aug 2021 — Nov 2025',
-      pt: 'Ago 2021 — Nov 2025',
+      en: '2021 — 2025',
+      pt: '2021 — 2025',
     },
     location: {
       en: 'Remote · Brazil',

@@ -204,15 +204,15 @@ test.describe('Hero Section Verification', () => {
 });
 
 test.describe('TechStackCarousel Verification', () => {
-  test('Contains 14 curated technologies with manual navigation and bound limits', async ({ page }) => {
+  test('Contains curated technologies with manual navigation and bound limits', async ({ page }) => {
     await page.goto('/');
 
     const techSection = page.locator('#tech-stack');
     await expect(techSection).toBeVisible();
 
-    // Verify exactly 14 technology slides
+    // Verify technology slides
     const techSlides = techSection.locator('[role="region"] > [role="group"]');
-    await expect(techSlides).toHaveCount(14);
+    await expect(techSlides).toHaveCount(35);
 
     // Verify NO marquee/ticker animation is used
     const marqueeElements = techSection.locator('marquee, .marquee, [data-marquee]');
@@ -390,7 +390,7 @@ test.describe('Contact Section & Conversion Ergonomics', () => {
     await expect(footerCvBtns).toHaveCount(0);
 
     // Direct conversion links in Contact: mailto, GitHub, LinkedIn
-    const mailtoLink = contactSection.locator('a[href^="mailto:contato.andrecodex@gmail.com"]');
+    const mailtoLink = contactSection.locator('a[href^="mailto:andrevictorandrade@gmail.com"]');
     await expect(mailtoLink.first()).toBeVisible();
 
     const githubLink = contactSection.locator('a[href*="github.com/andrecodexvictor"]');
