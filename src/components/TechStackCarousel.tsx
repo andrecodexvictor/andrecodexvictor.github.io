@@ -409,9 +409,9 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
     if (!el) return;
 
     const { scrollLeft, scrollWidth, clientWidth } = el;
-    // Allow small 2px threshold for sub-pixel zoom discrepancies
-    const atStart = scrollLeft <= 2;
-    const atEnd = scrollLeft + clientWidth >= scrollWidth - 2;
+    // Allow threshold for sub-pixel padding / container margin discrepancies
+    const atStart = scrollLeft <= 12;
+    const atEnd = scrollLeft + clientWidth >= scrollWidth - 12;
 
     setCanScrollPrev(!atStart);
     setCanScrollNext(!atEnd);
@@ -421,6 +421,7 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
     const el = scrollContainerRef.current;
     if (!el) return;
 
+    el.scrollLeft = 0;
     checkScrollBounds();
 
     el.addEventListener('scroll', checkScrollBounds, { passive: true });

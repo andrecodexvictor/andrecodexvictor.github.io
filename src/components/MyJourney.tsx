@@ -595,9 +595,9 @@ export default function MyJourney({ lang }: MyJourneyProps) {
           </div>
 
           {/* Circuit SVG Graphic */}
-          <div className="relative w-full aspect-[22/9] max-h-[300px]">
+          <div className="relative w-full aspect-[20/9] min-h-[280px] sm:min-h-[340px] max-h-[440px]">
             <svg
-              viewBox="0 0 900 360"
+              viewBox="0 0 920 380"
               className="h-full w-full overflow-visible"
               aria-hidden="true"
             >
@@ -610,7 +610,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
 
                 {/* Filter for glowing car */}
                 <filter id="carGlow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feGaussianBlur stdDeviation="3.5" result="blur" />
                   <feMerge>
                     <feMergeNode in="blur" />
                     <feMergeNode in="SourceGraphic" />
@@ -618,23 +618,23 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                 </filter>
               </defs>
 
-              {/* Outer Track Bed */}
+              {/* Outer Track Bed (Enhanced width for ergonomics & legibility) */}
               <path
                 d={TRACK_SVG_PATH}
                 fill="none"
                 stroke="var(--line)"
-                strokeWidth="20"
+                strokeWidth="32"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="opacity-40 dark:opacity-60"
               />
 
-              {/* Asphalt Road Surface */}
+              {/* Asphalt Road Surface (Wider track surface for easier reading) */}
               <path
                 d={TRACK_SVG_PATH}
                 fill="none"
                 stroke="var(--surface)"
-                strokeWidth="14"
+                strokeWidth="22"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -644,8 +644,8 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                 d={TRACK_SVG_PATH}
                 fill="none"
                 stroke="var(--line)"
-                strokeWidth="1.5"
-                strokeDasharray="6 6"
+                strokeWidth="2"
+                strokeDasharray="8 8"
               />
 
               {/* Anime.js Animated High-Speed Pulse Tracer */}
@@ -654,8 +654,8 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                 d={TRACK_SVG_PATH}
                 fill="none"
                 stroke="var(--accent)"
-                strokeWidth="3.5"
-                strokeDasharray="120 1480"
+                strokeWidth="4.5"
+                strokeDasharray="140 1460"
                 strokeLinecap="round"
                 className="transition-opacity duration-300"
               />
@@ -664,29 +664,40 @@ export default function MyJourney({ lang }: MyJourneyProps) {
               <g transform="translate(140, 310)">
                 <line
                   x1="-3"
-                  y1="-10"
+                  y1="-14"
                   x2="-3"
-                  y2="10"
+                  y2="14"
                   stroke="var(--ink)"
-                  strokeWidth="3"
+                  strokeWidth="3.5"
                 />
                 <line
                   x1="3"
-                  y1="-10"
+                  y1="-14"
                   x2="3"
-                  y2="10"
+                  y2="14"
                   stroke="var(--accent)"
-                  strokeWidth="3"
+                  strokeWidth="3.5"
+                />
+                <rect
+                  x="-54"
+                  y="18"
+                  width="108"
+                  height="20"
+                  rx="5"
+                  fill="var(--surface)"
+                  stroke="var(--line)"
+                  strokeWidth="1"
                 />
                 <text
-                  x="-10"
-                  y="24"
-                  fill="var(--muted)"
-                  fontSize="10"
+                  x="0"
+                  y="32"
+                  fill="var(--ink)"
+                  fontSize="9.5"
+                  fontWeight="bold"
                   fontFamily="monospace"
                   textAnchor="middle"
                 >
-                  START/FINISH
+                  START / FINISH
                 </text>
               </g>
 
@@ -694,6 +705,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
               {MILESTONES.map((item, idx) => {
                 const isSelected = idx === activeIdx;
                 const pos = item.checkpointPos;
+                const isLowerHalf = pos.y > 180;
 
                 return (
                   <g
@@ -705,7 +717,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                     {/* Pulsing ring for selected turn */}
                     {isSelected && (
                       <circle
-                        r="18"
+                        r="22"
                         fill="none"
                         stroke="var(--accent)"
                         strokeWidth="1.5"
@@ -715,18 +727,18 @@ export default function MyJourney({ lang }: MyJourneyProps) {
 
                     {/* Checkpoint marker base */}
                     <circle
-                      r={isSelected ? '12' : '9'}
+                      r={isSelected ? '14' : '11'}
                       fill={isSelected ? 'var(--accent)' : 'var(--surface)'}
                       stroke={isSelected ? 'var(--canvas)' : 'var(--line)'}
                       strokeWidth="2.5"
-                      className="transition-all duration-300"
+                      className="transition-all duration-300 shadow-sm"
                     />
 
                     {/* Turn Label */}
                     <text
-                      y="3.5"
-                      fill={isSelected ? 'var(--on-accent)' : 'var(--muted)'}
-                      fontSize={isSelected ? '9' : '8'}
+                      y="4"
+                      fill={isSelected ? 'var(--on-accent)' : 'var(--ink)'}
+                      fontSize={isSelected ? '11' : '10'}
                       fontWeight="bold"
                       fontFamily="monospace"
                       textAnchor="middle"
@@ -734,18 +746,31 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                       {item.number}
                     </text>
 
-                    {/* Tooltip / Turn title label */}
-                    <text
-                      y={pos.y > 180 ? '-16' : '22'}
-                      fill={isSelected ? 'var(--ink)' : 'var(--muted)'}
-                      fontSize="9"
-                      fontWeight={isSelected ? 'bold' : 'normal'}
-                      fontFamily="monospace"
-                      textAnchor="middle"
-                      className="select-none transition-colors"
-                    >
-                      {item.yearDisplay[lang]} · {item.role[lang].slice(0, 18)}...
-                    </text>
+                    {/* High-Contrast Pill Tooltip for Crystal-Clear Reading */}
+                    <g transform={`translate(0, ${isLowerHalf ? -26 : 28})`}>
+                      <rect
+                        x="-70"
+                        y="-11"
+                        width="140"
+                        height="22"
+                        rx="6"
+                        fill="var(--surface)"
+                        stroke={isSelected ? 'var(--accent)' : 'var(--line)'}
+                        strokeWidth={isSelected ? '1.5' : '1'}
+                        className="transition-colors shadow-xs"
+                      />
+                      <text
+                        y="4"
+                        fill={isSelected ? 'var(--ink)' : 'var(--muted)'}
+                        fontSize="10"
+                        fontWeight={isSelected ? 'bold' : '600'}
+                        fontFamily="monospace"
+                        textAnchor="middle"
+                        className="select-none transition-colors"
+                      >
+                        {item.yearDisplay[lang]} · {item.turnName[lang].split('·')[0].trim()}
+                      </text>
+                    </g>
                   </g>
                 );
               })}
@@ -757,15 +782,15 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                 filter="url(#carGlow)"
                 className="pointer-events-none"
               >
-                <circle r="7" fill="var(--accent)" />
-                <circle r="3" fill="#ffffff" />
+                <circle r="8" fill="var(--accent)" />
+                <circle r="3.5" fill="#ffffff" />
                 <line
-                  x1="-14"
+                  x1="-16"
                   y1="0"
-                  x2="-7"
+                  x2="-8"
                   y2="0"
                   stroke="var(--accent)"
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                 />
               </g>
