@@ -100,7 +100,7 @@ export default function Certifications({ lang }: CertificationsProps) {
         <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* IFBA Information Systems Degree (7 cols) */}
           <article className="lg:col-span-7 editorial-card rounded-2xl p-6 sm:p-7">
-            <div className="flex items-center justify-between border-b border-line pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-4">
               <span className="inline-flex items-center gap-2 font-mono text-xs font-semibold uppercase tracking-wider text-accent-ink">
                 <GraduationCap className="h-4 w-4 text-accent" />
                 <span>{t.educationHeading}</span>

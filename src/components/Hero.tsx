@@ -39,7 +39,7 @@ export default function Hero({ lang }: HeroProps) {
             <span className="inline-block h-2 w-2 rounded-full bg-accent animate-pulse" />
             <span>{lang === 'pt' ? 'PORTFÓLIO DE ENGENHARIA · 2026' : 'ENGINEERING PORTFOLIO · 2026'}</span>
           </div>
-          <div className="flex items-center gap-4 font-mono text-xs text-muted">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-muted">
             <a
               href={PORTFOLIO_CONFIG.personal.githubUrl}
               target="_blank"
@@ -78,7 +78,7 @@ export default function Hero({ lang }: HeroProps) {
                   : 'Applied AI Engineer & Full-Stack Developer'}
               </p>
 
-              <h1 className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.12]">
+              <h1 className="text-4xl font-semibold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] lg:leading-[1.12] [text-wrap:balance]">
                 {lang === 'pt' ? (
                   <>
                     Construo sistemas de IA que vão{' '}
@@ -144,9 +144,9 @@ export default function Hero({ lang }: HeroProps) {
             transition={{ duration: 0.5, delay: shouldReduceMotion ? 0 : 0.1, ease: 'easeOut' }}
             className="lg:col-span-5"
           >
-            <figure className="group relative overflow-hidden rounded-2xl border border-line bg-surface p-3.5 transition-all duration-300 hover:border-accent/60 shadow-md">
-              {/* Portrait Container */}
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-line/80 bg-canvas">
+            <figure className="group relative overflow-hidden rounded-2xl border border-line bg-surface/50 p-2 sm:p-2.5 transition-all duration-300 hover:border-accent/60 shadow-sm">
+              {/* Natural Portrait Container with native 3:2 landscape ratio */}
+              <div className="relative aspect-[3/2] w-full overflow-hidden rounded-xl bg-canvas">
                 <Image
                   src={PORTFOLIO_CONFIG.personal.portraitSrc}
                   alt={
@@ -158,16 +158,16 @@ export default function Hero({ lang }: HeroProps) {
                   height={1024}
                   priority
                   unoptimized
-                  className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                  className="h-full w-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                 />
                 <div
                   aria-hidden="true"
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-60"
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-75"
                 />
               </div>
 
               {/* Portrait Caption */}
-              <figcaption className="mt-3.5 flex items-center justify-between gap-4 px-1.5 pt-1">
+              <figcaption className="mt-3 flex items-center justify-between gap-4 px-2 pb-1 pt-0.5">
                 <div>
                   <p className="text-sm font-semibold tracking-tight text-ink">
                     André Victor
@@ -178,7 +178,7 @@ export default function Hero({ lang }: HeroProps) {
                       : 'Applied AI & Software Engineering'}
                   </p>
                 </div>
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas px-3 py-1 font-mono text-[11px] text-accent font-medium shadow-xs">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-canvas px-3 py-1 font-mono text-[11px] text-accent font-medium shadow-2xs">
                   <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
                   Apex Buddy
                 </span>

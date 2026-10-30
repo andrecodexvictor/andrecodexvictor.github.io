@@ -29,11 +29,11 @@ interface MyJourneyProps {
 interface Milestone {
   id: string;
   number: string;
-  turnName: string;
+  turnName: { en: string; pt: string };
   sectorNumber: 1 | 2 | 3;
   sectorName: { en: string; pt: string };
-  period: string;
-  yearDisplay: string;
+  period: { en: string; pt: string };
+  yearDisplay: { en: string; pt: string };
   title: { en: string; pt: string };
   organization: { en: string; pt: string };
   role: { en: string; pt: string };
@@ -63,11 +63,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'ifba-foundation',
     number: '01',
-    turnName: 'T1 · Curva Senna & Início de Grid',
+    turnName: {
+      en: 'T1 · Senna S & Grid Launch',
+      pt: 'T1 · S do Senna & Início de Grid',
+    },
     sectorNumber: 1,
     sectorName: { en: 'Sector 1 · Academic Foundations', pt: 'Setor 1 · Base Acadêmica Formal' },
-    period: '2022 – Dez 2026',
-    yearDisplay: 'Dez 2026',
+    period: { en: '2022 – Dec 2026', pt: '2022 – Dez 2026' },
+    yearDisplay: { en: 'Dec 2026', pt: 'Dez 2026' },
     title: {
       en: 'Academic Foundations & Information Systems (IFBA)',
       pt: 'Graduação em Sistemas de Informação (IFBA)',
@@ -103,11 +106,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'wiseup-sales',
     number: '02',
-    turnName: 'T2 · Reta Oposta & Descoberta Consultiva',
+    turnName: {
+      en: 'T2 · Back Straight & Consultative Discovery',
+      pt: 'T2 · Reta Oposta & Descoberta Consultiva',
+    },
     sectorNumber: 1,
     sectorName: { en: 'Sector 1 · Stakeholder Negotiation', pt: 'Setor 1 · Negociação e Descoberta' },
-    period: '2021 – 2025',
-    yearDisplay: '2021–2025',
+    period: { en: '2021 – 2025', pt: '2021 – 2025' },
+    yearDisplay: { en: '2021–2025', pt: '2021–2025' },
     title: {
       en: 'Consultative Communication & Negotiation',
       pt: 'Comunicação, Vendas e Negociação Consultiva',
@@ -139,11 +145,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'vittalweb-ai',
     number: '03',
-    turnName: 'T3 · Miolo Técnico & Orquestração de Agentes',
+    turnName: {
+      en: 'T3 · Infield Technical Apex & Agent Orchestration',
+      pt: 'T3 · Miolo Técnico & Orquestração de Agentes',
+    },
     sectorNumber: 2,
     sectorName: { en: 'Sector 2 · Production AI Engineering', pt: 'Setor 2 · Engenharia de IA em Produção' },
-    period: '2026',
-    yearDisplay: '2026',
+    period: { en: '2026', pt: '2026' },
+    yearDisplay: { en: '2026', pt: '2026' },
     title: {
       en: 'Production AI & Full-Stack Engineering',
       pt: 'Estágio em Engenharia Full-Stack & Soluções de IA',
@@ -175,11 +184,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'authorial-products',
     number: '04',
-    turnName: 'T4 · Hairpin de Alta Precisão & Ferramentas Autorais',
+    turnName: {
+      en: 'T4 · Hairpin Precision & Authorial Tooling',
+      pt: 'T4 · Hairpin de Alta Precisão & Ferramentas Autorais',
+    },
     sectorNumber: 2,
     sectorName: { en: 'Sector 2 · Developer Tooling & OCI Cloud', pt: 'Setor 2 · Ferramentas Autorais & Cloud' },
-    period: '2026',
-    yearDisplay: '2026',
+    period: { en: '2026', pt: '2026' },
+    yearDisplay: { en: '2026', pt: '2026' },
     title: {
       en: 'Authorial Systems & Developer Tools',
       pt: 'Produtos Autorais: Axiom Tech, Quality Engine & LaunchGuard',
@@ -215,11 +227,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'hackathons-awards',
     number: '05',
-    turnName: 'T5 · Curva Parabolica & Aceleração Open Source',
+    turnName: {
+      en: 'T5 · Parabolica Sweep & Open-Source Acceleration',
+      pt: 'T5 · Curva Parabólica & Aceleração Open Source',
+    },
     sectorNumber: 3,
     sectorName: { en: 'Sector 3 · Hackathons & Upstream Impact', pt: 'Setor 3 · Hackathons e Upstream' },
-    period: '2026',
-    yearDisplay: '2026',
+    period: { en: '2026', pt: '2026' },
+    yearDisplay: { en: '2026', pt: '2026' },
     title: {
       en: 'Hackathons & Community Contributions (2026)',
       pt: 'Hackathons & Conquistas 2026: SimPay, Atlas & Upstream',
@@ -255,11 +270,14 @@ const MILESTONES: Milestone[] = [
   {
     id: 'gear-research',
     number: '06',
-    turnName: 'T6 · Reta Principal & Linha de Chegada P1',
+    turnName: {
+      en: 'T6 · Main Straight & Finish Line P1',
+      pt: 'T6 · Reta Principal & Linha de Chegada P1',
+    },
     sectorNumber: 3,
     sectorName: { en: 'Sector 3 · Authorial Book & Thesis', pt: 'Setor 3 · Livro Técnico e TCC' },
-    period: '2026',
-    yearDisplay: '2026',
+    period: { en: '2026', pt: '2026' },
+    yearDisplay: { en: '2026', pt: '2026' },
     title: {
       en: 'GEAR Framework: DSR Research, Book & Autonomous Agents',
       pt: 'GEAR Framework: Pesquisa DSR, Livro e Agentes em Produção',
@@ -305,6 +323,10 @@ export default function MyJourney({ lang }: MyJourneyProps) {
   const speedTextRef = useRef<HTMLSpanElement | null>(null);
   const throttleBarRef = useRef<HTMLDivElement | null>(null);
   const currentSpeedVal = useRef<number>(MILESTONES[0].telemetry.speed);
+  const currentCarPos = useRef<{ x: number; y: number }>(MILESTONES[0].checkpointPos);
+  type AnimationInstance = ReturnType<typeof animate>;
+  const carAnimRef = useRef<AnimationInstance | null>(null);
+  const speedAnimRef = useRef<AnimationInstance | null>(null);
 
   // Anime.js continuous racing line pulse
   useEffect(() => {
@@ -331,6 +353,18 @@ export default function MyJourney({ lang }: MyJourneyProps) {
     const target = activeMilestone.checkpointPos;
     const targetSpeed = activeMilestone.telemetry.speed;
 
+    // Halt any running tweens to prevent concurrency race conditions
+    if (carAnimRef.current) {
+      try {
+        carAnimRef.current.pause();
+      } catch {}
+    }
+    if (speedAnimRef.current) {
+      try {
+        speedAnimRef.current.pause();
+      } catch {}
+    }
+
     if (shouldReduceMotion) {
       if (carMarkerRef.current) {
         carMarkerRef.current.setAttribute(
@@ -348,26 +382,39 @@ export default function MyJourney({ lang }: MyJourneyProps) {
         )}%`;
       }
       currentSpeedVal.current = targetSpeed;
+      currentCarPos.current = { x: target.x, y: target.y };
       return;
     }
 
-    // Smooth car translation
-    if (carMarkerRef.current) {
-      animate(carMarkerRef.current, {
-        translateX: target.x,
-        translateY: target.y,
-        duration: 750,
-        ease: 'outQuart',
-      });
-    }
-
-    // Number ticker for speed telemetry
-    const speedObj = { val: currentSpeedVal.current };
-    const speedAnim = animate(speedObj, {
-      val: targetSpeed,
-      duration: 700,
+    // Smooth car translation from current interpolated position to target
+    const startPos = { x: currentCarPos.current.x, y: currentCarPos.current.y };
+    carAnimRef.current = animate(startPos, {
+      x: target.x,
+      y: target.y,
+      duration: 650,
       ease: 'outQuart',
       onUpdate: () => {
+        currentCarPos.current = { x: startPos.x, y: startPos.y };
+        if (carMarkerRef.current) {
+          carMarkerRef.current.setAttribute(
+            'transform',
+            `translate(${startPos.x}, ${startPos.y})`
+          );
+        }
+      },
+      onComplete: () => {
+        currentCarPos.current = { x: target.x, y: target.y };
+      },
+    });
+
+    // Smooth number ticker for speed telemetry from current speed to target
+    const speedObj = { val: currentSpeedVal.current };
+    speedAnimRef.current = animate(speedObj, {
+      val: targetSpeed,
+      duration: 650,
+      ease: 'outQuart',
+      onUpdate: () => {
+        currentSpeedVal.current = speedObj.val;
         if (speedTextRef.current) {
           speedTextRef.current.textContent = `${Math.round(speedObj.val)} KM/H`;
         }
@@ -382,10 +429,15 @@ export default function MyJourney({ lang }: MyJourneyProps) {
     });
 
     return () => {
-      try {
-        speedAnim.revert();
-      } catch {
-        // no-op
+      if (carAnimRef.current) {
+        try {
+          carAnimRef.current.pause();
+        } catch {}
+      }
+      if (speedAnimRef.current) {
+        try {
+          speedAnimRef.current.pause();
+        } catch {}
       }
     };
   }, [activeIdx, activeMilestone, shouldReduceMotion]);
@@ -461,7 +513,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
               </span>
               <span className="hidden sm:inline text-line">|</span>
               <span className="hidden sm:inline text-accent">
-                {activeMilestone.turnName}
+                {activeMilestone.turnName[lang]}
               </span>
             </div>
 
@@ -514,30 +566,32 @@ export default function MyJourney({ lang }: MyJourneyProps) {
           </div>
         </div>
 
-        {/* F1 Circuit Map Visualizer (Desktop & Tablet) */}
-        <div className="mt-6 hidden md:block rounded-2xl border border-line bg-canvas p-6 relative overflow-hidden">
-          <div className="absolute top-4 left-4 z-10 flex items-center gap-2 font-mono text-[11px] text-muted">
-            <Activity className="h-3.5 w-3.5 text-accent" />
-            <span>{activeMilestone.sectorName[lang]}</span>
-          </div>
+        {/* F1 Circuit Map Visualizer (Responsive for All Devices) */}
+        <div className="mt-6 rounded-2xl border border-line bg-canvas p-4 sm:p-6 relative overflow-hidden">
+          <div className="flex items-center justify-between gap-3 mb-2">
+            <div className="flex items-center gap-2 font-mono text-[11px] text-muted">
+              <Activity className="h-3.5 w-3.5 text-accent" />
+              <span>{activeMilestone.sectorName[lang]}</span>
+            </div>
 
-          <div className="absolute top-4 right-4 z-10 flex items-center gap-2">
-            <button
-              type="button"
-              onClick={handlePrev}
-              aria-label={lang === 'pt' ? 'Setor anterior' : 'Previous turn'}
-              className="flex h-7 w-7 items-center justify-center rounded-lg border border-line bg-surface text-ink hover:border-accent transition-colors cursor-pointer"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={handleNext}
-              aria-label={lang === 'pt' ? 'Próximo setor' : 'Next turn'}
-              className="flex h-7 w-7 items-center justify-center rounded-lg border border-line bg-surface text-ink hover:border-accent transition-colors cursor-pointer"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handlePrev}
+                aria-label={lang === 'pt' ? 'Setor anterior' : 'Previous turn'}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-line bg-surface text-ink hover:border-accent transition-colors cursor-pointer"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                type="button"
+                onClick={handleNext}
+                aria-label={lang === 'pt' ? 'Próximo setor' : 'Next turn'}
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-line bg-surface text-ink hover:border-accent transition-colors cursor-pointer"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
           </div>
 
           {/* Circuit SVG Graphic */}
@@ -690,7 +744,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                       textAnchor="middle"
                       className="select-none transition-colors"
                     >
-                      {item.yearDisplay} · {item.role[lang].slice(0, 18)}...
+                      {item.yearDisplay[lang]} · {item.role[lang].slice(0, 18)}...
                     </text>
                   </g>
                 );
@@ -699,7 +753,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
               {/* The Animated F1 Car / Telemetry Marker (Controlled by anime.js) */}
               <g
                 ref={carMarkerRef}
-                transform={`translate(${activeMilestone.checkpointPos.x}, ${activeMilestone.checkpointPos.y})`}
+                transform={`translate(${MILESTONES[0].checkpointPos.x}, ${MILESTONES[0].checkpointPos.y})`}
                 filter="url(#carGlow)"
                 className="pointer-events-none"
               >
@@ -763,7 +817,7 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                       isActive ? 'text-accent' : 'text-muted group-hover:text-ink'
                     }`}
                   >
-                    {item.yearDisplay}
+                    {item.yearDisplay[lang]}
                   </span>
 
                   {/* Short Title */}
@@ -799,12 +853,12 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                     <span className="font-mono text-xs text-muted">·</span>
                     <span className="inline-flex items-center gap-1.5 font-mono text-xs text-accent font-semibold">
                       <Flag className="h-3.5 w-3.5 text-accent" />
-                      {activeMilestone.turnName}
+                      {activeMilestone.turnName[lang]}
                     </span>
                     <span className="font-mono text-xs text-muted">·</span>
                     <span className="inline-flex items-center gap-1.5 font-mono text-xs text-muted">
                       <Calendar className="h-3.5 w-3.5" />
-                      {activeMilestone.period}
+                      {activeMilestone.period[lang]}
                     </span>
                   </div>
                   <h3 className="mt-1 text-2xl font-semibold tracking-tight text-ink">
@@ -886,12 +940,12 @@ export default function MyJourney({ lang }: MyJourneyProps) {
                   </span>
 
                   <article className="editorial-card rounded-2xl p-5 border border-line bg-surface">
-                    <div className="flex items-center justify-between gap-2 border-b border-line pb-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line pb-3">
                       <span className="font-mono text-xs font-bold uppercase tracking-wider text-accent-ink">
-                        {lang === 'pt' ? 'MARCO' : 'MILESTONE'} {item.number} · {item.turnName.split('·')[0]}
+                        {lang === 'pt' ? 'MARCO' : 'MILESTONE'} {item.number} · {item.turnName[lang].split('·')[0]}
                       </span>
                       <span className="font-mono text-xs font-semibold text-muted">
-                        {item.period}
+                        {item.period[lang]}
                       </span>
                     </div>
 

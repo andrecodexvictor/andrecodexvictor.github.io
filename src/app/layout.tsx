@@ -80,13 +80,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/images/logo-cdx.png', sizes: 'any' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/images/logo-cdx.png', sizes: 'any', type: 'image/png' },
       { url: '/icon.png', sizes: '512x512', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: [
-      { url: '/images/logo-cdx.png', sizes: '180x180', type: 'image/png' },
       { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/images/logo-cdx.png', sizes: '180x180', type: 'image/png' },
     ],
     shortcut: ['/favicon.ico'],
   },

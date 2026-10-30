@@ -241,7 +241,7 @@ export const CURATED_TECH_STACK: TechItem[] = [
     name: 'RAG',
     category: 'ai-data',
     icon: 'rag',
-    badge: 'Document QA & KB',
+    badge: 'Doc QA & KB',
     experience: {
       en: 'Semantic document search, chunking & grounded QA pipelines',
       pt: 'Busca semântica de documentos, chunking e pipelines de QA fundamentadas',
@@ -573,24 +573,23 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
               role="group"
               aria-roledescription="slide"
               aria-label={`${tech.name} - ${CATEGORY_NAMES[tech.category][lang]}`}
-              className="shrink-0 snap-start w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.67rem)] md:w-[calc(25%-0.75rem)] lg:w-[calc(16.666%-0.84rem)] xl:w-[calc(12.5%-0.875rem)] p-3.5 rounded-xl border border-line bg-surface hover:border-accent/60 hover:bg-surface-raised transition-all duration-200 flex flex-col justify-between group shadow-xs"
+              className="shrink-0 snap-start w-[190px] sm:w-[210px] md:w-[220px] min-w-[190px] p-4 rounded-xl border border-line bg-surface hover:border-accent/60 hover:bg-surface-raised transition-all duration-200 flex flex-col justify-between group shadow-xs"
             >
               <div>
-                {/* Header row: Local SVG Icon + Category Pill */}
-                <div className="flex items-center justify-between gap-2 mb-2.5">
+                {/* Header row: Local SVG Icon + Dedicated Badge Pill */}
+                <div className="flex items-center justify-between gap-2.5 mb-3">
                   <div className="w-8 h-8 rounded-lg bg-surface-raised flex items-center justify-center p-1 border border-line/60 group-hover:border-accent/40 transition-colors shrink-0">
                     <TechIcon id={tech.icon} size={20} title={tech.name} />
                   </div>
-                  <div className="flex items-center gap-1 shrink-0 overflow-hidden">
-                    {tech.badge && (
-                      <span className="font-mono text-[8px] uppercase tracking-wider text-accent bg-accent/10 px-1 py-0.5 rounded border border-accent/20 truncate">
-                        {tech.badge}
-                      </span>
-                    )}
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-muted-low bg-surface-raised px-1.5 py-0.5 rounded border border-line/40 truncate">
-                      {CATEGORY_NAMES[tech.category][lang]}
-                    </span>
-                  </div>
+                  <span
+                    className={`font-mono text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded border whitespace-nowrap shrink-0 ${
+                      tech.badge
+                        ? 'text-accent bg-accent/10 border-accent/25 font-semibold'
+                        : 'text-muted-low bg-surface-raised border-line/50 font-medium'
+                    }`}
+                  >
+                    {tech.badge || CATEGORY_NAMES[tech.category][lang]}
+                  </span>
                 </div>
 
                 {/* Technology Name */}
@@ -600,7 +599,7 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
               </div>
 
               {/* Verified Experience / Capability Summary */}
-              <p className="text-[11px] text-muted line-clamp-2 mt-2 leading-relaxed">
+              <p className="text-[11px] text-muted line-clamp-2 mt-2.5 leading-relaxed">
                 {tech.experience[lang]}
               </p>
             </div>
@@ -608,13 +607,15 @@ export default function TechStackCarousel({ lang }: TechStackCarouselProps) {
         </div>
 
         {/* Focus note matching user's tech badge spec */}
-        <div className="mt-6 pt-4 border-t border-line/40 text-xs text-muted flex flex-col sm:flex-row gap-2 sm:items-baseline">
-          <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent shrink-0">
-            {copy.focusPrefix}
-          </span>
-          <p className="text-xs leading-relaxed text-muted font-sans">
-            {copy.focusDescription}
-          </p>
+        <div className="mt-8 rounded-xl border border-line bg-surface/80 p-4 sm:p-5 shadow-xs w-full max-w-full overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-baseline gap-2.5">
+            <span className="font-mono text-xs font-semibold uppercase tracking-wider text-accent shrink-0">
+              {copy.focusPrefix}
+            </span>
+            <p className="text-xs sm:text-sm leading-relaxed text-muted font-sans break-words max-w-4xl">
+              {copy.focusDescription}
+            </p>
+          </div>
         </div>
       </div>
     </section>

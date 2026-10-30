@@ -61,8 +61,8 @@ export const ORACLE_CREDENTIALS: CredentialItem[] = [
       pt: 'Oracle Certified Foundations Associate · Nuvem e IA Corporativa',
     },
     subtitle: {
-      en: 'Oracle University Official Credential · CertView Digital Badge',
-      pt: 'Credencial Oficial Oracle University · Badge Digital CertView',
+      en: 'Oracle University Official Credential · CertView Digital Badge (2026)',
+      pt: 'Credencial Oficial Oracle University · Badge Digital CertView (2026)',
     },
     issuer: 'Oracle University',
     date: {
